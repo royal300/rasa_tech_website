@@ -9,19 +9,17 @@ import {
   Globe2,
   Menu,
   MessageCircle,
-  MousePointer2,
-  MoveRight,
   Search,
   Server,
   Share2,
   Smartphone,
   X,
-  Zap,
 } from "lucide-react";
+import Lenis from "lenis";
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 
-const logoUrl = "/__l5e/assets-v1/9e501a90-1675-40bc-88e1-0f2bdc5a42d9/rasa-tech-logo.webp";
+const logoUrl = "/logo.png";
 
 type Service = {
   number: string;
@@ -119,6 +117,8 @@ function HeroSystem() {
       <div className="system-connector connector-five" />
       <div className="system-signal signal-one" />
       <div className="system-signal signal-two" />
+      <div className="system-signal signal-three" />
+      <div className="system-signal signal-four" />
       <div className="system-core">
         <span className="core-kicker">SYSTEM / 001</span>
         <span className="core-name">RASA</span>
@@ -131,8 +131,6 @@ function HeroSystem() {
       <SystemNode label="SERVER HOSTING" position="node-server" icon={Server} />
       <SystemNode label="APP DEVELOPMENT" position="node-app" icon={Smartphone} />
       <SystemNode label="WHATSAPP ANIMATION" position="node-whatsapp" icon={MessageCircle} />
-      <div className="system-readout readout-top"><span>LATENCY</span><b>14.08 MS</b></div>
-      <div className="system-readout readout-bottom"><span>NETWORK ACTIVITY</span><b>98.7%</b></div>
     </div>
   );
 }
@@ -149,7 +147,7 @@ function AboutSystem() {
         ["MARKETING", "04"],
         ["GROWTH", "05"],
       ].map(([label, number]) => (
-        <div className="about-stage" key={label}>
+        <div className="about-stage reveal stagger-item" key={label}>
           <span className="about-stage-number">{number}</span>
           <span className="about-stage-dot" />
           <strong>{label}</strong>
@@ -172,7 +170,7 @@ function ServiceVisual({ type }: { type: Service["visual"] }) {
 function ServiceModule({ service }: { service: Service }) {
   const Icon = service.icon;
   return (
-    <article className={`service-module service-${service.number}`}>
+    <article className={`service-module service-${service.number} reveal stagger-item`}>
       <div className="service-head"><span className="service-number">{service.number}</span><Icon size={18} strokeWidth={1.5} /><span className="service-arrow"><ArrowUpRight size={18} /></span></div>
       <div className="service-copy"><h3>{service.name}</h3><p>{service.description}</p><ul>{service.capabilities.map((capability) => <li key={capability}><Check size={13} />{capability}</li>)}</ul></div>
       <ServiceVisual type={service.visual} />
@@ -182,7 +180,7 @@ function ServiceModule({ service }: { service: Service }) {
 }
 
 function PricingPlan({ number, name, description, popular, children }: { number: string; name: string; description: string; popular?: boolean; children: ReactNode }) {
-  return <article className={`pricing-plan ${popular ? "pricing-plan-featured" : ""}`}><div className="plan-top"><span>{number}</span>{popular && <b>MOST POPULAR</b>}</div><h3>{name}</h3><p>{description}</p><div className="plan-price">{name === "CUSTOM" ? "LET'S DISCUSS" : "₹ XX,XXX"}</div><div className="plan-rule" /><span className="plan-includes">INCLUDES</span><ul>{children}</ul><a className="text-link" href="#contact">START A CONVERSATION <ArrowUpRight size={15} /></a></article>;
+  return <article className={`pricing-plan reveal stagger-item ${popular ? "pricing-plan-featured" : ""}`}><div className="plan-top"><span>{number}</span>{popular && <b>MOST POPULAR</b>}</div><h3>{name}</h3><p>{description}</p><div className="plan-price">{name === "CUSTOM" ? "LET'S DISCUSS" : "₹ XX,XXX"}</div><div className="plan-rule" /><span className="plan-includes">INCLUDES</span><ul>{children}</ul><a className="text-link" href="#contact">START A CONVERSATION <ArrowUpRight size={15} /></a></article>;
 }
 
 export const Route = createFileRoute("/")({
@@ -207,17 +205,61 @@ function Index() {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const lenis = new Lenis({ duration: 1.15, easing: (t) => 1 - Math.pow(1 - t, 3) });
+    let lenisRaf = 0;
+    const lenisLoop = (time: number) => { lenis.raf(time); lenisRaf = requestAnimationFrame(lenisLoop); };
+    lenisRaf = requestAnimationFrame(lenisLoop);
+    const handleAnchorClick = (event: MouseEvent) => {
+      const link = (event.target as HTMLElement).closest<HTMLAnchorElement>('a[href^="#"]');
+      const id = link?.getAttribute("href");
+      if (!id || id === "#") return;
+      const section = document.querySelector<HTMLElement>(id);
+      if (!section) return;
+      event.preventDefault();
+      lenis.scrollTo(section, { offset: -70, duration: 1.2 });
+    };
+    document.addEventListener("click", handleAnchorClick);
+    return () => { document.removeEventListener("click", handleAnchorClick); cancelAnimationFrame(lenisRaf); lenis.destroy(); };
+  }, []);
+
+  useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     const revealObserver = new IntersectionObserver((entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add("is-visible")), { threshold: 0.12 });
     document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
     const cursor = document.querySelector<HTMLElement>(".custom-cursor");
-    const moveCursor = (event: MouseEvent) => { if (cursor) { cursor.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`; } };
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let targetX = 0;
+    let targetY = 0;
+    let ringX = 0;
+    let ringY = 0;
+    let raf = 0;
+    let tracking = false;
+    const tick = () => {
+      ringX += (targetX - ringX) * 0.18;
+      ringY += (targetY - ringY) * 0.18;
+      if (cursor) cursor.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
+      raf = requestAnimationFrame(tick);
+    };
+    const moveCursor = (event: MouseEvent) => {
+      targetX = event.clientX;
+      targetY = event.clientY;
+      if (!tracking) {
+        tracking = true;
+        ringX = targetX;
+        ringY = targetY;
+        if (reduceMotion && cursor) cursor.style.transform = `translate3d(${targetX}px, ${targetY}px, 0)`;
+        else raf = requestAnimationFrame(tick);
+      } else if (reduceMotion && cursor) {
+        cursor.style.transform = `translate3d(${targetX}px, ${targetY}px, 0)`;
+      }
+    };
     window.addEventListener("mousemove", moveCursor);
     const interactive = document.querySelectorAll("a, button, .service-module");
     interactive.forEach((element) => { element.addEventListener("mouseenter", () => cursor?.classList.add("cursor-hover")); element.addEventListener("mouseleave", () => cursor?.classList.remove("cursor-hover")); });
-    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("mousemove", moveCursor); revealObserver.disconnect(); };
+    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("mousemove", moveCursor); cancelAnimationFrame(raf); revealObserver.disconnect(); };
   }, []);
 
   const closeMenu = () => setMenuOpen(false);
@@ -239,7 +281,7 @@ function Index() {
       <main>
         <section id="home" className="hero-section page-section">
           <div className="hero-grid" />
-          <div className="hero-copy reveal"><p className="eyebrow"><span className="eyebrow-pulse" />RASA TECH <span>/</span> DIGITAL SYSTEMS</p><h1>DIGITAL SYSTEMS<br /><span>BUILT TO GROW.</span></h1><p className="hero-description">RASA Tech builds websites, digital experiences, marketing systems and technology that help ambitious businesses grow.</p><div className="hero-actions"><Button asChild><a href="#contact">START A PROJECT <ArrowUpRight size={17} /></a></Button><a className="outline-action" href="#services">EXPLORE SERVICES <ArrowDown size={16} /></a></div><div className="hero-meta"><span>IND / 2026</span><span>TECH + MARKETING</span><span>SCROLL TO EXPLORE <MoveRight size={14} /></span></div></div>
+          <div className="hero-copy reveal"><p className="eyebrow"><span className="eyebrow-pulse" />RASA TECH <span>/</span> DIGITAL SYSTEMS</p><h1>Marketing That<br /><span>Moves Business.</span></h1><p className="hero-description">RASA Tech builds websites, digital experiences, marketing systems and technology that help ambitious businesses grow.</p><div className="hero-actions"><Button asChild><a href="#contact">START A PROJECT <ArrowUpRight size={17} /></a></Button><a className="outline-action" href="#services">EXPLORE SERVICES <ArrowDown size={16} /></a></div></div>
           <div className="hero-visual reveal"><HeroSystem /></div>
           <div className="hero-scroll-line" aria-hidden="true" />
         </section>
@@ -252,11 +294,11 @@ function Index() {
 
         <section id="services" className="services-section page-section content-section"><div className="section-heading reveal"><SectionLabel number="02">SERVICES</SectionLabel><div><h2>DIGITAL SYSTEMS<br /><span>BUILT TO PERFORM.</span></h2><p>Six focused capabilities. One connected system designed around where you want to go next.</p></div></div><div className="services-grid">{services.map((service) => <ServiceModule service={service} key={service.number} />)}</div></section>
 
-        <section id="process" className="process-section page-section content-section"><div className="section-heading reveal"><SectionLabel number="03">PROCESS</SectionLabel><div><h2>FROM IDEA<br /><span>TO IMPACT.</span></h2></div></div><div className="process-track reveal">{[["01", "DISCOVER", "Understand the business, audience and objective."], ["02", "STRATEGIZE", "Define the digital direction and growth system."], ["03", "BUILD", "Design and develop the required digital experience."], ["04", "GROW", "Launch, optimize and continuously improve."]].map(([number, title, copy]) => <div className="process-stage" key={number}><div className="process-node"><span>{number}</span></div><h3>{title}</h3><p>{copy}</p></div>)}</div></section>
+        <section id="process" className="process-section page-section content-section"><div className="section-heading reveal"><SectionLabel number="03">PROCESS</SectionLabel><div><h2>FROM IDEA<br /><span>TO IMPACT.</span></h2></div></div><div className="process-track">{[["01", "DISCOVER", "Understand the business, audience and objective."], ["02", "STRATEGIZE", "Define the digital direction and growth system."], ["03", "BUILD", "Design and develop the required digital experience."], ["04", "GROW", "Launch, optimize and continuously improve."]].map(([number, title, copy]) => <div className="process-stage reveal stagger-item" key={number}><div className="process-node"><span>{number}</span></div><h3>{title}</h3><p>{copy}</p></div>)}</div></section>
 
-        <section id="why" className="why-section page-section content-section"><div className="section-grid why-grid"><div className="section-intro reveal"><SectionLabel number="04">WHY RASA TECH</SectionLabel><h2>NOT JUST ANOTHER<br /><span>DIGITAL AGENCY.</span></h2><p className="why-lead">We connect the thinking, making and momentum it takes to turn digital into an advantage.</p></div><div className="statement-list reveal">{["STRATEGY BEFORE EXECUTION.", "DESIGN THAT COMMUNICATES.", "DEVELOPMENT THAT PERFORMS.", "MARKETING BUILT AROUND GROWTH.", "TECHNOLOGY THAT SCALES."].map((statement, index) => <div className="statement" key={statement}><span>0{index + 1}</span><strong>{statement}</strong><ArrowUpRight size={17} /></div>)}</div></div></section>
+        <section id="why" className="why-section page-section content-section"><div className="section-grid why-grid"><div className="section-intro reveal"><SectionLabel number="04">WHY RASA TECH</SectionLabel><h2>NOT JUST ANOTHER<br /><span>DIGITAL AGENCY.</span></h2><p className="why-lead">We connect the thinking, making and momentum it takes to turn digital into an advantage.</p></div><div className="statement-list">{["STRATEGY BEFORE EXECUTION.", "DESIGN THAT COMMUNICATES.", "DEVELOPMENT THAT PERFORMS.", "MARKETING BUILT AROUND GROWTH.", "TECHNOLOGY THAT SCALES."].map((statement, index) => <div className="statement reveal stagger-item" key={statement}><span>0{index + 1}</span><strong>{statement}</strong><ArrowUpRight size={17} /></div>)}</div></div></section>
 
-        <section id="pricing" className="pricing-section page-section content-section"><div className="section-heading reveal"><SectionLabel number="05">PRICING</SectionLabel><div><h2>CHOOSE THE RIGHT<br /><span>LEVEL OF GROWTH.</span></h2><p>Clear starting points for different stages of your next digital system.</p></div></div><div className="pricing-grid reveal"><PricingPlan number="01" name="STARTER" description="For businesses establishing their digital foundation."><li>Web Development</li><li>SEO & GMB</li><li>Social Media Marketing</li></PricingPlan><PricingPlan number="02" name="GROWTH" description="For businesses ready to expand their digital presence." popular><li>Web Development</li><li>Social Media Marketing</li><li>SEO & GMB</li><li>App Development</li></PricingPlan><PricingPlan number="03" name="CUSTOM" description="For businesses requiring a tailored digital system."><li>All six capabilities</li><li>Tailored system design</li><li>Ongoing direction</li></PricingPlan></div></section>
+        <section id="pricing" className="pricing-section page-section content-section"><div className="section-heading reveal"><SectionLabel number="05">PRICING</SectionLabel><div><h2>CHOOSE THE RIGHT<br /><span>LEVEL OF GROWTH.</span></h2><p>Clear starting points for different stages of your next digital system.</p></div></div><div className="pricing-grid"><PricingPlan number="01" name="STARTER" description="For businesses establishing their digital foundation."><li>Web Development</li><li>SEO & GMB</li><li>Social Media Marketing</li></PricingPlan><PricingPlan number="02" name="GROWTH" description="For businesses ready to expand their digital presence." popular><li>Web Development</li><li>Social Media Marketing</li><li>SEO & GMB</li><li>App Development</li></PricingPlan><PricingPlan number="03" name="CUSTOM" description="For businesses requiring a tailored digital system."><li>All six capabilities</li><li>Tailored system design</li><li>Ongoing direction</li></PricingPlan></div></section>
 
         <section id="contact" className="contact-section page-section content-section"><div className="section-grid contact-grid"><div className="section-intro reveal"><SectionLabel number="06">CONTACT</SectionLabel><h2>HAVE AN IDEA?<br /><span>LET'S BUILD IT.</span></h2><p>Tell us what you're building, what you're trying to improve, or where you want to grow.</p><div className="contact-details"><a href="mailto:hello@rasatech.com">hello@rasatech.com <ArrowUpRight size={14} /></a><span>+91 XXXXX XXXXX</span><span>INDIA</span><span>WHATSAPP <ArrowUpRight size={14} /></span></div></div><div className="contact-form-wrap reveal">{submitted ? <div className="form-success"><div><Check /></div><h3>MESSAGE RECEIVED.</h3><p>We'll be in touch at the email you shared.</p><button onClick={() => setSubmitted(false)}>SEND ANOTHER <ArrowUpRight size={14} /></button></div> : <form onSubmit={handleSubmit}><div className="form-row"><label>NAME<input required name="name" placeholder="Your name" /></label><label>EMAIL<input required type="email" name="email" placeholder="you@company.com" /></label></div><div className="form-row"><label>PHONE<input name="phone" placeholder="+91 XXXXX XXXXX" /></label><label>COMPANY<input name="company" placeholder="Company name" /></label></div><label>SERVICE<div className="select-wrap"><select name="service" defaultValue=""><option value="" disabled>Select a service</option>{serviceOptions.map((option) => <option key={option}>{option}</option>)}</select><ChevronDown size={16} /></div></label><label>MESSAGE<textarea required name="message" placeholder="Tell us about your next move..." rows={4} /></label><Button type="submit">START A CONVERSATION <ArrowUpRight size={16} /></Button></form>}</div></div></section>
 
