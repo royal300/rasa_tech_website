@@ -171,7 +171,6 @@ function ServiceModule({ service }: { service: Service }) {
   const isHighlighted = service.name === "SEO & GMB";
   return (
     <article className={`service-module service-${service.number} reveal stagger-item ${isHighlighted ? "service-highlighted" : ""}`}>
-      {isHighlighted && <div className="service-badge"><span>FEATURED OPTIMIZATION</span></div>}
       <div className="service-head"><span className="service-number">{service.number}</span><Icon size={18} strokeWidth={1.5} /><span className="service-arrow"><ArrowUpRight size={18} /></span></div>
       <div className="service-copy"><h3>{service.name}</h3><p>{service.description}</p><ul>{service.capabilities.map((capability) => <li key={capability}><Check size={13} />{capability}</li>)}</ul></div>
       <ServiceVisual type={service.visual} />
@@ -204,6 +203,7 @@ function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [pricingCategory, setPricingCategory] = useState<"web" | "social">("web");
 
   useEffect(() => {
     if (menuOpen) {
@@ -305,7 +305,7 @@ function Index() {
       <main>
         <section id="home" className="hero-section page-section">
           <div className="hero-grid" />
-          <div className="hero-copy reveal"><p className="eyebrow"><span className="eyebrow-pulse" />RASA TECH <span>/</span> DIGITAL SYSTEMS</p><h1>Marketing That<br /><span>Moves Business.</span></h1><p className="hero-description">RASA Tech builds websites, digital experiences, marketing systems and technology that help ambitious businesses grow.</p><div className="hero-actions"><Button asChild><a href="#contact">START A PROJECT <ArrowUpRight size={17} /></a></Button><a className="outline-action" href="#services">EXPLORE SERVICES <ArrowDown size={16} /></a></div></div>
+          <div className="hero-copy reveal"><p className="eyebrow"><span className="eyebrow-pulse" />RASA TECH <span>/</span> DIGITAL SYSTEMS</p><h1>MARKETING  THAT<br /><span>MOVES  BUSINESS.</span></h1><p className="hero-description">RASA Tech builds websites, digital experiences, marketing systems and technology that help ambitious businesses grow.</p><div className="hero-actions"><Button asChild><a href="#contact">START A PROJECT <ArrowUpRight size={17} /></a></Button><a className="outline-action" href="#services">EXPLORE SERVICES <ArrowDown size={16} /></a></div></div>
           <div className="hero-visual reveal"><HeroSystem /></div>
           <div className="hero-scroll-line" aria-hidden="true" />
         </section>
@@ -313,20 +313,125 @@ function Index() {
         <div className="capability-strip"><div className="marquee-track">{[...Array(2)].flatMap((_, group) => services.map((service) => <span key={`${group}-${service.name}`}>{service.name} <b>•</b></span>))}</div></div>
 
         <section id="about" className="about-section page-section content-section">
-          <div className="section-grid"><div className="section-intro reveal"><SectionLabel number="01">ABOUT RASA TECH</SectionLabel><h2>WE TURN DIGITAL PRESENCE<br /><span>INTO DIGITAL ADVANTAGE.</span></h2><p>RASA Tech combines technology, design and digital marketing to create digital systems that are built to perform — not simply look good.</p><a className="text-link" href="#contact">BUILD WITH US <ArrowUpRight size={15} /></a></div><div className="about-visual reveal"><AboutSystem /></div></div>
+          <div className="section-grid"><div className="section-intro reveal"><SectionLabel number="01">ABOUT RASA TECH</SectionLabel><h2>WE  TURN  DIGITAL  PRESENCE<br /><span>INTO  DIGITAL  ADVANTAGE.</span></h2><p>RASA Tech combines technology, design and digital marketing to create digital systems that are built to perform — not simply look good.</p><a className="text-link" href="#contact">BUILD WITH US <ArrowUpRight size={15} /></a></div><div className="about-visual reveal"><AboutSystem /></div></div>
         </section>
 
-        <section id="services" className="services-section page-section content-section"><div className="section-heading reveal"><SectionLabel number="02">SERVICES</SectionLabel><div><h2 className="single-line-heading">Services We Provide</h2><p>Six focused capabilities. One connected system designed around where you want to go next.</p></div></div><div className="services-grid">{services.map((service) => <ServiceModule service={service} key={service.number} />)}</div></section>
+        <section id="services" className="services-section page-section content-section"><div className="section-heading reveal"><SectionLabel number="02">SERVICES</SectionLabel><div><h2 className="single-line-heading">SERVICES  WE  PROVIDE</h2><p>Six focused capabilities. One connected system designed around where you want to go next.</p></div></div><div className="services-grid">{services.map((service) => <ServiceModule service={service} key={service.number} />)}</div></section>
 
-        <section id="process" className="process-section page-section content-section"><div className="section-heading reveal"><SectionLabel number="03">PROCESS</SectionLabel><div><h2 className="single-line-heading">FROM IDEA <span>TO IMPACT.</span></h2></div></div><div className="process-track">{[["01", "DISCOVER", "Understand the business, audience and objective."], ["02", "STRATEGIZE", "Define the digital direction and growth system."], ["03", "BUILD", "Design and develop the required digital experience."], ["04", "GROW", "Launch, optimize and continuously improve."]].map(([number, title, copy]) => <div className="process-stage reveal stagger-item" key={number}><div className="process-node"><span>{number}</span></div><h3>{title}</h3><p>{copy}</p></div>)}</div></section>
+        <section id="process" className="process-section page-section content-section"><div className="section-heading reveal"><SectionLabel number="03">PROCESS</SectionLabel><div><h2 className="single-line-heading">FROM  IDEA  <span>TO  IMPACT.</span></h2></div></div><div className="process-track">{[["01", "DISCOVER", "Understand the business, audience and objective."], ["02", "STRATEGIZE", "Define the digital direction and growth system."], ["03", "BUILD", "Design and develop the required digital experience."], ["04", "GROW", "Launch, optimize and continuously improve."]].map(([number, title, copy]) => <div className="process-stage reveal stagger-item" key={number}><div className="process-node"><span>{number}</span></div><h3>{title}</h3><p>{copy}</p></div>)}</div></section>
 
-        <section id="why" className="why-section page-section content-section"><div className="section-grid why-grid"><div className="section-intro reveal"><SectionLabel number="04">WHY RASA TECH</SectionLabel><h2>NOT JUST ANOTHER<br /><span>DIGITAL AGENCY.</span></h2><p className="why-lead">We connect the thinking, making and momentum it takes to turn digital into an advantage.</p></div><div className="statement-list">{["STRATEGY BEFORE EXECUTION.", "DESIGN THAT COMMUNICATES.", "DEVELOPMENT THAT PERFORMS.", "MARKETING BUILT AROUND GROWTH.", "TECHNOLOGY THAT SCALES."].map((statement, index) => <div className="statement reveal stagger-item" key={statement}><span>0{index + 1}</span><strong>{statement}</strong><ArrowUpRight size={17} /></div>)}</div></div></section>
+        <section id="why" className="why-section page-section content-section"><div className="section-grid why-grid"><div className="section-intro reveal"><SectionLabel number="04">WHY RASA TECH</SectionLabel><h2>NOT  JUST  ANOTHER<br /><span>DIGITAL  AGENCY.</span></h2><p className="why-lead">We connect the thinking, making and momentum it takes to turn digital into an advantage.</p></div><div className="statement-list">{["STRATEGY BEFORE EXECUTION.", "DESIGN THAT COMMUNICATES.", "DEVELOPMENT THAT PERFORMS.", "MARKETING BUILT AROUND GROWTH.", "TECHNOLOGY THAT SCALES."].map((statement, index) => <div className="statement reveal stagger-item" key={statement}><span>0{index + 1}</span><strong>{statement}</strong><ArrowUpRight size={17} /></div>)}</div></div></section>
 
-        <section id="pricing" className="pricing-section page-section content-section"><div className="section-heading reveal"><SectionLabel number="05">PRICING</SectionLabel><div><h2 className="single-line-heading">CHOOSE THE RIGHT <span>LEVEL OF GROWTH.</span></h2><p>Clear starting points for different stages of your next digital system.</p></div></div><div className="pricing-grid"><PricingPlan number="01" name="STARTER" description="For businesses establishing their digital foundation."><li>Web Development</li><li>SEO & GMB</li><li>Social Media Marketing</li></PricingPlan><PricingPlan number="02" name="GROWTH" description="For businesses ready to expand their digital presence." popular><li>Web Development</li><li>Social Media Marketing</li><li>SEO & GMB</li><li>App Development</li></PricingPlan><PricingPlan number="03" name="CUSTOM" description="For businesses requiring a tailored digital system."><li>All six capabilities</li><li>Tailored system design</li><li>Ongoing direction</li></PricingPlan></div></section>
+        <section id="pricing" className="pricing-section page-section content-section">
+          <div className="section-heading reveal">
+            <SectionLabel number="05">PRICING</SectionLabel>
+            <div>
+              <h2 className="single-line-heading">CHOOSE  THE  RIGHT  <span>LEVEL  OF  GROWTH.</span></h2>
+              <p>Clear starting points tailored to your business goals and current stage.</p>
+            </div>
+          </div>
 
-        <section id="contact" className="contact-section page-section content-section"><div className="section-grid contact-grid"><div className="section-intro reveal"><SectionLabel number="06">CONTACT</SectionLabel><h2>HAVE AN IDEA?<br /><span>LET'S BUILD IT.</span></h2><p>Tell us what you're building, what you're trying to improve, or where you want to grow.</p><div className="contact-details"><a href="mailto:hello@rasatech.com">hello@rasatech.com <ArrowUpRight size={14} /></a><span>+91 XXXXX XXXXX</span><span>INDIA</span><span>WHATSAPP <ArrowUpRight size={14} /></span></div></div><div className="contact-form-wrap reveal">{submitted ? <div className="form-success"><div><Check /></div><h3>MESSAGE RECEIVED.</h3><p>We'll be in touch at the email you shared.</p><button onClick={() => setSubmitted(false)}>SEND ANOTHER <ArrowUpRight size={14} /></button></div> : <form onSubmit={handleSubmit}><div className="form-row"><label>NAME<input required name="name" placeholder="Your name" /></label><label>EMAIL<input required type="email" name="email" placeholder="you@company.com" /></label></div><div className="form-row"><label>PHONE<input name="phone" placeholder="+91 XXXXX XXXXX" /></label><label>COMPANY<input name="company" placeholder="Company name" /></label></div><label>SERVICE<div className="select-wrap"><select name="service" defaultValue=""><option value="" disabled>Select a service</option>{serviceOptions.map((option) => <option key={option}>{option}</option>)}</select><ChevronDown size={16} /></div></label><label>MESSAGE<textarea required name="message" placeholder="Tell us about your next move..." rows={4} /></label><Button type="submit">START A CONVERSATION <ArrowUpRight size={16} /></Button></form>}</div></div></section>
+          <div className="pricing-toggle-wrap reveal">
+            <button
+              type="button"
+              className={`pricing-toggle-btn ${pricingCategory === "web" ? "active" : ""}`}
+              onClick={() => setPricingCategory("web")}
+            >
+              WEB DEVELOPMENT
+            </button>
+            <button
+              type="button"
+              className={`pricing-toggle-btn ${pricingCategory === "social" ? "active" : ""}`}
+              onClick={() => setPricingCategory("social")}
+            >
+              SOCIAL MEDIA MARKETING
+            </button>
+          </div>
 
-        <section className="final-cta page-section"><SignalLine className="final-signal" /><div className="final-cta-inner reveal"><p className="eyebrow"><span className="eyebrow-pulse" />THE NEXT SYSTEM STARTS HERE</p><h2>READY TO BUILD<br /><span>WHAT'S NEXT?</span></h2><p>Let's turn your next digital idea into something built to perform.</p><Button asChild><a href="#contact">START A CONVERSATION <ArrowUpRight size={17} /></a></Button></div></section>
+          <div className="pricing-grid">
+            {pricingCategory === "web" ? (
+              <>
+                <PricingPlan
+                  number="01"
+                  name="STARTER"
+                  price="₹15,000"
+                  description="For businesses establishing a modern, high-performance web presence."
+                >
+                  <li>1-5 Custom Responsive Pages</li>
+                  <li>Mobile-First Responsive Layout</li>
+                  <li>Basic SEO & Speed Optimization</li>
+                  <li>Contact Form & WhatsApp Integration</li>
+                </PricingPlan>
+                <PricingPlan
+                  number="02"
+                  name="GROWTH"
+                  price="₹35,000"
+                  description="For businesses ready for dynamic web apps and maximum conversion."
+                  popular
+                >
+                  <li>Custom Web App / Dynamic Pages</li>
+                  <li>Premium Animations & Micro-Interactions</li>
+                  <li>Full Technical & On-Page SEO Suite</li>
+                  <li>CMS / Admin Panel Integration</li>
+                  <li>Sub-Second Load Speed Optimization</li>
+                </PricingPlan>
+                <PricingPlan
+                  number="03"
+                  name="CUSTOM"
+                  price="LET'S DISCUSS"
+                  description="For complex web portals, SaaS platforms, or enterprise systems."
+                >
+                  <li>Full Custom Architecture & APIs</li>
+                  <li>Bespoke Design System & UI/UX</li>
+                  <li>Cloud Infrastructure & Scalability</li>
+                  <li>Dedicated Support & Maintenance</li>
+                </PricingPlan>
+              </>
+            ) : (
+              <>
+                <PricingPlan
+                  number="01"
+                  name="STARTER"
+                  price="₹12,000 / mo"
+                  description="Consistent social media presence to engage your local audience."
+                >
+                  <li>8-10 Custom Posts & Reels / Month</li>
+                  <li>Profile Optimization (FB, IG, GMB)</li>
+                  <li>Hashtag & Audience Research</li>
+                  <li>Monthly Growth & Analytics Report</li>
+                </PricingPlan>
+                <PricingPlan
+                  number="02"
+                  name="GROWTH"
+                  price="₹28,000 / mo"
+                  description="Complete social growth engine to convert followers into leads."
+                  popular
+                >
+                  <li>16-20 High-Quality Posts & Reels / Month</li>
+                  <li>Paid Ad Campaign Setup & Strategy</li>
+                  <li>Copywriting, Graphics & Video Editing</li>
+                  <li>GMB Local Rank Boost</li>
+                  <li>Dedicated Account Lead & Weekly Reports</li>
+                </PricingPlan>
+                <PricingPlan
+                  number="03"
+                  name="CUSTOM"
+                  price="LET'S DISCUSS"
+                  description="360° Brand Strategy, Influencer Campaigns & High-Scale Ads."
+                >
+                  <li>360° Content Creation Studio</li>
+                  <li>High-Budget Performance Meta & Google Ads</li>
+                  <li>Influencer Strategy & Video Shoots</li>
+                  <li>Continuous Optimization & Daily Tracking</li>
+                </PricingPlan>
+              </>
+            )}
+          </div>
+        </section>
+
+        <section id="contact" className="contact-section page-section content-section"><div className="section-grid contact-grid"><div className="section-intro reveal"><SectionLabel number="06">CONTACT</SectionLabel><h2>HAVE  AN  IDEA?<br /><span>LET'S  BUILD  IT.</span></h2><p>Tell us what you're building, what you're trying to improve, or where you want to grow.</p><div className="contact-details"><a href="mailto:hello@rasatech.com">hello@rasatech.com <ArrowUpRight size={14} /></a><span>+91 XXXXX XXXXX</span><span>INDIA</span><span>WHATSAPP <ArrowUpRight size={14} /></span></div></div><div className="contact-form-wrap reveal">{submitted ? <div className="form-success"><div><Check /></div><h3>MESSAGE RECEIVED.</h3><p>We'll be in touch at the email you shared.</p><button onClick={() => setSubmitted(false)}>SEND ANOTHER <ArrowUpRight size={14} /></button></div> : <form onSubmit={handleSubmit}><div className="form-row"><label>NAME<input required name="name" placeholder="Your name" /></label><label>EMAIL<input required type="email" name="email" placeholder="you@company.com" /></label></div><div className="form-row"><label>PHONE<input name="phone" placeholder="+91 XXXXX XXXXX" /></label><label>COMPANY<input name="company" placeholder="Company name" /></label></div><label>SERVICE<div className="select-wrap"><select name="service" defaultValue=""><option value="" disabled>Select a service</option>{serviceOptions.map((option) => <option key={option}>{option}</option>)}</select><ChevronDown size={16} /></div></label><label>MESSAGE<textarea required name="message" placeholder="Tell us about your next move..." rows={4} /></label><Button type="submit">START A CONVERSATION <ArrowUpRight size={16} /></Button></form>}</div></div></section>
+
+        <section className="final-cta page-section"><SignalLine className="final-signal" /><div className="final-cta-inner reveal"><p className="eyebrow"><span className="eyebrow-pulse" />THE NEXT SYSTEM STARTS HERE</p><h2>READY  TO  BUILD<br /><span>WHAT'S  NEXT?</span></h2><p>Let's turn your next digital idea into something built to perform.</p><Button asChild><a href="#contact">START A CONVERSATION <ArrowUpRight size={17} /></a></Button></div></section>
       </main>
 
       <footer className="site-footer"><div className="footer-top"><a className="brand-mark" href="#home"><img src={logoUrl} alt="RASA Tech" /></a><div className="footer-links">{[["Home", "home"], ["About", "about"], ["Services", "services"], ["Pricing", "pricing"], ["Contact", "contact"]].map(([label, id]) => <a key={id} href={`#${id}`}>{label}</a>)}</div><div className="footer-social"><a href="#contact">LINKEDIN <ArrowUpRight size={14} /></a><a href="#contact">INSTAGRAM <ArrowUpRight size={14} /></a><a href="#contact">WHATSAPP <ArrowUpRight size={14} /></a></div></div><div className="footer-bottom"><span>DIGITAL MARKETING <b>•</b> WEB DEVELOPMENT <b>•</b> TECHNOLOGY</span><span>© 2026 RASA TECH. ALL RIGHTS RESERVED.</span></div></footer>
