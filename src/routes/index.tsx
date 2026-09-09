@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
-  Activity,
   ArrowDown,
   ArrowUpRight,
   Check,
@@ -169,8 +168,10 @@ function ServiceVisual({ type }: { type: Service["visual"] }) {
 
 function ServiceModule({ service }: { service: Service }) {
   const Icon = service.icon;
+  const isHighlighted = service.name === "SEO & GMB";
   return (
-    <article className={`service-module service-${service.number} reveal stagger-item`}>
+    <article className={`service-module service-${service.number} reveal stagger-item ${isHighlighted ? "service-highlighted" : ""}`}>
+      {isHighlighted && <div className="service-badge"><span>FEATURED OPTIMIZATION</span></div>}
       <div className="service-head"><span className="service-number">{service.number}</span><Icon size={18} strokeWidth={1.5} /><span className="service-arrow"><ArrowUpRight size={18} /></span></div>
       <div className="service-copy"><h3>{service.name}</h3><p>{service.description}</p><ul>{service.capabilities.map((capability) => <li key={capability}><Check size={13} />{capability}</li>)}</ul></div>
       <ServiceVisual type={service.visual} />
@@ -205,8 +206,24 @@ function Index() {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
+  useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const lenis = new Lenis({ duration: 1.15, easing: (t) => 1 - Math.pow(1 - t, 3) });
+    const lenis = new Lenis({
+      duration: 1.5,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      wheelMultiplier: 0.9,
+      touchMultiplier: 1.5,
+    });
     let lenisRaf = 0;
     const lenisLoop = (time: number) => { lenis.raf(time); lenisRaf = requestAnimationFrame(lenisLoop); };
     lenisRaf = requestAnimationFrame(lenisLoop);
@@ -227,7 +244,7 @@ function Index() {
     const onScroll = () => setScrolled(window.scrollY > 24);
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
-    const revealObserver = new IntersectionObserver((entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add("is-visible")), { threshold: 0.12 });
+    const revealObserver = new IntersectionObserver((entries) => entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add("is-visible"); revealObserver.unobserve(entry.target); } }), { threshold: 0.05, rootMargin: "0px 0px 50px 0px" });
     document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
     const cursor = document.querySelector<HTMLElement>(".custom-cursor");
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -272,7 +289,14 @@ function Index() {
       <header className={`site-header ${scrolled ? "header-scrolled" : ""}`}>
         <a className="brand-mark" href="#home" onClick={closeMenu}><img src={logoUrl} alt="RASA Tech" /></a>
         <nav className={`desktop-nav ${menuOpen ? "nav-open" : ""}`} aria-label="Main navigation">
-          {[["Home", "home"], ["About", "about"], ["Services", "services"], ["Pricing", "pricing"], ["Contact", "contact"]].map(([label, id]) => <a key={id} href={`#${id}`} onClick={closeMenu}>{label}</a>)}
+          {[["Home", "home"], ["About", "about"], ["Services", "services"], ["Pricing", "pricing"], ["Contact", "contact"]].map(([label, id]) => (
+            <a key={id} href={`#${id}`} onClick={closeMenu}>{label}</a>
+          ))}
+          <div className="mobile-only-cta">
+            <Button asChild className="w-full h-12 text-sm font-semibold border-orange bg-orange text-black hover:bg-orange-hot">
+              <a href="#contact" onClick={closeMenu}>LET'S TALK <ArrowUpRight size={16} /></a>
+            </Button>
+          </div>
         </nav>
         <Button asChild className="header-cta"><a href="#contact" onClick={closeMenu}>LET'S TALK <ArrowUpRight size={16} /></a></Button>
         <Button variant="ghost" size="icon" className="menu-toggle" aria-label={menuOpen ? "Close menu" : "Open menu"} onClick={() => setMenuOpen((open) => !open)}>{menuOpen ? <X /> : <Menu />}</Button>
@@ -292,13 +316,13 @@ function Index() {
           <div className="section-grid"><div className="section-intro reveal"><SectionLabel number="01">ABOUT RASA TECH</SectionLabel><h2>WE TURN DIGITAL PRESENCE<br /><span>INTO DIGITAL ADVANTAGE.</span></h2><p>RASA Tech combines technology, design and digital marketing to create digital systems that are built to perform — not simply look good.</p><a className="text-link" href="#contact">BUILD WITH US <ArrowUpRight size={15} /></a></div><div className="about-visual reveal"><AboutSystem /></div></div>
         </section>
 
-        <section id="services" className="services-section page-section content-section"><div className="section-heading reveal"><SectionLabel number="02">SERVICES</SectionLabel><div><h2>DIGITAL SYSTEMS<br /><span>BUILT TO PERFORM.</span></h2><p>Six focused capabilities. One connected system designed around where you want to go next.</p></div></div><div className="services-grid">{services.map((service) => <ServiceModule service={service} key={service.number} />)}</div></section>
+        <section id="services" className="services-section page-section content-section"><div className="section-heading reveal"><SectionLabel number="02">SERVICES</SectionLabel><div><h2 className="single-line-heading">Services We Provide</h2><p>Six focused capabilities. One connected system designed around where you want to go next.</p></div></div><div className="services-grid">{services.map((service) => <ServiceModule service={service} key={service.number} />)}</div></section>
 
-        <section id="process" className="process-section page-section content-section"><div className="section-heading reveal"><SectionLabel number="03">PROCESS</SectionLabel><div><h2>FROM IDEA<br /><span>TO IMPACT.</span></h2></div></div><div className="process-track">{[["01", "DISCOVER", "Understand the business, audience and objective."], ["02", "STRATEGIZE", "Define the digital direction and growth system."], ["03", "BUILD", "Design and develop the required digital experience."], ["04", "GROW", "Launch, optimize and continuously improve."]].map(([number, title, copy]) => <div className="process-stage reveal stagger-item" key={number}><div className="process-node"><span>{number}</span></div><h3>{title}</h3><p>{copy}</p></div>)}</div></section>
+        <section id="process" className="process-section page-section content-section"><div className="section-heading reveal"><SectionLabel number="03">PROCESS</SectionLabel><div><h2 className="single-line-heading">FROM IDEA <span>TO IMPACT.</span></h2></div></div><div className="process-track">{[["01", "DISCOVER", "Understand the business, audience and objective."], ["02", "STRATEGIZE", "Define the digital direction and growth system."], ["03", "BUILD", "Design and develop the required digital experience."], ["04", "GROW", "Launch, optimize and continuously improve."]].map(([number, title, copy]) => <div className="process-stage reveal stagger-item" key={number}><div className="process-node"><span>{number}</span></div><h3>{title}</h3><p>{copy}</p></div>)}</div></section>
 
         <section id="why" className="why-section page-section content-section"><div className="section-grid why-grid"><div className="section-intro reveal"><SectionLabel number="04">WHY RASA TECH</SectionLabel><h2>NOT JUST ANOTHER<br /><span>DIGITAL AGENCY.</span></h2><p className="why-lead">We connect the thinking, making and momentum it takes to turn digital into an advantage.</p></div><div className="statement-list">{["STRATEGY BEFORE EXECUTION.", "DESIGN THAT COMMUNICATES.", "DEVELOPMENT THAT PERFORMS.", "MARKETING BUILT AROUND GROWTH.", "TECHNOLOGY THAT SCALES."].map((statement, index) => <div className="statement reveal stagger-item" key={statement}><span>0{index + 1}</span><strong>{statement}</strong><ArrowUpRight size={17} /></div>)}</div></div></section>
 
-        <section id="pricing" className="pricing-section page-section content-section"><div className="section-heading reveal"><SectionLabel number="05">PRICING</SectionLabel><div><h2>CHOOSE THE RIGHT<br /><span>LEVEL OF GROWTH.</span></h2><p>Clear starting points for different stages of your next digital system.</p></div></div><div className="pricing-grid"><PricingPlan number="01" name="STARTER" description="For businesses establishing their digital foundation."><li>Web Development</li><li>SEO & GMB</li><li>Social Media Marketing</li></PricingPlan><PricingPlan number="02" name="GROWTH" description="For businesses ready to expand their digital presence." popular><li>Web Development</li><li>Social Media Marketing</li><li>SEO & GMB</li><li>App Development</li></PricingPlan><PricingPlan number="03" name="CUSTOM" description="For businesses requiring a tailored digital system."><li>All six capabilities</li><li>Tailored system design</li><li>Ongoing direction</li></PricingPlan></div></section>
+        <section id="pricing" className="pricing-section page-section content-section"><div className="section-heading reveal"><SectionLabel number="05">PRICING</SectionLabel><div><h2 className="single-line-heading">CHOOSE THE RIGHT <span>LEVEL OF GROWTH.</span></h2><p>Clear starting points for different stages of your next digital system.</p></div></div><div className="pricing-grid"><PricingPlan number="01" name="STARTER" description="For businesses establishing their digital foundation."><li>Web Development</li><li>SEO & GMB</li><li>Social Media Marketing</li></PricingPlan><PricingPlan number="02" name="GROWTH" description="For businesses ready to expand their digital presence." popular><li>Web Development</li><li>Social Media Marketing</li><li>SEO & GMB</li><li>App Development</li></PricingPlan><PricingPlan number="03" name="CUSTOM" description="For businesses requiring a tailored digital system."><li>All six capabilities</li><li>Tailored system design</li><li>Ongoing direction</li></PricingPlan></div></section>
 
         <section id="contact" className="contact-section page-section content-section"><div className="section-grid contact-grid"><div className="section-intro reveal"><SectionLabel number="06">CONTACT</SectionLabel><h2>HAVE AN IDEA?<br /><span>LET'S BUILD IT.</span></h2><p>Tell us what you're building, what you're trying to improve, or where you want to grow.</p><div className="contact-details"><a href="mailto:hello@rasatech.com">hello@rasatech.com <ArrowUpRight size={14} /></a><span>+91 XXXXX XXXXX</span><span>INDIA</span><span>WHATSAPP <ArrowUpRight size={14} /></span></div></div><div className="contact-form-wrap reveal">{submitted ? <div className="form-success"><div><Check /></div><h3>MESSAGE RECEIVED.</h3><p>We'll be in touch at the email you shared.</p><button onClick={() => setSubmitted(false)}>SEND ANOTHER <ArrowUpRight size={14} /></button></div> : <form onSubmit={handleSubmit}><div className="form-row"><label>NAME<input required name="name" placeholder="Your name" /></label><label>EMAIL<input required type="email" name="email" placeholder="you@company.com" /></label></div><div className="form-row"><label>PHONE<input name="phone" placeholder="+91 XXXXX XXXXX" /></label><label>COMPANY<input name="company" placeholder="Company name" /></label></div><label>SERVICE<div className="select-wrap"><select name="service" defaultValue=""><option value="" disabled>Select a service</option>{serviceOptions.map((option) => <option key={option}>{option}</option>)}</select><ChevronDown size={16} /></div></label><label>MESSAGE<textarea required name="message" placeholder="Tell us about your next move..." rows={4} /></label><Button type="submit">START A CONVERSATION <ArrowUpRight size={16} /></Button></form>}</div></div></section>
 
@@ -306,7 +330,7 @@ function Index() {
       </main>
 
       <footer className="site-footer"><div className="footer-top"><a className="brand-mark" href="#home"><img src={logoUrl} alt="RASA Tech" /></a><div className="footer-links">{[["Home", "home"], ["About", "about"], ["Services", "services"], ["Pricing", "pricing"], ["Contact", "contact"]].map(([label, id]) => <a key={id} href={`#${id}`}>{label}</a>)}</div><div className="footer-social"><a href="#contact">LINKEDIN <ArrowUpRight size={14} /></a><a href="#contact">INSTAGRAM <ArrowUpRight size={14} /></a><a href="#contact">WHATSAPP <ArrowUpRight size={14} /></a></div></div><div className="footer-bottom"><span>DIGITAL MARKETING <b>•</b> WEB DEVELOPMENT <b>•</b> TECHNOLOGY</span><span>© 2026 RASA TECH. ALL RIGHTS RESERVED.</span></div></footer>
-      <div className="scroll-top"><Activity size={13} /> SIGNAL / ACTIVE</div>
     </div>
   );
 }
+
