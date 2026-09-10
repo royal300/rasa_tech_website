@@ -1456,3 +1456,147 @@ a.text-link:hover svg,
   color: #ff7a00 !important;
   padding: 0 6px !important;
 }
+
+
+/* ==========================================================================
+   PRICING LEFT-SHIFT, CENTER TOGGLE & VERTICAL QUICK MENU FOOTER
+   ========================================================================== */
+
+/* 1. Slight Left Shift of Pricing Headline */
+.pricing-section .section-heading {
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+.pricing-section .section-heading h2 {
+  margin-left: -12px !important;
+}
+
+/* 2. Center Align Pricing Toggle in Middle of Screen */
+.pricing-toggle-container {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  margin: 35px 0 45px 0 !important;
+}
+
+.pricing-toggle-wrap {
+  display: inline-flex !important;
+  background: #ffffff !important;
+  border-radius: 40px !important;
+  padding: 5px !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4) !important;
+  margin: 0 auto !important;
+  z-index: 2;
+}
+
+/* 3. Footer Separation Line & Vertical Quick Menu */
+.footer-separator-line {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 122, 0, 0.6) 50%, transparent 100%);
+  margin: 0;
+}
+
+.site-footer {
+  padding: 60px max(6vw, 32px) 30px !important;
+  background: #000000 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.footer-top {
+  width: min(100%, var(--container));
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr !important;
+  align-items: start;
+  gap: 40px !important;
+  margin: 0 auto 50px !important;
+}
+
+.footer-brand-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-tagline {
+  color: #ff7a00;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  margin: 6px 0 0 0;
+}
+
+.footer-col-title {
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.14em !important;
+  color: #ff7a00 !important;
+  margin: 0 0 16px 0 !important;
+  text-transform: uppercase !important;
+}
+
+.footer-links-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-links-vertical {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+}
+
+.footer-links-vertical a {
+  color: #aaaaaa !important;
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.06em !important;
+  text-decoration: none !important;
+  transition: color 0.25s ease, transform 0.25s ease !important;
+}
+
+.footer-links-vertical a:hover {
+  color: #ff7a00 !important;
+  transform: translateX(4px) !important;
+}
+
+.footer-social-col {
+  display: flex;
+  flex-direction: column;
+  justify-self: end;
+}
+
+.footer-social {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+
+.footer-social a {
+  color: #888888 !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.1em !important;
+  text-decoration: none !important;
+  transition: color 0.25s ease !important;
+}
+
+.footer-social a:hover {
+  color: #ff7a00 !important;
+}
+
+.footer-bottom {
+  width: min(100%, var(--container));
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 20px !important;
+  margin: auto !important;
+  padding-top: 24px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #666666 !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.1em !important;
+}

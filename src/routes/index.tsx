@@ -584,21 +584,23 @@ function Index() {
             </div>
           </div>
 
-          <div className="pricing-toggle-wrap reveal">
-            <button
-              type="button"
-              className={`pricing-toggle-btn ${pricingCategory === "web" ? "active" : ""}`}
-              onClick={() => setPricingCategory("web")}
-            >
-              WEB DEVELOPMENT
-            </button>
-            <button
-              type="button"
-              className={`pricing-toggle-btn ${pricingCategory === "social" ? "active" : ""}`}
-              onClick={() => setPricingCategory("social")}
-            >
-              SOCIAL MEDIA MARKETING
-            </button>
+          <div className="pricing-toggle-container reveal">
+            <div className="pricing-toggle-wrap">
+              <button
+                type="button"
+                className={`pricing-toggle-btn ${pricingCategory === "web" ? "active" : ""}`}
+                onClick={() => setPricingCategory("web")}
+              >
+                WEB DEVELOPMENT
+              </button>
+              <button
+                type="button"
+                className={`pricing-toggle-btn ${pricingCategory === "social" ? "active" : ""}`}
+                onClick={() => setPricingCategory("social")}
+              >
+                SOCIAL MEDIA MARKETING
+              </button>
+            </div>
           </div>
 
           <div className="pricing-grid">
@@ -689,7 +691,8 @@ function Index() {
         <section className="final-cta page-section"><SignalLine className="final-signal" /><div className="final-cta-inner reveal"><p className="eyebrow"><span className="eyebrow-pulse" />THE NEXT SYSTEM STARTS HERE</p><h2>READY  TO  BUILD<br /><span>WHAT'S  NEXT?</span></h2><p>Let's turn your next digital idea into something built to perform.</p><Button asChild><a href="#contact">START A CONVERSATION <ArrowUpRight size={17} /></a></Button></div></section>
       </main>
 
-      <footer className="site-footer">
+      <div className="footer-separator-line" />
+        <footer className="site-footer">
           <div className="footer-top">
             <div className="footer-brand-col">
               <a className="brand-mark" href="#home">
@@ -698,32 +701,38 @@ function Index() {
               <p className="footer-tagline">Grow Your Business</p>
             </div>
 
-            <div className="footer-links">
-              {[
-                ["Home", "home"],
-                ["About", "about"],
-                ["Services", "services"],
-                ["Process", "process"],
-                ["Why Us", "why"],
-                ["Pricing", "pricing"],
-                ["Contact", "contact"],
-              ].map(([label, id]) => (
-                <a key={id} href={`#${id}`}>
-                  {label}
-                </a>
-              ))}
+            <div className="footer-links-col">
+              <h4 className="footer-col-title">QUICK MENU</h4>
+              <div className="footer-links-vertical">
+                {[
+                  ["Home", "home"],
+                  ["About", "about"],
+                  ["Services", "services"],
+                  ["Process", "process"],
+                  ["Why Us", "why"],
+                  ["Pricing", "pricing"],
+                  ["Contact", "contact"],
+                ].map(([label, id]) => (
+                  <a key={id} href={`#${id}`}>
+                    {label}
+                  </a>
+                ))}
+              </div>
             </div>
 
-            <div className="footer-social">
-              <a href="https://wa.me/918617201731" target="_blank" rel="noopener noreferrer">
-                WHATSAPP <ArrowUpRight size={14} />
-              </a>
-              <a href="#contact">
-                INSTAGRAM <ArrowUpRight size={14} />
-              </a>
-              <a href="#contact">
-                LINKEDIN <ArrowUpRight size={14} />
-              </a>
+            <div className="footer-social-col">
+              <h4 className="footer-col-title">CONNECT</h4>
+              <div className="footer-social">
+                <a href="https://wa.me/918617201731" target="_blank" rel="noopener noreferrer">
+                  WHATSAPP <ArrowUpRight size={13} />
+                </a>
+                <a href="#contact">
+                  INSTAGRAM <ArrowUpRight size={13} />
+                </a>
+                <a href="#contact">
+                  LINKEDIN <ArrowUpRight size={13} />
+                </a>
+              </div>
             </div>
           </div>
 
