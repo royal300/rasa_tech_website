@@ -614,3 +614,269 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   background: #000000;
   border-top: 1px solid var(--soft-line);
 }
+
+
+/* ==========================================================================
+   CUSTOM REFINEMENTS (AUTO TYPEWRITER, LAPTOP, SERVICES GRADIENT, CARDS, NO BORDERS)
+   ========================================================================== */
+
+/* 1. Auto Typewriter Cursor Blinking */
+.typewriter-cursor {
+  display: inline-block;
+  color: #ff7a00;
+  font-weight: 300;
+  margin-left: 2px;
+  animation: cursor-blink 0.8s infinite;
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* 2. 3D Laptop Dashboard in About Us Section */
+.about-laptop-container {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  perspective: 1000px;
+}
+
+.laptop-screen-frame {
+  position: relative;
+  background: #111116;
+  border: 8px solid #22222a;
+  border-bottom: none;
+  border-radius: 14px 14px 0 0;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 122, 0, 0.15);
+  padding: 12px;
+  overflow: hidden;
+}
+
+.laptop-camera-dot {
+  width: 5px;
+  height: 5px;
+  background: #444;
+  border-radius: 50%;
+  margin: 0 auto 10px auto;
+  box-shadow: inset 0 0 2px #000;
+}
+
+.laptop-display {
+  background: #0a0a0f;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  background: #00ff88;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #00ff88;
+  animation: pulse-dot 1.5s infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+.dashboard-badge {
+  background: rgba(255, 122, 0, 0.15);
+  border: 1px solid rgba(255, 122, 0, 0.4);
+  color: #ff7a00;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.dash-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dash-card small {
+  font-size: 0.62rem;
+  color: #888;
+  letter-spacing: 0.05em;
+}
+
+.dash-card strong {
+  font-size: 1.05rem;
+  color: #fff;
+  font-weight: 700;
+}
+
+.dash-trend {
+  font-size: 0.62rem;
+  color: #00ff88;
+  font-weight: 600;
+}
+
+.dashboard-chart-area {
+  position: relative;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  padding: 10px;
+  height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.chart-label {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  font-size: 0.58rem;
+  color: #666;
+  letter-spacing: 0.08em;
+}
+
+.chart-bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 55px;
+  padding: 0 8px;
+  z-index: 1;
+}
+
+.bar {
+  width: 12%;
+  background: linear-gradient(180deg, #ff7a00 0%, rgba(255, 122, 0, 0.2) 100%);
+  border-radius: 3px 3px 0 0;
+}
+
+.chart-growth-line {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  width: calc(100% - 20px);
+  height: 55px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.path-growth-animated {
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: draw-growth-line 2.5s ease-out forwards infinite alternate;
+}
+
+@keyframes draw-growth-line {
+  0% { stroke-dashoffset: 400; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.laptop-keyboard-base {
+  position: relative;
+  height: 14px;
+  background: linear-gradient(180deg, #2b2b36 0%, #1a1a22 100%);
+  border-radius: 0 0 14px 14px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  border-top: 2px solid #3a3a48;
+}
+
+.laptop-notch {
+  width: 50px;
+  height: 5px;
+  background: #111116;
+  border-radius: 0 0 5px 5px;
+  margin: 0 auto;
+}
+
+/* 3. Services Section Header & Spacing */
+.services-gradient-title {
+  background: linear-gradient(135deg, #FF6B00 0%, #FFFFFF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+.services-section .section-heading {
+  margin-bottom: 2.2rem !important;
+}
+
+.services-header-centered {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+/* 4. Service Cards Font Sizes & Title Case Styling */
+.service-copy h3 {
+  font-size: 1.35rem !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.01em !important;
+  color: #ffffff !important;
+  text-transform: none !important;
+  margin-bottom: 10px !important;
+}
+
+.service-copy ul {
+  margin-top: 14px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+}
+
+.service-copy ul li {
+  font-size: 0.96rem !important;
+  line-height: 1.45 !important;
+  color: #cccccc !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.service-copy ul li svg {
+  color: #ff7a00 !important;
+  flex-shrink: 0 !important;
+}
+
+/* 5. Remove Line Between Each Section Gap */
+.page-section,
+.capability-strip,
+.statement-list,
+.site-footer,
+.section-heading {
+  border-top: none !important;
+  border-bottom: none !important;
+}

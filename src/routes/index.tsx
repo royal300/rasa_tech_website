@@ -32,7 +32,7 @@ type Service = {
 const services: Service[] = [
   {
     number: "01",
-    name: "WEB DEVELOPMENT",
+    name: "Web Development",
     description: "Fast, accessible and high-performance websites and web applications built around your business goals.",
     capabilities: ["Custom Websites", "Web Applications", "Performance Optimization"],
     icon: Code2,
@@ -40,7 +40,7 @@ const services: Service[] = [
   },
   {
     number: "02",
-    name: "SOCIAL MEDIA MARKETING",
+    name: "Social Media Marketing",
     description: "Content-driven social strategies designed to build attention, engagement and consistent brand presence.",
     capabilities: ["Content Strategy", "Social Management", "Audience Growth"],
     icon: Share2,
@@ -56,7 +56,7 @@ const services: Service[] = [
   },
   {
     number: "04",
-    name: "SERVER HOSTING",
+    name: "Server Hosting",
     description: "Reliable hosting infrastructure designed for speed, stability, security and dependable digital performance.",
     capabilities: ["Managed Hosting", "Server Monitoring", "Performance & Security"],
     icon: Server,
@@ -64,7 +64,7 @@ const services: Service[] = [
   },
   {
     number: "05",
-    name: "APP DEVELOPMENT",
+    name: "App Development",
     description: "Modern mobile applications designed around real user experiences, business needs and scalable technology.",
     capabilities: ["Mobile Apps", "UI / UX", "Scalable Architecture"],
     icon: Smartphone,
@@ -72,7 +72,7 @@ const services: Service[] = [
   },
   {
     number: "06",
-    name: "WHATSAPP AUTOMATION",
+    name: "WhatsApp Automation",
     description: "Automated WhatsApp communication flows, lead capture, and instant business messaging systems that drive sales.",
     capabilities: ["Automated Flow Setup", "Lead Generation", "Custom Business Messaging"],
     icon: MessageCircle,
@@ -110,46 +110,46 @@ function TypewriterHeading() {
 
   const [text1, setText1] = useState("");
   const [text2, setText2] = useState("");
-  const [isLine1Done, setIsLine1Done] = useState(false);
+  const [phase, setPhase] = useState<"typing1" | "typing2" | "pause" | "deleting">("typing1");
 
   useEffect(() => {
-    let index1 = 0;
-    const timer1 = setInterval(() => {
-      if (index1 < line1.length) {
-        setText1(line1.substring(0, index1 + 1));
-        index1++;
+    let timer: any;
+    if (phase === "typing1") {
+      if (text1.length < line1.length) {
+        timer = setTimeout(() => setText1(line1.substring(0, text1.length + 1)), 65);
       } else {
-        clearInterval(timer1);
-        setIsLine1Done(true);
+        setPhase("typing2");
       }
-    }, 60);
-
-    return () => clearInterval(timer1);
-  }, []);
-
-  useEffect(() => {
-    if (!isLine1Done) return;
-    let index2 = 0;
-    const timer2 = setInterval(() => {
-      if (index2 < line2.length) {
-        setText2(line2.substring(0, index2 + 1));
-        index2++;
+    } else if (phase === "typing2") {
+      if (text2.length < line2.length) {
+        timer = setTimeout(() => setText2(line2.substring(0, text2.length + 1)), 65);
       } else {
-        clearInterval(timer2);
+        setPhase("pause");
       }
-    }, 60);
-
-    return () => clearInterval(timer2);
-  }, [isLine1Done]);
+    } else if (phase === "pause") {
+      timer = setTimeout(() => setPhase("deleting"), 2600);
+    } else if (phase === "deleting") {
+      if (text2.length > 0) {
+        timer = setTimeout(() => setText2(line2.substring(0, text2.length - 1)), 35);
+      } else if (text1.length > 0) {
+        timer = setTimeout(() => setText1(line1.substring(0, text1.length - 1)), 35);
+      } else {
+        setPhase("typing1");
+      }
+    }
+    return () => clearTimeout(timer);
+  }, [text1, text2, phase]);
 
   return (
     <h1 className="typewriter-h1">
       {text1}
-      {!isLine1Done && <span className="typewriter-cursor">|</span>}
+      {phase === "typing1" && <span className="typewriter-cursor">|</span>}
       <br />
       <span>
         {text2}
-        {isLine1Done && <span className="typewriter-cursor">|</span>}
+        {(phase === "typing2" || phase === "pause" || phase === "deleting") && (
+          <span className="typewriter-cursor">|</span>
+        )}
       </span>
     </h1>
   );
@@ -216,12 +216,12 @@ function HeroSystem({ mouse = { x: 0, y: 0 } }: { mouse?: { x: number; y: number
         <span className="core-name core-name-accent">TECH</span>
       </div>
 
-      <SystemNode label="WEB DEVELOPMENT" position="node-web" icon={Globe2} />
+      <SystemNode label="Web Development" position="node-web" icon={Globe2} />
       <SystemNode label="SOCIAL MEDIA" position="node-social" icon={Share2} />
       <SystemNode label="SEO & GMB" position="node-seo" icon={Search} />
-      <SystemNode label="SERVER HOSTING" position="node-server" icon={Server} />
-      <SystemNode label="APP DEVELOPMENT" position="node-app" icon={Smartphone} />
-      <SystemNode label="WHATSAPP AUTOMATION" position="node-whatsapp" icon={MessageCircle} />
+      <SystemNode label="Server Hosting" position="node-server" icon={Server} />
+      <SystemNode label="App Development" position="node-app" icon={Smartphone} />
+      <SystemNode label="WhatsApp Automation" position="node-whatsapp" icon={MessageCircle} />
     </div>
   );
 }
@@ -488,7 +488,15 @@ function Index() {
           <div className="section-grid"><div className="section-intro reveal"><SectionLabel number="01">ABOUT RASA TECH</SectionLabel><h2>WE  TURN  DIGITAL  PRESENCE<br /><span>INTO  DIGITAL  ADVANTAGE.</span></h2><p>RASA Tech combines technology, design and digital marketing to create digital systems that are built to perform — not simply look good.</p><a className="text-link" href="#contact">BUILD WITH US <ArrowUpRight size={15} /></a></div><div className="about-visual reveal"><AboutSystem /></div></div>
         </section>
 
-        <section id="services" className="services-section page-section content-section"><div className="section-heading reveal"><SectionLabel number="02">SERVICES</SectionLabel><div><h2 className="single-line-heading">SERVICES  WE  PROVIDE</h2><p>Six focused capabilities. One connected system designed around where you want to go next.</p></div></div><div className="services-grid">{services.map((service) => <ServiceModule service={service} key={service.number} />)}</div></section>
+        <section id="services" className="services-section page-section content-section">
+          <div className="section-heading reveal services-header-centered">
+            <SectionLabel number="02">SERVICES</SectionLabel>
+            <div>
+              <h2 className="single-line-heading services-gradient-title">SERVICES  WE  PROVIDE</h2>
+            </div>
+          </div>
+          <div className="services-grid">{services.map((service) => <ServiceModule service={service} key={service.number} />)}</div>
+        </section>
 
         <section id="process" className="process-section page-section content-section">
           <div className="section-heading reveal">
