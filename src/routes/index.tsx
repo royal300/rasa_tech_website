@@ -576,10 +576,10 @@ function Index() {
         </section>
 
         <section id="pricing" className="pricing-section page-section content-section">
-          <div className="section-heading reveal">
+          <div className="section-heading reveal pricing-header-centered">
             <SectionLabel number="05">PRICING</SectionLabel>
             <div>
-              <h2 className="single-line-heading">CHOOSE  THE  RIGHT  <span>LEVEL  OF  GROWTH.</span></h2>
+              <h2 className="single-line-heading services-gradient-title">CHOOSE  THE  RIGHT  <span>LEVEL  OF  GROWTH.</span></h2>
               <p>Clear starting points tailored to your business goals and current stage.</p>
             </div>
           </div>
@@ -607,7 +607,7 @@ function Index() {
                 <PricingPlan
                   number="01"
                   name="STARTER"
-                  price="₹15,000"
+                  price="15,000"
                   description="For businesses establishing a modern, high-performance web presence."
                 >
                   <li>1-5 Custom Responsive Pages</li>
@@ -618,26 +618,24 @@ function Index() {
                 <PricingPlan
                   number="02"
                   name="GROWTH"
-                  price="₹35,000"
+                  price="35,000"
                   description="For businesses ready for dynamic web apps and maximum conversion."
-                  popular
                 >
                   <li>Custom Web App / Dynamic Pages</li>
-                  <li>Premium Animations & Micro-Interactions</li>
-                  <li>Full Technical & On-Page SEO Suite</li>
-                  <li>CMS / Admin Panel Integration</li>
-                  <li>Sub-Second Load Speed Optimization</li>
+                  <li>Advanced Interactive Animations</li>
+                  <li>Full Technical & Local SEO</li>
+                  <li>Server & Domain Infrastructure</li>
                 </PricingPlan>
                 <PricingPlan
                   number="03"
-                  name="CUSTOM"
-                  price="LET'S DISCUSS"
-                  description="For complex web portals, SaaS platforms, or enterprise systems."
+                  name="SCALE"
+                  price="CUSTOM"
+                  description="Complete digital ecosystem built for ambitious brands and enterprise scope."
                 >
-                  <li>Full Custom Architecture & APIs</li>
-                  <li>Bespoke Design System & UI/UX</li>
-                  <li>Cloud Infrastructure & Scalability</li>
-                  <li>Dedicated Support & Maintenance</li>
+                  <li>Custom Platform / Portal</li>
+                  <li>Dedicated Server Architecture</li>
+                  <li>Automated Workflows & CRM</li>
+                  <li>Priority Ongoing Support</li>
                 </PricingPlan>
               </>
             ) : (
@@ -645,49 +643,95 @@ function Index() {
                 <PricingPlan
                   number="01"
                   name="STARTER"
-                  price="₹12,000 / mo"
-                  description="Consistent social media presence to engage your local audience."
+                  price="12,000 / mo"
+                  description="Consistent social presence designed to build brand awareness."
                 >
-                  <li>8-10 Custom Posts & Reels / Month</li>
-                  <li>Profile Optimization (FB, IG, GMB)</li>
-                  <li>Hashtag & Audience Research</li>
-                  <li>Monthly Growth & Analytics Report</li>
+                  <li>8-10 High-Quality Posts / Reels</li>
+                  <li>Content Strategy & Captions</li>
+                  <li>Hashtag & Audience Targeting</li>
+                  <li>Monthly Performance Report</li>
                 </PricingPlan>
                 <PricingPlan
                   number="02"
                   name="GROWTH"
-                  price="₹28,000 / mo"
-                  description="Complete social growth engine to convert followers into leads."
-                  popular
+                  price="25,000 / mo"
+                  description="Aggressive content & paid campaigns for rapid customer acquisition."
                 >
-                  <li>16-20 High-Quality Posts & Reels / Month</li>
-                  <li>Paid Ad Campaign Setup & Strategy</li>
-                  <li>Copywriting, Graphics & Video Editing</li>
-                  <li>GMB Local Rank Boost</li>
-                  <li>Dedicated Account Lead & Weekly Reports</li>
+                  <li>15-18 Posts & Reels</li>
+                  <li>Paid Ad Campaign Management</li>
+                  <li>Custom Graphics & Video Editing</li>
+                  <li>Lead Capture & WhatsApp Flows</li>
                 </PricingPlan>
                 <PricingPlan
                   number="03"
-                  name="CUSTOM"
-                  price="LET'S DISCUSS"
-                  description="360° Brand Strategy, Influencer Campaigns & High-Scale Ads."
+                  name="SCALE"
+                  price="CUSTOM"
+                  description="360 digital marketing & growth partner strategy."
                 >
-                  <li>360° Content Creation Studio</li>
-                  <li>High-Budget Performance Meta & Google Ads</li>
-                  <li>Influencer Strategy & Video Shoots</li>
-                  <li>Continuous Optimization & Daily Tracking</li>
+                  <li>Full Omnichannel Strategy</li>
+                  <li>High-Production Video Content</li>
+                  <li>Dedicated Growth Team</li>
+                  <li>Weekly ROI Optimization</li>
                 </PricingPlan>
               </>
             )}
           </div>
+
+          <div className="pricing-custom-quote-wrap reveal">
+            <a href="#contact" className="custom-quote-btn">
+              NEED A CUSTOM QUOTE? GET IN TOUCH <ArrowUpRight size={16} />
+            </a>
+          </div>
         </section>
 
-        <section id="contact" className="contact-section page-section content-section"><div className="section-grid contact-grid"><div className="section-intro reveal"><SectionLabel number="06">CONTACT</SectionLabel><h2>HAVE  AN  IDEA?<br /><span>LET'S  BUILD  IT.</span></h2><p>Tell us what you're building, what you're trying to improve, or where you want to grow.</p><div className="contact-details"><a href="mailto:hello@rasatech.com">hello@rasatech.com <ArrowUpRight size={14} /></a><span>+91 XXXXX XXXXX</span><span>INDIA</span><span>WHATSAPP <ArrowUpRight size={14} /></span></div></div><div className="contact-form-wrap reveal">{submitted ? <div className="form-success"><div><Check /></div><h3>MESSAGE RECEIVED.</h3><p>We'll be in touch at the email you shared.</p><button onClick={() => setSubmitted(false)}>SEND ANOTHER <ArrowUpRight size={14} /></button></div> : <form onSubmit={handleSubmit}><div className="form-row"><label>NAME<input required name="name" placeholder="Your name" /></label><label>EMAIL<input required type="email" name="email" placeholder="you@company.com" /></label></div><div className="form-row"><label>PHONE<input name="phone" placeholder="+91 XXXXX XXXXX" /></label><label>COMPANY<input name="company" placeholder="Company name" /></label></div><label>SERVICE<div className="select-wrap"><select name="service" defaultValue=""><option value="" disabled>Select a service</option>{serviceOptions.map((option) => <option key={option}>{option}</option>)}</select><ChevronDown size={16} /></div></label><label>MESSAGE<textarea required name="message" placeholder="Tell us about your next move..." rows={4} /></label><Button type="submit">START A CONVERSATION <ArrowUpRight size={16} /></Button></form>}</div></div></section>
+        <section id="contact" className="contact-section page-section content-section"><div className="section-grid contact-grid"><div className="section-intro reveal"><SectionLabel number="06">CONTACT</SectionLabel><h2>HAVE  AN  IDEA?<br /><span>LET'S  BUILD  IT.</span></h2><p>Tell us what you're building, what you're trying to improve, or where you want to grow.</p><div className="contact-details"><a href="mailto:hello@rasatech.com">hello@rasatech.com <ArrowUpRight size={14} /></a><a href="tel:+918617201731">+91 86172 01731 <ArrowUpRight size={14} /></a><span>INDIA</span><a href="https://wa.me/918617201731" target="_blank" rel="noopener noreferrer">WHATSAPP <ArrowUpRight size={14} /></a></div></div><div className="contact-form-wrap reveal">{submitted ? <div className="form-success"><div><Check /></div><h3>MESSAGE RECEIVED.</h3><p>We'll be in touch at the email you shared.</p><button onClick={() => setSubmitted(false)}>SEND ANOTHER <ArrowUpRight size={14} /></button></div> : <form onSubmit={handleSubmit}><div className="form-row"><label>NAME<input required name="name" placeholder="Your name" /></label><label>EMAIL<input required type="email" name="email" placeholder="you@company.com" /></label></div><div className="form-row"><label>PHONE<input name="phone" placeholder="+91 XXXXX XXXXX" /></label><label>COMPANY<input name="company" placeholder="Company name" /></label></div><label>SERVICE<div className="select-wrap"><select name="service" defaultValue=""><option value="" disabled>Select a service</option>{serviceOptions.map((option) => <option key={option}>{option}</option>)}</select><ChevronDown size={16} /></div></label><label>MESSAGE<textarea required name="message" placeholder="Tell us about your next move..." rows={4} /></label><Button type="submit">START A CONVERSATION <ArrowUpRight size={16} /></Button></form>}</div></div></section>
 
         <section className="final-cta page-section"><SignalLine className="final-signal" /><div className="final-cta-inner reveal"><p className="eyebrow"><span className="eyebrow-pulse" />THE NEXT SYSTEM STARTS HERE</p><h2>READY  TO  BUILD<br /><span>WHAT'S  NEXT?</span></h2><p>Let's turn your next digital idea into something built to perform.</p><Button asChild><a href="#contact">START A CONVERSATION <ArrowUpRight size={17} /></a></Button></div></section>
       </main>
 
-      <footer className="site-footer"><div className="footer-top"><a className="brand-mark" href="#home"><img src={logoUrl} alt="RASA Tech" /></a><div className="footer-links">{[["Home", "home"], ["About", "about"], ["Services", "services"], ["Pricing", "pricing"], ["Contact", "contact"]].map(([label, id]) => <a key={id} href={`#${id}`}>{label}</a>)}</div><div className="footer-social"><a href="#contact">LINKEDIN <ArrowUpRight size={14} /></a><a href="#contact">INSTAGRAM <ArrowUpRight size={14} /></a><a href="#contact">WHATSAPP <ArrowUpRight size={14} /></a></div></div><div className="footer-bottom"><span>DIGITAL MARKETING <b>•</b> WEB DEVELOPMENT <b>•</b> TECHNOLOGY</span><span>© 2026 RASA TECH. ALL RIGHTS RESERVED.</span></div></footer>
+      <footer className="site-footer">
+          <div className="footer-top">
+            <div className="footer-brand-col">
+              <a className="brand-mark" href="#home">
+                <img src={logoUrl} alt="RASA Tech" />
+              </a>
+              <p className="footer-tagline">Grow Your Business</p>
+            </div>
+
+            <div className="footer-links">
+              {[
+                ["Home", "home"],
+                ["About", "about"],
+                ["Services", "services"],
+                ["Process", "process"],
+                ["Why Us", "why"],
+                ["Pricing", "pricing"],
+                ["Contact", "contact"],
+              ].map(([label, id]) => (
+                <a key={id} href={`#${id}`}>
+                  {label}
+                </a>
+              ))}
+            </div>
+
+            <div className="footer-social">
+              <a href="https://wa.me/918617201731" target="_blank" rel="noopener noreferrer">
+                WHATSAPP <ArrowUpRight size={14} />
+              </a>
+              <a href="#contact">
+                INSTAGRAM <ArrowUpRight size={14} />
+              </a>
+              <a href="#contact">
+                LINKEDIN <ArrowUpRight size={14} />
+              </a>
+            </div>
+          </div>
+
+          <div className="footer-bottom">
+            <span>DIGITAL MARKETING <b>•</b> WEB DEVELOPMENT <b>•</b> WHATSAPP AUTOMATION</span>
+            <span>© 2026 RASA TECH. ALL RIGHTS RESERVED.</span>
+          </div>
+        </footer>
     </div>
   );
 }

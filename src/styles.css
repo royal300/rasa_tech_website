@@ -1224,3 +1224,235 @@ a.text-link:hover svg,
     background-position: 0% 50%;
   }
 }
+
+
+/* ==========================================================================
+   PRICING, CONTACT & FOOTER REFINEMENTS
+   ========================================================================== */
+
+/* 1. Pricing Header Alignment */
+.pricing-header-centered {
+  margin-left: 0;
+  padding-left: 0;
+  margin-bottom: 2rem !important;
+}
+
+/* 2. White Toggle Background */
+.pricing-toggle-wrap {
+  display: inline-flex !important;
+  background: #ffffff !important;
+  border-radius: 40px !important;
+  padding: 5px !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  margin: 35px auto 45px auto !important;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4) !important;
+  position: relative;
+  z-index: 2;
+}
+
+.pricing-toggle-btn {
+  background: transparent !important;
+  color: #333333 !important;
+  font-weight: 700 !important;
+  padding: 10px 24px !important;
+  border-radius: 30px !important;
+  border: none !important;
+  font-size: 0.78rem !important;
+  letter-spacing: 0.08em !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer !important;
+}
+
+.pricing-toggle-btn.active {
+  background: #ff7a00 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 15px rgba(255, 122, 0, 0.4) !important;
+}
+
+.pricing-toggle-btn:hover:not(.active) {
+  color: #000000 !important;
+  background: rgba(0, 0, 0, 0.06) !important;
+}
+
+/* 3. Sleek & Compact Pricing Cards */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px !important;
+  margin-top: 30px !important;
+}
+
+.pricing-plan {
+  min-height: 390px !important;
+  padding: 24px 22px !important;
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  background: rgba(12, 12, 16, 0.85) !important;
+  border-radius: 12px !important;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease !important;
+}
+
+.pricing-plan:hover {
+  transform: translateY(-5px) !important;
+  border-color: rgba(255, 122, 0, 0.5) !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 122, 0, 0.15) !important;
+}
+
+.pricing-plan h3 {
+  margin: 16px 0 8px !important;
+  font-size: 1.35rem !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+.pricing-plan > p {
+  min-height: 38px !important;
+  margin: 0 !important;
+  color: #aaaaaa !important;
+  font-size: 0.82rem !important;
+  line-height: 1.5 !important;
+}
+
+.plan-price {
+  margin-top: 18px !important;
+  color: #ff7a00 !important;
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+}
+
+.plan-rule {
+  height: 1px;
+  margin: 18px 0 14px !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.pricing-plan ul {
+  margin-top: 10px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 8px !important;
+}
+
+.pricing-plan li {
+  color: #dddddd !important;
+  font-size: 0.82rem !important;
+  line-height: 1.5 !important;
+}
+
+/* 4. Need Custom Quote Button */
+.pricing-custom-quote-wrap {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.custom-quote-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 30px;
+  background: rgba(255, 122, 0, 0.1);
+  border: 1px solid rgba(255, 122, 0, 0.4);
+  color: #ff7a00;
+  border-radius: 30px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.custom-quote-btn:hover {
+  background: #ff7a00;
+  color: #000000;
+  box-shadow: 0 0 20px rgba(255, 122, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+/* 6. Footer Organization & Tagline */
+.site-footer {
+  padding: 60px max(6vw, 32px) 30px !important;
+  background: #000000 !important;
+  border-top: none !important;
+}
+
+.footer-top {
+  width: min(100%, var(--container));
+  display: grid;
+  grid-template-columns: 1.2fr 2fr 1fr;
+  align-items: start;
+  gap: 40px !important;
+  margin: 0 auto 50px !important;
+}
+
+.footer-brand-col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-tagline {
+  color: #ff7a00;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  margin: 6px 0 0 0;
+}
+
+.footer-links {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 16px 28px !important;
+  align-items: center;
+}
+
+.footer-links a {
+  color: #aaaaaa !important;
+  font-size: 0.8rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.08em !important;
+  text-decoration: none !important;
+  transition: color 0.25s ease !important;
+}
+
+.footer-links a:hover {
+  color: #ff7a00 !important;
+}
+
+.footer-social {
+  justify-self: end !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+
+.footer-social a {
+  color: #888888 !important;
+  font-size: 0.78rem !important;
+  letter-spacing: 0.12em !important;
+  text-decoration: none !important;
+  transition: color 0.25s ease !important;
+}
+
+.footer-social a:hover {
+  color: #ff7a00 !important;
+}
+
+.footer-bottom {
+  width: min(100%, var(--container));
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 20px !important;
+  margin: auto !important;
+  padding-top: 24px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #666666 !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.1em !important;
+}
+
+.footer-bottom b {
+  color: #ff7a00 !important;
+  padding: 0 6px !important;
+}
