@@ -107,7 +107,7 @@ function SystemNode({ label, position, icon: Icon }: { label: string; position: 
 function HeroSystem() {
   return (
     <div className="hero-system" aria-label="RASA Tech digital system visualization">
-      {/* Orbit 1 with revolving Google, WhatsApp & Instagram icons */}
+      {/* Orbit 1 with revolving Google, WhatsApp & Instagram1 icons + particle */}
       <div className="system-orbit system-orbit-one">
         <div className="revolving-icon icon-pos-top" title="Google">
           <div className="revolving-icon-inner">
@@ -121,7 +121,7 @@ function HeroSystem() {
         </div>
         <div className="revolving-icon icon-pos-right" title="Instagram">
           <div className="revolving-icon-inner">
-            <img src="/icons/instagram.avif" alt="Instagram" width="18" height="18" />
+            <img src="/icons/instagram1.webp" alt="Instagram" width="18" height="18" />
           </div>
         </div>
       </div>
@@ -146,11 +146,16 @@ function HeroSystem() {
       <div className="system-connector connector-four" />
       <div className="system-connector connector-five" />
 
+      {/* Glowing orange particles traveling between nodes */}
+      <div className="system-signal signal-one" />
+      <div className="system-signal signal-two" />
+      <div className="system-signal signal-three" />
+      <div className="system-signal signal-four" />
+
+      {/* System Core containing ONLY RASA TECH */}
       <div className="system-core">
-        <span className="core-kicker">SYSTEM / 001</span>
         <span className="core-name">RASA</span>
         <span className="core-name core-name-accent">TECH</span>
-        <span className="core-status"><span /> ONLINE / ACTIVE</span>
       </div>
 
       <SystemNode label="WEB DEVELOPMENT" position="node-web" icon={Globe2} />
