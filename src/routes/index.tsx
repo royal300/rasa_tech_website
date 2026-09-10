@@ -550,7 +550,7 @@ function Index() {
                 <div
                   className="why-laser-beam"
                   style={{
-                    transform: `translateY(${activeWhyIndex * 84}px)`,
+                    transform: `translateY(${activeWhyIndex * 64}px)`,
                   }}
                 />
                 {[
