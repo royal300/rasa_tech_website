@@ -72,9 +72,9 @@ const services: Service[] = [
   },
   {
     number: "06",
-    name: "WHATSAPP ANIMATION",
-    description: "Interactive WhatsApp-focused animated experiences that make business communication more engaging and memorable.",
-    capabilities: ["Animated Messages", "Interactive Flows", "Communication Visuals"],
+    name: "WHATSAPP AUTOMATION",
+    description: "Automated WhatsApp communication flows, lead capture, and instant business messaging systems that drive sales.",
+    capabilities: ["Automated Flow Setup", "Lead Generation", "Custom Business Messaging"],
     icon: MessageCircle,
     visual: "messages",
   },
@@ -101,6 +101,57 @@ function SystemNode({ label, position, icon: Icon }: { label: string; position: 
       <div className="system-node-dot"><Icon size={15} strokeWidth={1.5} /></div>
       <span>{label}</span>
     </div>
+  );
+}
+
+function TypewriterHeading() {
+  const line1 = "MARKETING  THAT";
+  const line2 = "MOVES  BUSINESS.";
+
+  const [text1, setText1] = useState("");
+  const [text2, setText2] = useState("");
+  const [isLine1Done, setIsLine1Done] = useState(false);
+
+  useEffect(() => {
+    let index1 = 0;
+    const timer1 = setInterval(() => {
+      if (index1 < line1.length) {
+        setText1(line1.substring(0, index1 + 1));
+        index1++;
+      } else {
+        clearInterval(timer1);
+        setIsLine1Done(true);
+      }
+    }, 60);
+
+    return () => clearInterval(timer1);
+  }, []);
+
+  useEffect(() => {
+    if (!isLine1Done) return;
+    let index2 = 0;
+    const timer2 = setInterval(() => {
+      if (index2 < line2.length) {
+        setText2(line2.substring(0, index2 + 1));
+        index2++;
+      } else {
+        clearInterval(timer2);
+      }
+    }, 60);
+
+    return () => clearInterval(timer2);
+  }, [isLine1Done]);
+
+  return (
+    <h1 className="typewriter-h1">
+      {text1}
+      {!isLine1Done && <span className="typewriter-cursor">|</span>}
+      <br />
+      <span>
+        {text2}
+        {isLine1Done && <span className="typewriter-cursor">|</span>}
+      </span>
+    </h1>
   );
 }
 
@@ -170,30 +221,62 @@ function HeroSystem({ mouse = { x: 0, y: 0 } }: { mouse?: { x: number; y: number
       <SystemNode label="SEO & GMB" position="node-seo" icon={Search} />
       <SystemNode label="SERVER HOSTING" position="node-server" icon={Server} />
       <SystemNode label="APP DEVELOPMENT" position="node-app" icon={Smartphone} />
-      <SystemNode label="WHATSAPP ANIMATION" position="node-whatsapp" icon={MessageCircle} />
+      <SystemNode label="WHATSAPP AUTOMATION" position="node-whatsapp" icon={MessageCircle} />
     </div>
   );
 }
 
 function AboutSystem() {
   return (
-    <div className="about-system" aria-label="RASA Tech approach from idea to growth">
-      <div className="about-grid-lines" />
-      <div className="about-track"><span /></div>
-      {[
-        ["IDEA", "01"],
-        ["DESIGN", "02"],
-        ["TECHNOLOGY", "03"],
-        ["MARKETING", "04"],
-        ["GROWTH", "05"],
-      ].map(([label, number]) => (
-        <div className="about-stage reveal stagger-item" key={label}>
-          <span className="about-stage-number">{number}</span>
-          <span className="about-stage-dot" />
-          <strong>{label}</strong>
+    <div className="about-laptop-container" aria-label="RASA Tech Growth Analytics Dashboard">
+      <div className="laptop-screen-frame">
+        <div className="laptop-camera-dot" />
+        <div className="laptop-display">
+          <div className="dashboard-header">
+            <div className="dashboard-title">
+              <span className="live-dot" /> RASA TECH / GROWTH ANALYTICS
+            </div>
+            <div className="dashboard-badge">+148.5% GROWTH</div>
+          </div>
+
+          <div className="dashboard-grid">
+            <div className="dash-card">
+              <small>MONTHLY VISITS</small>
+              <strong>128.4K</strong>
+              <span className="dash-trend">+34%</span>
+            </div>
+            <div className="dash-card">
+              <small>CONVERSIONS</small>
+              <strong>14,820</strong>
+              <span className="dash-trend">+52%</span>
+            </div>
+          </div>
+
+          <div className="dashboard-chart-area">
+            <div className="chart-label">PERFORMANCE ACCELERATION</div>
+            <div className="chart-bars">
+              <div className="bar bar-1" style={{ height: "35%" }} />
+              <div className="bar bar-2" style={{ height: "55%" }} />
+              <div className="bar bar-3" style={{ height: "45%" }} />
+              <div className="bar bar-4" style={{ height: "75%" }} />
+              <div className="bar bar-5" style={{ height: "90%" }} />
+              <div className="bar bar-6" style={{ height: "100%" }} />
+            </div>
+            <svg className="chart-growth-line" viewBox="0 0 300 80" preserveAspectRatio="none">
+              <path
+                d="M 10,65 Q 60,50 110,40 T 210,20 T 290,8"
+                fill="none"
+                stroke="#ff7a00"
+                strokeWidth="3"
+                className="path-growth-animated"
+              />
+            </svg>
+          </div>
         </div>
-      ))}
-      <div className="about-microcopy"><span>BUILD</span><span>LAUNCH</span><span>OPTIMIZE</span><span>GROW</span></div>
+      </div>
+      <div className="laptop-keyboard-base">
+        <div className="laptop-notch" />
+      </div>
     </div>
   );
 }
@@ -394,7 +477,7 @@ function Index() {
       <main>
         <section id="home" className="hero-section page-section" onMouseMove={handleHeroMouseMove} onMouseLeave={handleHeroMouseLeave}>
           <div className="hero-grid" />
-          <div className="hero-copy reveal"><p className="eyebrow"><span className="eyebrow-pulse" />RASA TECH <span>/</span> DIGITAL SYSTEMS</p><h1>MARKETING  THAT<br /><span>MOVES  BUSINESS.</span></h1><p className="hero-description">RASA Tech builds websites, digital experiences, marketing systems and technology that help ambitious businesses grow.</p><div className="hero-actions"><Button asChild><a href="#contact">START A PROJECT <ArrowUpRight size={17} /></a></Button><a className="outline-action" href="#services">EXPLORE SERVICES <ArrowDown size={16} /></a></div></div>
+          <div className="hero-copy reveal"><p className="eyebrow"><span className="eyebrow-pulse" />RASA TECH <span>/</span> DIGITAL SYSTEMS</p><TypewriterHeading /><p className="hero-description">RASA Tech builds websites, digital experiences, marketing systems and technology that help ambitious businesses grow.</p><div className="hero-actions"><Button asChild><a href="#contact">START A PROJECT <ArrowUpRight size={17} /></a></Button><a className="outline-action" href="#services">EXPLORE SERVICES <ArrowDown size={16} /></a></div></div>
           <div className="hero-visual reveal"><HeroSystem mouse={heroMouse} /></div>
           <div className="hero-scroll-line" aria-hidden="true" />
         </section>
@@ -415,41 +498,44 @@ function Index() {
             </div>
           </div>
 
-          <div className="process-svg-container reveal">
-            <svg className="process-svg-line" viewBox="0 0 1000 4" preserveAspectRatio="none">
-              <line x1="0" y1="2" x2="1000" y2="2" stroke="rgba(255,255,255,0.12)" strokeWidth="3" />
-              <line
-                x1="0"
-                y1="2"
-                x2="1000"
-                y2="2"
-                stroke="#ff7a00"
-                strokeWidth="3"
-                strokeDasharray="1000"
-                strokeDashoffset={1000 - processProgress * 1000}
-                style={{ transition: "stroke-dashoffset 0.1s linear" }}
-              />
-            </svg>
-          </div>
+          <div className="process-track-wrapper">
+            <div className="process-svg-line-container">
+              <svg className="process-svg-element" viewBox="0 0 100 2" preserveAspectRatio="none">
+                <line x1="0" y1="1" x2="100" y2="1" stroke="rgba(255,255,255,0.15)" strokeWidth="2" />
+                <line
+                  x1="0"
+                  y1="1"
+                  x2="100"
+                  y2="1"
+                  stroke="#ff7a00"
+                  strokeWidth="2"
+                  pathLength="1"
+                  strokeDasharray="1"
+                  strokeDashoffset={1 - processProgress}
+                  style={{ transition: "stroke-dashoffset 0.08s linear" }}
+                />
+              </svg>
+            </div>
 
-          <div className="process-track">
-            {[
-              ["01", "DISCOVER", "Understand the business, audience and objective.", 0.25],
-              ["02", "STRATEGIZE", "Define the digital direction and growth system.", 0.50],
-              ["03", "BUILD", "Design and develop the required digital experience.", 0.75],
-              ["04", "GROW", "Launch, optimize and continuously improve.", 0.95],
-            ].map(([number, title, copy, threshold]) => {
-              const isActive = processProgress >= (threshold as number);
-              return (
-                <div className={`process-stage reveal stagger-item ${isActive ? "stage-active" : ""}`} key={number as string}>
-                  <div className="process-node">
-                    <span>{number as string}</span>
+            <div className="process-track">
+              {[
+                ["01", "DISCOVER", "Understand the business, audience and objective.", 0.20],
+                ["02", "STRATEGIZE", "Define the digital direction and growth system.", 0.45],
+                ["03", "BUILD", "Design and develop the required digital experience.", 0.70],
+                ["04", "GROW", "Launch, optimize and continuously improve.", 0.88],
+              ].map(([number, title, copy, threshold]) => {
+                const isActive = processProgress >= (threshold as number);
+                return (
+                  <div className={`process-stage reveal stagger-item ${isActive ? "stage-active" : ""}`} key={number as string}>
+                    <div className="process-node">
+                      <span>{number as string}</span>
+                    </div>
+                    <h3>{title as string}</h3>
+                    <p>{copy as string}</p>
                   </div>
-                  <h3>{title as string}</h3>
-                  <p>{copy as string}</p>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </section>
 
