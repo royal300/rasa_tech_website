@@ -362,6 +362,7 @@ function Index() {
   const [scrolled, setScrolled] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [pricingCategory, setPricingCategory] = useState<"web" | "social">("web");
+  const [activeWhyIndex, setActiveWhyIndex] = useState<number>(0);
   const [heroMouse, setHeroMouse] = useState({ x: 0, y: 0 });
   const [processProgress, setProcessProgress] = useState(0);
   const [scrollSpeed, setScrollSpeed] = useState(1);
@@ -537,7 +538,42 @@ function Index() {
           </div>
         </section>
 
-        <section id="why" className="why-section page-section content-section"><div className="section-grid why-grid"><div className="section-intro reveal"><SectionLabel number="04">WHY RASA TECH</SectionLabel><h2>NOT  JUST  ANOTHER<br /><span>DIGITAL  AGENCY.</span></h2><p className="why-lead">We connect the thinking, making and momentum it takes to turn digital into an advantage.</p></div><div className="statement-list">{["STRATEGY BEFORE EXECUTION.", "DESIGN THAT COMMUNICATES.", "DEVELOPMENT THAT PERFORMS.", "MARKETING BUILT AROUND GROWTH.", "TECHNOLOGY THAT SCALES."].map((statement, index) => <div className="statement reveal stagger-item" key={statement}><span>0{index + 1}</span><strong>{statement}</strong><ArrowUpRight size={17} /></div>)}</div></div></section>
+        <section id="why" className="why-section page-section content-section">
+          <div className="section-grid why-grid">
+            <div className="section-intro reveal">
+              <SectionLabel number="04">WHY RASA TECH</SectionLabel>
+              <h2>NOT  JUST  ANOTHER<br /><span>DIGITAL  AGENCY.</span></h2>
+              <p className="why-lead">We connect the thinking, making and momentum it takes to turn digital into an advantage.</p>
+            </div>
+            <div className="statement-list-wrapper reveal">
+              <div className="statement-list">
+                <div
+                  className="why-laser-beam"
+                  style={{
+                    transform: `translateY(${activeWhyIndex * 84}px)`,
+                  }}
+                />
+                {[
+                  "STRATEGY BEFORE EXECUTION.",
+                  "DESIGN THAT COMMUNICATES.",
+                  "DEVELOPMENT THAT PERFORMS.",
+                  "MARKETING BUILT AROUND GROWTH.",
+                  "TECHNOLOGY THAT SCALES.",
+                ].map((statement, index) => (
+                  <div
+                    className={`statement stagger-item ${activeWhyIndex === index ? "statement-active" : ""}`}
+                    key={statement}
+                    onMouseEnter={() => setActiveWhyIndex(index)}
+                  >
+                    <span className="statement-num">0{index + 1}</span>
+                    <strong className="statement-text">{statement}</strong>
+                    <ArrowUpRight className="statement-arrow" size={19} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
 
         <section id="pricing" className="pricing-section page-section content-section">
           <div className="section-heading reveal">

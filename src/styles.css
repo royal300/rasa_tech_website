@@ -1001,3 +1001,128 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     display: none;
   }
 }
+
+
+/* Why Rasa Tech Section Animations (Laser Beam, Hover Gradient Slide, Shimmer Text) */
+.statement-list-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.statement-list {
+  position: relative;
+  border-top: none !important;
+  border-bottom: none !important;
+}
+
+.why-laser-beam {
+  position: absolute;
+  top: 0;
+  left: -2px;
+  width: 4px;
+  height: 84px;
+  background: linear-gradient(180deg, #ff7a00 0%, #ffae00 100%);
+  border-radius: 4px;
+  box-shadow: 0 0 14px #ff7a00, 0 0 25px rgba(255, 122, 0, 0.8);
+  z-index: 5;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.statement {
+  position: relative;
+  display: grid;
+  grid-template-columns: 48px 1fr 30px;
+  align-items: center;
+  gap: 15px;
+  min-height: 84px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 0 16px;
+  color: #888888;
+  overflow: hidden;
+  cursor: pointer;
+  background: transparent;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+/* 2. Hover Gradient Slide Effect */
+.statement::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255, 122, 0, 0.12) 0%, rgba(255, 122, 0, 0.02) 60%, transparent 100%);
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.statement:hover::before,
+.statement.statement-active::before {
+  opacity: 1;
+  transform: translateX(0%);
+}
+
+.statement-num {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #666666;
+  position: relative;
+  z-index: 2;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.statement:hover .statement-num,
+.statement.statement-active .statement-num {
+  color: #ff7a00;
+  transform: scale(1.15);
+}
+
+/* 4. Orange-to-White Text Shimmer Effect */
+.statement-text {
+  font-size: clamp(14px, 1.35vw, 18px);
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  color: #bbbbbb;
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.statement:hover .statement-text,
+.statement.statement-active .statement-text {
+  background: linear-gradient(135deg, #FF7A00 0%, #FFFFFF 50%, #FF7A00 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: why-text-shimmer 2.5s linear infinite;
+}
+
+@keyframes why-text-shimmer {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* 2. Rotating Glowing Arrow Motion */
+.statement-arrow {
+  justify-self: end;
+  color: #555555;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease, filter 0.3s ease;
+}
+
+.statement:hover .statement-arrow,
+.statement.statement-active .statement-arrow {
+  color: #ff7a00;
+  transform: rotate(45deg) translate(3px, -3px);
+  filter: drop-shadow(0 0 8px #ff7a00);
+}
