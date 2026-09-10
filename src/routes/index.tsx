@@ -104,9 +104,16 @@ function SystemNode({ label, position, icon: Icon }: { label: string; position: 
   );
 }
 
-function HeroSystem() {
+function HeroSystem({ mouse = { x: 0, y: 0 } }: { mouse?: { x: number; y: number } }) {
   return (
-    <div className="hero-system" aria-label="RASA Tech digital system visualization">
+    <div
+      className="hero-system"
+      aria-label="RASA Tech digital system visualization"
+      style={{
+        transform: `perspective(1000px) rotateY(${mouse.x * 12}deg) rotateX(${-mouse.y * 12}deg) translate3d(${mouse.x * 15}px, ${mouse.y * 15}px, 0)`,
+        transition: mouse.x === 0 ? "transform 0.6s ease" : "transform 0.1s cubic-bezier(0.1, 1, 0.1, 1)",
+      }}
+    >
       {/* Orbit 1 with revolving Google, WhatsApp & Instagram1 icons + particle */}
       <div className="system-orbit system-orbit-one">
         <div className="revolving-icon icon-pos-top" title="Google">
@@ -203,8 +210,42 @@ function ServiceVisual({ type }: { type: Service["visual"] }) {
 function ServiceModule({ service }: { service: Service }) {
   const Icon = service.icon;
   const isHighlighted = service.name === "SEO & GMB";
+  const [cardMouse, setCardMouse] = useState({ x: 50, y: 50, rotateX: 0, rotateY: 0, isHovered: false });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const px = e.clientX - rect.left;
+    const py = e.clientY - rect.top;
+    const xPct = (px / rect.width) * 100;
+    const yPct = (py / rect.height) * 100;
+    const rotateX = -((py - rect.height / 2) / (rect.height / 2)) * 8;
+    const rotateY = ((px - rect.width / 2) / (rect.width / 2)) * 8;
+    setCardMouse({ x: xPct, y: yPct, rotateX, rotateY, isHovered: true });
+  };
+
+  const handleMouseLeave = () => {
+    setCardMouse({ x: 50, y: 50, rotateX: 0, rotateY: 0, isHovered: false });
+  };
+
   return (
-    <article className={`service-module service-${service.number} reveal stagger-item ${isHighlighted ? "service-highlighted" : ""}`}>
+    <article
+      className={`service-module service-${service.number} reveal stagger-item ${isHighlighted ? "service-highlighted" : ""}`}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        transform: cardMouse.isHovered
+          ? `perspective(1000px) rotateX(${cardMouse.rotateX}deg) rotateY(${cardMouse.rotateY}deg) translateY(-6px)`
+          : "perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)",
+        transition: cardMouse.isHovered ? "transform 0.1s cubic-bezier(0.1, 1, 0.1, 1)" : "transform 0.5s ease",
+      }}
+    >
+      <div
+        className="service-spotlight"
+        style={{
+          opacity: cardMouse.isHovered ? 1 : 0,
+          background: `radial-gradient(circle at ${cardMouse.x}% ${cardMouse.y}%, rgba(255, 122, 0, 0.22), transparent 70%)`,
+        }}
+      />
       <div className="service-head"><span className="service-number">{service.number}</span><Icon size={18} strokeWidth={1.5} /><span className="service-arrow"><ArrowUpRight size={18} /></span></div>
       <div className="service-copy"><h3>{service.name}</h3><p>{service.description}</p><ul>{service.capabilities.map((capability) => <li key={capability}><Check size={13} />{capability}</li>)}</ul></div>
       <ServiceVisual type={service.visual} />
@@ -238,6 +279,20 @@ function Index() {
   const [scrolled, setScrolled] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [pricingCategory, setPricingCategory] = useState<"web" | "social">("web");
+  const [heroMouse, setHeroMouse] = useState({ x: 0, y: 0 });
+  const [processProgress, setProcessProgress] = useState(0);
+  const [scrollSpeed, setScrollSpeed] = useState(1);
+
+  const handleHeroMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2);
+    const y = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2);
+    setHeroMouse({ x, y });
+  };
+
+  const handleHeroMouseLeave = () => {
+    setHeroMouse({ x: 0, y: 0 });
+  };
 
   useEffect(() => {
     if (menuOpen) {
@@ -337,14 +392,14 @@ function Index() {
       </header>
 
       <main>
-        <section id="home" className="hero-section page-section">
+        <section id="home" className="hero-section page-section" onMouseMove={handleHeroMouseMove} onMouseLeave={handleHeroMouseLeave}>
           <div className="hero-grid" />
           <div className="hero-copy reveal"><p className="eyebrow"><span className="eyebrow-pulse" />RASA TECH <span>/</span> DIGITAL SYSTEMS</p><h1>MARKETING  THAT<br /><span>MOVES  BUSINESS.</span></h1><p className="hero-description">RASA Tech builds websites, digital experiences, marketing systems and technology that help ambitious businesses grow.</p><div className="hero-actions"><Button asChild><a href="#contact">START A PROJECT <ArrowUpRight size={17} /></a></Button><a className="outline-action" href="#services">EXPLORE SERVICES <ArrowDown size={16} /></a></div></div>
-          <div className="hero-visual reveal"><HeroSystem /></div>
+          <div className="hero-visual reveal"><HeroSystem mouse={heroMouse} /></div>
           <div className="hero-scroll-line" aria-hidden="true" />
         </section>
 
-        <div className="capability-strip"><div className="marquee-track">{[...Array(2)].flatMap((_, group) => services.map((service) => <span key={`${group}-${service.name}`}>{service.name} <b>•</b></span>))}</div></div>
+        <div className="capability-strip"><div className="marquee-track" style={{ animationDuration: `${Math.max(8, 32 / scrollSpeed)}s` }}>{[...Array(2)].flatMap((_, group) => services.map((service) => <span key={`${group}-${service.name}`}>{service.name} <b>•</b></span>))}</div></div>
 
         <section id="about" className="about-section page-section content-section">
           <div className="section-grid"><div className="section-intro reveal"><SectionLabel number="01">ABOUT RASA TECH</SectionLabel><h2>WE  TURN  DIGITAL  PRESENCE<br /><span>INTO  DIGITAL  ADVANTAGE.</span></h2><p>RASA Tech combines technology, design and digital marketing to create digital systems that are built to perform — not simply look good.</p><a className="text-link" href="#contact">BUILD WITH US <ArrowUpRight size={15} /></a></div><div className="about-visual reveal"><AboutSystem /></div></div>
@@ -352,7 +407,51 @@ function Index() {
 
         <section id="services" className="services-section page-section content-section"><div className="section-heading reveal"><SectionLabel number="02">SERVICES</SectionLabel><div><h2 className="single-line-heading">SERVICES  WE  PROVIDE</h2><p>Six focused capabilities. One connected system designed around where you want to go next.</p></div></div><div className="services-grid">{services.map((service) => <ServiceModule service={service} key={service.number} />)}</div></section>
 
-        <section id="process" className="process-section page-section content-section"><div className="section-heading reveal"><SectionLabel number="03">PROCESS</SectionLabel><div><h2 className="single-line-heading">FROM  IDEA  <span>TO  IMPACT.</span></h2></div></div><div className="process-track">{[["01", "DISCOVER", "Understand the business, audience and objective."], ["02", "STRATEGIZE", "Define the digital direction and growth system."], ["03", "BUILD", "Design and develop the required digital experience."], ["04", "GROW", "Launch, optimize and continuously improve."]].map(([number, title, copy]) => <div className="process-stage reveal stagger-item" key={number}><div className="process-node"><span>{number}</span></div><h3>{title}</h3><p>{copy}</p></div>)}</div></section>
+        <section id="process" className="process-section page-section content-section">
+          <div className="section-heading reveal">
+            <SectionLabel number="03">PROCESS</SectionLabel>
+            <div>
+              <h2 className="single-line-heading">FROM  IDEA  <span>TO  IMPACT.</span></h2>
+            </div>
+          </div>
+
+          <div className="process-svg-container reveal">
+            <svg className="process-svg-line" viewBox="0 0 1000 4" preserveAspectRatio="none">
+              <line x1="0" y1="2" x2="1000" y2="2" stroke="rgba(255,255,255,0.12)" strokeWidth="3" />
+              <line
+                x1="0"
+                y1="2"
+                x2="1000"
+                y2="2"
+                stroke="#ff7a00"
+                strokeWidth="3"
+                strokeDasharray="1000"
+                strokeDashoffset={1000 - processProgress * 1000}
+                style={{ transition: "stroke-dashoffset 0.1s linear" }}
+              />
+            </svg>
+          </div>
+
+          <div className="process-track">
+            {[
+              ["01", "DISCOVER", "Understand the business, audience and objective.", 0.25],
+              ["02", "STRATEGIZE", "Define the digital direction and growth system.", 0.50],
+              ["03", "BUILD", "Design and develop the required digital experience.", 0.75],
+              ["04", "GROW", "Launch, optimize and continuously improve.", 0.95],
+            ].map(([number, title, copy, threshold]) => {
+              const isActive = processProgress >= (threshold as number);
+              return (
+                <div className={`process-stage reveal stagger-item ${isActive ? "stage-active" : ""}`} key={number as string}>
+                  <div className="process-node">
+                    <span>{number as string}</span>
+                  </div>
+                  <h3>{title as string}</h3>
+                  <p>{copy as string}</p>
+                </div>
+              );
+            })}
+          </div>
+        </section>
 
         <section id="why" className="why-section page-section content-section"><div className="section-grid why-grid"><div className="section-intro reveal"><SectionLabel number="04">WHY RASA TECH</SectionLabel><h2>NOT  JUST  ANOTHER<br /><span>DIGITAL  AGENCY.</span></h2><p className="why-lead">We connect the thinking, making and momentum it takes to turn digital into an advantage.</p></div><div className="statement-list">{["STRATEGY BEFORE EXECUTION.", "DESIGN THAT COMMUNICATES.", "DEVELOPMENT THAT PERFORMS.", "MARKETING BUILT AROUND GROWTH.", "TECHNOLOGY THAT SCALES."].map((statement, index) => <div className="statement reveal stagger-item" key={statement}><span>0{index + 1}</span><strong>{statement}</strong><ArrowUpRight size={17} /></div>)}</div></div></section>
 

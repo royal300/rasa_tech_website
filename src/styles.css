@@ -514,3 +514,78 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     margin-top: auto !important;
   }
 }
+
+
+/* Advanced Animations & Parallax Effects */
+
+/* Service Card 3D Tilt & Glow Spotlight */
+.service-module {
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.service-spotlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.35s ease;
+  border-radius: inherit;
+}
+
+/* Process Section Draw-on-Scroll SVG Line */
+.process-svg-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 40px auto 10px;
+  position: relative;
+}
+
+.process-svg-line {
+  width: 100%;
+  height: 4px;
+  display: block;
+}
+
+.process-stage.stage-active .process-node {
+  border-color: var(--orange) !important;
+  color: #000000 !important;
+  background: var(--orange) !important;
+  box-shadow: 0 0 25px rgba(255, 122, 0, 0.7), 0 0 0 6px rgba(255, 122, 0, 0.2) !important;
+  transform: scale(1.1);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Featured Pricing Plan Floating Idle Pulse */
+.pricing-plan-featured {
+  animation: card-float-pulse 4s ease-in-out infinite !important;
+}
+
+@keyframes card-float-pulse {
+  0%, 100% {
+    transform: translateY(0px);
+    box-shadow: 0 10px 30px -10px rgba(255, 122, 0, 0.2), 0 0 15px rgba(255, 122, 0, 0.1);
+  }
+  50% {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px -12px rgba(255, 122, 0, 0.35), 0 0 25px rgba(255, 122, 0, 0.2);
+  }
+}
+
+/* Smooth Tab Fade for Pricing Grid */
+.pricing-grid {
+  animation: tab-fade-in 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes tab-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
