@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
   ArrowDown,
+  ArrowUp,
   ArrowUpRight,
   Check,
   ChevronDown,
@@ -15,7 +16,7 @@ import {
   X,
 } from "lucide-react";
 import Lenis from "lenis";
-import { useEffect, useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useState, useRef, type FormEvent, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 
 const logoUrl = "/logo.png";
@@ -378,28 +379,49 @@ function Index() {
     setHeroMouse({ x: 0, y: 0 });
   };
 
+  const lenisRef = useRef<Lenis | null>(null);
+
   useEffect(() => {
     if (menuOpen) {
       document.body.style.overflow = "hidden";
+      lenisRef.current?.stop();
     } else {
       document.body.style.overflow = "";
+      lenisRef.current?.start();
     }
     return () => {
       document.body.style.overflow = "";
+      lenisRef.current?.start();
     };
   }, [menuOpen]);
 
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    // Ultra-smooth Lenis configuration for both Desktop (computer) and Mobile (touch)
     const lenis = new Lenis({
-      duration: 1.5,
+      duration: 1.25,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      wheelMultiplier: 0.9,
+      smoothWheel: true,
+      wheelMultiplier: 1.05,
+      syncTouch: true,
+      syncTouchLerp: 0.08,
       touchMultiplier: 1.5,
+      touchInertiaExponent: 1.75,
+      autoRaf: true,
+      anchors: true,
     });
-    let lenisRaf = 0;
-    const lenisLoop = (time: number) => { lenis.raf(time); lenisRaf = requestAnimationFrame(lenisLoop); };
-    lenisRaf = requestAnimationFrame(lenisLoop);
+    lenisRef.current = lenis;
+
+    const progressBar = document.getElementById("scroll-progress");
+
+    lenis.on("scroll", ({ scroll, progress }: { scroll: number; progress: number }) => {
+      if (progressBar) {
+        progressBar.style.width = `${Math.min(100, Math.max(0, progress * 100))}%`;
+      }
+      setScrolled(scroll > 24);
+    });
+
     const handleAnchorClick = (event: MouseEvent) => {
       const link = (event.target as HTMLElement).closest<HTMLAnchorElement>('a[href^="#"]');
       const id = link?.getAttribute("href");
@@ -407,10 +429,16 @@ function Index() {
       const section = document.querySelector<HTMLElement>(id);
       if (!section) return;
       event.preventDefault();
-      lenis.scrollTo(section, { offset: -70, duration: 1.2 });
+      setMenuOpen(false);
+      lenis.scrollTo(section, { offset: -70, duration: 1.3, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
     };
     document.addEventListener("click", handleAnchorClick);
-    return () => { document.removeEventListener("click", handleAnchorClick); cancelAnimationFrame(lenisRaf); lenis.destroy(); };
+
+    return () => {
+      document.removeEventListener("click", handleAnchorClick);
+      lenis.destroy();
+      lenisRef.current = null;
+    };
   }, []);
 
   useEffect(() => {
@@ -453,10 +481,31 @@ function Index() {
   }, []);
 
   const closeMenu = () => setMenuOpen(false);
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => { event.preventDefault(); setSubmitted(true); };
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const name = formData.get("name") || "";
+    const email = formData.get("email") || "";
+    const phone = formData.get("phone") || "";
+    const company = formData.get("company") || "";
+    const service = formData.get("service") || "";
+    const message = formData.get("message") || "";
+
+    const text = `*New Inquiry from RASA Tech Website*%0A%0A` +
+      `*Name:* ${encodeURIComponent(name.toString())}%0A` +
+      `*Email:* ${encodeURIComponent(email.toString())}%0A` +
+      `*Phone:* ${encodeURIComponent(phone.toString())}%0A` +
+      `*Company:* ${encodeURIComponent(company.toString())}%0A` +
+      `*Service Required:* ${encodeURIComponent(service.toString())}%0A` +
+      `*Message:* ${encodeURIComponent(message.toString())}`;
+
+    window.open(`https://wa.me/918617201731?text=${text}`, "_blank");
+    setSubmitted(true);
+  };
 
   return (
     <div className="rasa-site">
+      <div id="scroll-progress" className="scroll-progress-bar" aria-hidden="true" />
       <div className="custom-cursor" aria-hidden="true"><span /></div>
       <div className="site-network" aria-hidden="true"><span /><span /><span /><span /><span /></div>
       <header className={`site-header ${scrolled ? "header-scrolled" : ""}`}>
@@ -741,6 +790,14 @@ function Index() {
             <span>© 2026 RASA TECH. ALL RIGHTS RESERVED.</span>
           </div>
         </footer>
+      <button
+        type="button"
+        className={`back-to-top-btn ${scrolled ? "visible" : ""}`}
+        aria-label="Scroll to top"
+        onClick={() => lenisRef.current?.scrollTo(0, { duration: 1.4, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) })}
+      >
+        <ArrowUp size={18} />
+      </button>
     </div>
   );
 }

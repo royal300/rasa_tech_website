@@ -1600,3 +1600,112 @@ a.text-link:hover svg,
   font-size: 0.72rem !important;
   letter-spacing: 0.1em !important;
 }
+
+
+/* ==========================================================================
+   ULTRA-SMOOTH SCROLLING (LENIS) FOR COMPUTER & MOBILE + SCROLL EFFECTS
+   ========================================================================== */
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip !important;
+}
+
+.lenis [data-lenis-prevent],
+.lenis [data-lenis-prevent-wheel],
+.lenis [data-lenis-prevent-touch],
+.lenis [data-lenis-prevent-vertical],
+.lenis [data-lenis-prevent-horizontal] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Scroll Progress Bar at top of viewport */
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ff7a00, #ffaa33, #ff5500);
+  box-shadow: 0 0 12px rgba(255, 122, 0, 0.8), 0 0 24px rgba(255, 122, 0, 0.4);
+  z-index: 10000;
+  width: 0%;
+  pointer-events: none;
+  transition: width 0.08s ease-out;
+}
+
+/* Floating Smooth Back-To-Top Button */
+.back-to-top-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(16, 16, 20, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 122, 0, 0.4);
+  color: #ff7a00;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px) scale(0.9);
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s ease, background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+}
+
+.back-to-top-btn.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.back-to-top-btn:hover {
+  background: #ff7a00;
+  color: #000000;
+  border-color: #ff7a00;
+  box-shadow: 0 0 22px rgba(255, 122, 0, 0.7);
+  transform: translateY(-3px) scale(1.08);
+}
+
+.back-to-top-btn:active {
+  transform: translateY(0) scale(0.96);
+}
+
+@media (max-width: 768px) {
+  .back-to-top-btn {
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Enhanced Smooth Viewport Reveals */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
