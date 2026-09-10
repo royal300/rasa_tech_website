@@ -506,25 +506,15 @@ function Index() {
             </div>
           </div>
 
-          <div className="process-track-wrapper">
-            <div className="process-svg-line-container">
-              <svg className="process-svg-element" viewBox="0 0 1000 4" preserveAspectRatio="none">
-                <line x1="0" y1="2" x2="1000" y2="2" stroke="rgba(255,255,255,0.15)" strokeWidth="4" />
-                <line
-                  x1="0"
-                  y1="2"
-                  x2="1000"
-                  y2="2"
-                  stroke="#ff7a00"
-                  strokeWidth="4"
-                  strokeDasharray="1000"
-                  strokeDashoffset={1000 * (1 - processProgress)}
-                  style={{
-                    transition: "stroke-dashoffset 0.05s linear",
-                    filter: "drop-shadow(0 0 8px #ff7a00)",
-                  }}
-                />
-              </svg>
+          <div className="process-track-wrapper reveal">
+            <div className="process-track-line-wrapper">
+              <div
+                className="process-line-progress"
+                style={{
+                  width: `${Math.min(100, Math.max(0, processProgress * 100))}%`,
+                }}
+              />
+              <div className="process-running-orange-visual" />
             </div>
 
             <div className="process-track">
@@ -536,12 +526,10 @@ function Index() {
               ].map(([number, title, copy, threshold]) => {
                 const isActive = processProgress >= (threshold as number);
                 return (
-                  <div className={`process-stage reveal stagger-item ${isActive ? "stage-active" : ""}`} key={number as string}>
-                    <div className="process-node">
-                      <span>{number as string}</span>
-                    </div>
-                    <h3>{title as string}</h3>
-                    <p>{copy as string}</p>
+                  <div className={`process-stage ${isActive ? "stage-active" : ""}`} key={number as string}>
+                    <div className="process-node">{number}</div>
+                    <h3>{title}</h3>
+                    <p>{copy}</p>
                   </div>
                 );
               })}

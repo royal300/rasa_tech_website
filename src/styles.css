@@ -880,3 +880,124 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   border-top: none !important;
   border-bottom: none !important;
 }
+
+
+/* Process Section Refinements */
+.process-track-wrapper {
+  position: relative;
+  width: min(100%, var(--container));
+  margin: 60px auto 0 auto;
+}
+
+.process-track-line-wrapper {
+  position: absolute;
+  top: 19px;
+  left: 4%;
+  right: 4%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.12);
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 2px;
+  overflow: visible;
+}
+
+.process-line-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: #ff7a00;
+  box-shadow: 0 0 12px #ff7a00;
+  border-radius: 2px;
+  transition: width 0.1s linear;
+}
+
+.process-running-orange-visual {
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  background: #ff7a00;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #ff7a00, 0 0 20px #ff7a00, 0 0 30px #ff7a00;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  animation: orange-runner-pingpong 3.5s ease-in-out infinite alternate;
+}
+
+@keyframes orange-runner-pingpong {
+  0% {
+    left: 0%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.process-track {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  position: relative;
+  z-index: 1;
+}
+
+.process-stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-right: 20px;
+}
+
+.process-node {
+  width: 39px;
+  height: 39px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 24px;
+  border: 1px solid var(--orange);
+  border-radius: 50%;
+  background: #000000;
+  color: var(--orange);
+  font-size: 11px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.process-stage.stage-active .process-node {
+  border-color: #ff7a00 !important;
+  color: #000000 !important;
+  background: #ff7a00 !important;
+  box-shadow: 0 0 25px rgba(255, 122, 0, 0.8), 0 0 0 6px rgba(255, 122, 0, 0.25) !important;
+  transform: scale(1.15);
+}
+
+.process-stage h3 {
+  margin: 0 0 10px;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.process-stage p {
+  max-width: 220px;
+  color: #999999;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .process-track {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px 20px;
+  }
+  .process-track-line-wrapper {
+    display: none;
+  }
+}
