@@ -500,29 +500,31 @@ function Index() {
 
           <div className="process-track-wrapper">
             <div className="process-svg-line-container">
-              <svg className="process-svg-element" viewBox="0 0 100 2" preserveAspectRatio="none">
-                <line x1="0" y1="1" x2="100" y2="1" stroke="rgba(255,255,255,0.15)" strokeWidth="2" />
+              <svg className="process-svg-element" viewBox="0 0 1000 4" preserveAspectRatio="none">
+                <line x1="0" y1="2" x2="1000" y2="2" stroke="rgba(255,255,255,0.15)" strokeWidth="4" />
                 <line
                   x1="0"
-                  y1="1"
-                  x2="100"
-                  y2="1"
+                  y1="2"
+                  x2="1000"
+                  y2="2"
                   stroke="#ff7a00"
-                  strokeWidth="2"
-                  pathLength="1"
-                  strokeDasharray="1"
-                  strokeDashoffset={1 - processProgress}
-                  style={{ transition: "stroke-dashoffset 0.08s linear" }}
+                  strokeWidth="4"
+                  strokeDasharray="1000"
+                  strokeDashoffset={1000 * (1 - processProgress)}
+                  style={{
+                    transition: "stroke-dashoffset 0.05s linear",
+                    filter: "drop-shadow(0 0 8px #ff7a00)",
+                  }}
                 />
               </svg>
             </div>
 
             <div className="process-track">
               {[
-                ["01", "DISCOVER", "Understand the business, audience and objective.", 0.20],
-                ["02", "STRATEGIZE", "Define the digital direction and growth system.", 0.45],
-                ["03", "BUILD", "Design and develop the required digital experience.", 0.70],
-                ["04", "GROW", "Launch, optimize and continuously improve.", 0.88],
+                ["01", "DISCOVER", "Understand the business, audience and objective.", 0.10],
+                ["02", "STRATEGIZE", "Define the digital direction and growth system.", 0.35],
+                ["03", "BUILD", "Design and develop the required digital experience.", 0.65],
+                ["04", "GROW", "Launch, optimize and continuously improve.", 0.90],
               ].map(([number, title, copy, threshold]) => {
                 const isActive = processProgress >= (threshold as number);
                 return (
