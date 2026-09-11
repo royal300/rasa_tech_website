@@ -769,36 +769,52 @@ function Index() {
               <>
                 <PricingPlan
                   number="01"
-                  name="STARTER"
-                  price="12,000 / mo"
-                  description="Consistent social presence designed to build brand awareness."
+                  name="BASIC"
+                  price="₹ 14,499 / Month"
+                  description="Essential Social Media Management"
                 >
-                  <li>8-10 High-Quality Posts / Reels</li>
-                  <li>Content Strategy & Captions</li>
-                  <li>Hashtag & Audience Targeting</li>
-                  <li>Monthly Performance Report</li>
+                  <li>Facebook & Instagram Management</li>
+                  <li>4-5 Post / Week</li>
+                  <li>3-4 Short Video / Week</li>
+                  <li>2 Long Video / Month</li>
+                  <li>Social Media Engagement</li>
+                  <li>Relevant Hashtag</li>
+                  <li>Paid Ad Additional</li>
                 </PricingPlan>
                 <PricingPlan
                   number="02"
-                  name="GROWTH"
-                  price="25,000 / mo"
-                  description="Aggressive content & paid campaigns for rapid customer acquisition."
+                  name="STANDARD"
+                  price="₹ 19,499 / Month"
+                  popular={true}
+                  description="Growth Social Media & Video Strategy"
                 >
-                  <li>15-18 Posts & Reels</li>
-                  <li>Paid Ad Campaign Management</li>
-                  <li>Custom Graphics & Video Editing</li>
-                  <li>Lead Capture & WhatsApp Flows</li>
+                  <li>Facebook, Instagram, Youtube Management</li>
+                  <li>5-8 Post / Week</li>
+                  <li>4-6 Short Video / Week</li>
+                  <li>3 (5 To 10 Minutes) Long Video / Month</li>
+                  <li>Social Media Engagement</li>
+                  <li>Relevant Hashtag</li>
+                  <li>Social Site Optimization</li>
+                  <li>Free Creative</li>
+                  <li>Paid Ad Additional</li>
                 </PricingPlan>
                 <PricingPlan
                   number="03"
-                  name="SCALE"
-                  price="CUSTOM"
-                  description="360 digital marketing & growth partner strategy."
+                  name="PREMIUM"
+                  price="₹ 25,499 / Month"
+                  description="Full Scale Multi-Channel Dominance"
                 >
-                  <li>Full Omnichannel Strategy</li>
-                  <li>High-Production Video Content</li>
-                  <li>Dedicated Growth Team</li>
-                  <li>Weekly ROI Optimization</li>
+                  <li>Facebook, Instagram, Youtube Management</li>
+                  <li>50 Post / Week</li>
+                  <li>70 Short Video / Week</li>
+                  <li>6 Long Video / Month</li>
+                  <li>Social Media Engagement</li>
+                  <li>Relevant Hashtag</li>
+                  <li>Social Site Optimization</li>
+                  <li>Youtube Content Writing</li>
+                  <li>Follow Campaign Build</li>
+                  <li>Free Creative</li>
+                  <li>Paid Ad Additional</li>
                 </PricingPlan>
               </>
             )}
