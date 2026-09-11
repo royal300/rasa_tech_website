@@ -253,7 +253,7 @@ function AboutSystem() {
         <div className="laptop-camera-dot" />
         <div className="laptop-display video-display-wrap">
           <video
-            src="/video.mp4"
+            src="/video_1.mp4"
             autoPlay
             loop
             muted
