@@ -1587,8 +1587,9 @@ a.text-link:hover svg,
 .footer-bottom {
   width: min(100%, var(--container));
   display: flex !important;
-  justify-content: space-between !important;
+  justify-content: center !important;
   align-items: center !important;
+  text-align: center !important;
   gap: 20px !important;
   margin: auto !important;
   padding-top: 24px !important;
@@ -1598,9 +1599,9 @@ a.text-link:hover svg,
   letter-spacing: 0.1em !important;
 }
 
-.footer-bottom b {
-  color: #ff7a00 !important;
-  padding: 0 6px !important;
+.footer-bottom span {
+  text-align: center !important;
+  width: 100% !important;
 }
 
 
@@ -1918,6 +1919,17 @@ html.lenis body {
   margin: 0 auto;
 }
 
+@keyframes teamCardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 .team-card {
   background: #090909;
   border: 1px solid var(--soft-line);
@@ -1925,14 +1937,15 @@ html.lenis body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
   position: relative;
+  animation: teamCardFadeIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) ease-out;
 }
 
 .team-card:hover {
-  transform: translateY(-7px);
-  border-color: rgba(255, 122, 0, 0.6);
-  box-shadow: 0 12px 35px rgba(255, 122, 0, 0.15);
+  transform: translateY(-9px) scale(1.02);
+  border-color: rgba(255, 122, 0, 0.7);
+  box-shadow: 0 16px 40px rgba(255, 122, 0, 0.22);
 }
 
 .team-card-img-wrapper {
@@ -1947,13 +1960,13 @@ html.lenis body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease, filter 0.5s ease;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
   filter: grayscale(15%) contrast(1.05);
 }
 
 .team-card:hover .team-card-img-wrapper img {
-  transform: scale(1.06);
-  filter: grayscale(0%) contrast(1.08);
+  transform: scale(1.09) rotate(0.6deg);
+  filter: grayscale(0%) contrast(1.1);
 }
 
 .team-card-img-overlay {
@@ -2083,7 +2096,7 @@ html.lenis body {
     font-size: clamp(26px, 7.5vw, 42px) !important;
     line-height: 1.15 !important;
     white-space: normal !important;
-    font-weight: 600 !important;
+    font-weight: 300 !important;
   }
   
   .team-section {
@@ -2136,6 +2149,16 @@ html.lenis body {
   .team-card-socials a svg {
     width: 12px;
     height: 12px;
+  }
+
+  /* Increase logo size in footer on mobile view */
+  .site-footer .brand-mark, .footer-brand-col .brand-mark {
+    width: 195px !important;
+    max-width: 100% !important;
+  }
+  .site-footer .brand-mark img, .footer-brand-col .brand-mark img {
+    width: 100% !important;
+    height: auto !important;
   }
 }
 

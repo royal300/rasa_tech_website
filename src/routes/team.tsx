@@ -258,8 +258,8 @@ function TeamPage() {
               <a href="mailto:support@rasatech.in">
                 Email: support@rasatech.in <ArrowUpRight size={13} />
               </a>
-              <a href="tel:9332312300">
-                Contact Us: 9332312300 <ArrowUpRight size={13} />
+              <a href="tel:8617201731">
+                Contact Us: 8617201731 / 9332312300 <ArrowUpRight size={13} />
               </a>
             </div>
           </div>
@@ -280,7 +280,6 @@ function TeamPage() {
         </div>
 
         <div className="footer-bottom">
-          <span>DIGITAL MARKETING <b>•</b> WEB DEVELOPMENT <b>•</b> WHATSAPP AUTOMATION</span>
           <span>© 2026 RASA TECH. ALL RIGHTS RESERVED.</span>
         </div>
       </footer>

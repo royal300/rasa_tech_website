@@ -832,7 +832,7 @@ function Index() {
           </div>
         </section>
 
-        <section id="contact" className="contact-section page-section content-section"><div className="section-grid contact-grid"><div className="section-intro reveal"><SectionLabel number="07">CONTACT</SectionLabel><h2>HAVE  AN  IDEA?<br /><span>LET'S  BUILD  IT.</span></h2><p>Tell us what you're building, what you're trying to improve, or where you want to grow.</p><div className="contact-details-wrap"><div className="contact-highlight-box"><a href="mailto:support@rasatech.in" className="contact-highlight-item"><span>Email :</span> <strong>support@rasatech.in</strong> <ArrowUpRight size={16} /></a><a href="tel:9332312300" className="contact-highlight-item"><span>Contact Us :</span> <strong>9332312300</strong> <ArrowUpRight size={16} /></a></div></div></div><div className="contact-form-wrap reveal">{submitted ? <div className="form-success"><div><Check /></div><h3>MESSAGE RECEIVED.</h3><p>We'll be in touch at the email you shared.</p><button onClick={() => setSubmitted(false)}>SEND ANOTHER <ArrowUpRight size={14} /></button></div> : <form onSubmit={handleSubmit}><div className="form-row"><label>NAME<input required name="name" placeholder="Your name" /></label><label>EMAIL<input required type="email" name="email" placeholder="you@company.com" /></label></div><div className="form-row"><label>PHONE<input name="phone" placeholder="+91 XXXXX XXXXX" /></label><label>COMPANY<input name="company" placeholder="Company name" /></label></div><label>SERVICE<div className="select-wrap"><select name="service" defaultValue=""><option value="" disabled>Select a service</option>{serviceOptions.map((option) => <option key={option}>{option}</option>)}</select><ChevronDown size={16} /></div></label><label>MESSAGE<textarea required name="message" placeholder="Tell us about your next move..." rows={4} /></label><Button type="submit">START A CONVERSATION <ArrowUpRight size={16} /></Button></form>}</div></div></section>
+        <section id="contact" className="contact-section page-section content-section"><div className="section-grid contact-grid"><div className="section-intro reveal"><SectionLabel number="07">CONTACT</SectionLabel><h2>HAVE  AN  IDEA?<br /><span>LET'S  BUILD  IT.</span></h2><p>Tell us what you're building, what you're trying to improve, or where you want to grow.</p><div className="contact-details-wrap"><div className="contact-highlight-box"><a href="mailto:support@rasatech.in" className="contact-highlight-item"><span>Email :</span> <strong>support@rasatech.in</strong> <ArrowUpRight size={16} /></a><a href="tel:8617201731" className="contact-highlight-item"><span>Contact Us :</span> <strong>8617201731 / 9332312300</strong> <ArrowUpRight size={16} /></a></div></div></div><div className="contact-form-wrap reveal">{submitted ? <div className="form-success"><div><Check /></div><h3>MESSAGE RECEIVED.</h3><p>We'll be in touch at the email you shared.</p><button onClick={() => setSubmitted(false)}>SEND ANOTHER <ArrowUpRight size={14} /></button></div> : <form onSubmit={handleSubmit}><div className="form-row"><label>NAME<input required name="name" placeholder="Your name" /></label><label>EMAIL<input required type="email" name="email" placeholder="you@company.com" /></label></div><div className="form-row"><label>PHONE<input name="phone" placeholder="+91 XXXXX XXXXX" /></label><label>COMPANY<input name="company" placeholder="Company name" /></label></div><label>SERVICE<div className="select-wrap"><select name="service" defaultValue=""><option value="" disabled>Select a service</option>{serviceOptions.map((option) => <option key={option}>{option}</option>)}</select><ChevronDown size={16} /></div></label><label>MESSAGE<textarea required name="message" placeholder="Tell us about your next move..." rows={4} /></label><Button type="submit">START A CONVERSATION <ArrowUpRight size={16} /></Button></form>}</div></div></section>
 
         <section className="final-cta page-section"><SignalLine className="final-signal" /><div className="final-cta-inner reveal"><p className="eyebrow"><span className="eyebrow-pulse" />THE NEXT SYSTEM STARTS HERE</p><h2>READY  TO  BUILD<br /><span>WHAT'S  NEXT?</span></h2><p>Let's turn your next digital idea into something built to perform.</p><Button asChild><a href="#contact">START A CONVERSATION <ArrowUpRight size={17} /></a></Button></div></section>
       </main>
@@ -864,8 +864,8 @@ function Index() {
                 <a href="mailto:support@rasatech.in">
                   Email: support@rasatech.in <ArrowUpRight size={13} />
                 </a>
-                <a href="tel:9332312300">
-                  Contact Us: 9332312300 <ArrowUpRight size={13} />
+                <a href="tel:8617201731">
+                  Contact Us: 8617201731 / 9332312300 <ArrowUpRight size={13} />
                 </a>
               </div>
             </div>
@@ -890,7 +890,6 @@ function Index() {
           </div>
 
           <div className="footer-bottom">
-            <span>DIGITAL MARKETING <b>•</b> WEB DEVELOPMENT <b>•</b> WHATSAPP AUTOMATION</span>
             <span>© 2026 RASA TECH. ALL RIGHTS RESERVED.</span>
           </div>
         </footer>
