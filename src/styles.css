@@ -1872,7 +1872,7 @@ html.lenis body {
 
 /* Team Page Styles */
 .team-hero {
-  padding: 140px 32px 60px;
+  padding: 130px 32px 40px;
   background: #000000;
   text-align: center;
   position: relative;
@@ -1880,31 +1880,25 @@ html.lenis body {
 }
 
 .team-hero-inner {
-  max-width: 800px;
+  max-width: 1100px;
   margin: 0 auto;
   position: relative;
   z-index: 1;
 }
 
-.team-hero h1 {
-  font-size: clamp(38px, 5.5vw, 75px);
-  margin: 20px 0 18px;
-  line-height: 1.05;
+.team-hero h1.team-oneliner-heading {
+  font-size: clamp(16px, 4vw, 58px);
+  white-space: nowrap;
+  margin: 10px 0;
+  line-height: 1.1;
   font-family: var(--font-display);
   font-weight: 400;
-  letter-spacing: -0.04em;
-}
-
-.team-hero p.team-description {
-  color: #999;
-  font-size: 15px;
-  line-height: 1.7;
-  max-width: 620px;
-  margin: 0 auto;
+  letter-spacing: -0.03em;
+  color: #ffffff;
 }
 
 .team-section {
-  padding: 40px 32px 100px;
+  padding: 30px 32px 90px;
   background: #000000;
   position: relative;
 }
@@ -1912,7 +1906,7 @@ html.lenis body {
 .team-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  gap: 22px;
   max-width: var(--container, 1280px);
   margin: 0 auto;
 }
@@ -1929,7 +1923,7 @@ html.lenis body {
 }
 
 .team-card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-7px);
   border-color: rgba(255, 122, 0, 0.6);
   box-shadow: 0 12px 35px rgba(255, 122, 0, 0.15);
 }
@@ -1963,7 +1957,7 @@ html.lenis body {
 }
 
 .team-card-body {
-  padding: 20px 22px 24px;
+  padding: 18px 20px 22px;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -1971,40 +1965,40 @@ html.lenis body {
 
 .team-role-badge {
   align-self: flex-start;
-  font-size: 9px;
+  font-size: 8.5px;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--orange);
   background: rgba(255, 122, 0, 0.1);
   border: 1px solid rgba(255, 122, 0, 0.35);
-  padding: 4px 10px;
+  padding: 3px 9px;
   border-radius: 4px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .team-card h3 {
-  font-size: 19px;
+  font-size: 18px;
   font-family: var(--font-display);
   font-weight: 400;
   color: #ffffff;
-  margin: 0 0 4px;
+  margin: 0 0 3px;
   letter-spacing: -0.02em;
 }
 
 .team-card-title {
   color: #999;
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.04em;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .team-card-bio {
   color: #777;
-  font-size: 12px;
-  line-height: 1.6;
-  margin-bottom: 20px;
+  font-size: 11.5px;
+  line-height: 1.55;
+  margin-bottom: 16px;
   flex: 1;
 }
 
@@ -2012,7 +2006,7 @@ html.lenis body {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding-top: 14px;
+  padding-top: 12px;
   border-top: 1px solid rgba(255, 255, 255, 0.07);
 }
 
@@ -2029,23 +2023,111 @@ html.lenis body {
   transform: translateY(-2px);
 }
 
+/* Bottom CTA action button without solid orange background bar */
+.final-cta-action {
+  margin-top: 22px;
+  display: inline-flex;
+  justify-content: center;
+}
+
+.start-conversation-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 48px;
+  padding: 0 24px;
+  background: transparent !important;
+  border: 1px solid var(--orange) !important;
+  color: #ffffff !important;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  border-radius: 3px;
+  transition: all .25s ease;
+  text-decoration: none;
+}
+
+.start-conversation-btn:hover {
+  background: rgba(255, 122, 0, 0.15) !important;
+  color: var(--orange) !important;
+  border-color: var(--orange) !important;
+  transform: translateY(-2px);
+}
+
+/* Mobile responsive styles */
 @media (max-width: 1024px) {
   .team-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+    gap: 18px;
   }
 }
 
-@media (max-width: 640px) {
-  .team-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
+@media (max-width: 768px) {
+  /* Remove orange and white passing lines on mobile */
+  .final-signal {
+    display: none !important;
   }
+  
   .team-hero {
-    padding: 110px 20px 40px;
+    padding: 100px 16px 20px;
   }
+  
+  .team-hero h1.team-oneliner-heading {
+    font-size: clamp(14px, 4.4vw, 24px);
+    white-space: nowrap;
+  }
+  
   .team-section {
-    padding: 20px 20px 70px;
+    padding: 15px 12px 60px;
+  }
+  
+  /* Compact mobile gallery grid view (2-column layout) */
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  
+  .team-card {
+    border-radius: 8px;
+  }
+  
+  .team-card-body {
+    padding: 10px 10px 12px;
+  }
+  
+  .team-role-badge {
+    font-size: 7px;
+    padding: 2px 6px;
+    margin-bottom: 6px;
+    letter-spacing: 0.04em;
+  }
+  
+  .team-card h3 {
+    font-size: 13px;
+    margin-bottom: 2px;
+    line-height: 1.1;
+  }
+  
+  .team-card-title {
+    font-size: 9.5px;
+    margin-bottom: 6px;
+  }
+  
+  .team-card-bio {
+    font-size: 9.5px;
+    line-height: 1.35;
+    margin-bottom: 10px;
+  }
+  
+  .team-card-socials {
+    padding-top: 8px;
+    gap: 8px;
+  }
+  
+  .team-card-socials a svg {
+    width: 12px;
+    height: 12px;
   }
 }
+
 

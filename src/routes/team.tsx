@@ -177,8 +177,8 @@ function TeamPage() {
           <Link to="/" onClick={closeMenu}>Home</Link>
           <a href="/#about" onClick={closeMenu}>About</a>
           <a href="/#services" onClick={closeMenu}>Services</a>
-          <Link to="/team" className="text-orange-500 font-semibold" onClick={closeMenu}>Our Team</Link>
           <a href="/#pricing" onClick={closeMenu}>Pricing</a>
+          <Link to="/team" className="text-orange-500 font-semibold" onClick={closeMenu}>Our Team</Link>
           <a href="/#contact" onClick={closeMenu}>Contact</a>
           <div className="mobile-only-cta">
             <Button asChild className="w-full h-12 text-sm font-semibold border-orange bg-orange text-black hover:bg-orange-hot">
@@ -204,14 +204,7 @@ function TeamPage() {
         {/* Team Hero Section */}
         <section className="team-hero">
           <div className="team-hero-inner">
-            <p className="eyebrow">
-              <span className="eyebrow-pulse" />
-              RASA TECH <span>/</span> OUR LEADERSHIP & CREATORS
-            </p>
-            <h1>MEET THE MINDS BEHIND RASA TECH.</h1>
-            <p className="team-description">
-              A multidisciplinary team of developers, strategists, designers, and growth engineers committed to turning your digital vision into real market advantage.
-            </p>
+            <h1 className="team-oneliner-heading">MEET THE MINDS BEHIND RASA TECH.</h1>
           </div>
         </section>
 
@@ -259,10 +252,10 @@ function TeamPage() {
             <p className="eyebrow">READY TO WORK WITH US?</p>
             <h2>LET'S BUILD SOMETHING GREAT.</h2>
             <p>Connect with our team today and let's supercharge your digital growth.</p>
-            <div className="inline-flex">
-              <Button asChild>
-                <a href="/#contact">START A CONVERSATION <ArrowUpRight size={16} /></a>
-              </Button>
+            <div className="final-cta-action">
+              <a href="/#contact" className="start-conversation-btn">
+                START A CONVERSATION <ArrowUpRight size={16} />
+              </a>
             </div>
           </div>
         </section>
@@ -283,8 +276,8 @@ function TeamPage() {
               <Link to="/">Home</Link>
               <a href="/#about">About</a>
               <a href="/#services">Services</a>
-              <Link to="/team">Our Team</Link>
               <a href="/#pricing">Pricing</a>
+              <Link to="/team">Our Team</Link>
             </div>
           </div>
 

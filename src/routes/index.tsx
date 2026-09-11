@@ -535,8 +535,8 @@ function Index() {
           <a href="#home" onClick={closeMenu}>Home</a>
           <a href="#about" onClick={closeMenu}>About</a>
           <a href="#services" onClick={closeMenu}>Services</a>
-          <Link to="/team" onClick={closeMenu}>Our Team</Link>
           <a href="#pricing" onClick={closeMenu}>Pricing</a>
+          <Link to="/team" onClick={closeMenu}>Our Team</Link>
           <a href="#contact" onClick={closeMenu}>Contact</a>
           <div className="mobile-only-cta">
             <Button asChild className="w-full h-12 text-sm font-semibold border-orange bg-orange text-black hover:bg-orange-hot">
@@ -853,8 +853,8 @@ function Index() {
                 <a href="#home">Home</a>
                 <a href="#about">About</a>
                 <a href="#services">Services</a>
-                <Link to="/team">Our Team</Link>
                 <a href="#pricing">Pricing</a>
+                <Link to="/team">Our Team</Link>
               </div>
             </div>
 
