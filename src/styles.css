@@ -739,39 +739,51 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .about-laptop-container {
   position: relative;
   width: 100%;
-  max-width: 480px;
+  max-width: 520px;
   margin: 0 auto;
-  perspective: 1000px;
+  perspective: 1200px;
 }
 
 .laptop-screen-frame {
   position: relative;
-  background: #111116;
-  border: 8px solid #22222a;
+  background: #0d0d12;
+  border: 10px solid #1c1c24;
   border-bottom: none;
-  border-radius: 14px 14px 0 0;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 122, 0, 0.15);
-  padding: 12px;
+  border-radius: 16px 16px 0 0;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.85), 0 0 35px rgba(255, 122, 0, 0.2);
+  padding: 8px 8px 0 8px;
   overflow: hidden;
 }
 
 .laptop-camera-dot {
-  width: 5px;
-  height: 5px;
-  background: #444;
+  width: 6px;
+  height: 6px;
+  background: #33333d;
   border-radius: 50%;
-  margin: 0 auto 10px auto;
-  box-shadow: inset 0 0 2px #000;
+  margin: 0 auto 6px auto;
+  box-shadow: inset 0 0 2px #000, 0 0 4px rgba(255, 122, 0, 0.3);
 }
 
-.laptop-display {
-  background: #0a0a0f;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 6px;
-  padding: 16px;
+.laptop-display.video-display-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px 6px 0 0;
+  overflow: hidden;
   display: flex;
-  flex-direction: column;
-  gap: 14px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.laptop-video-player {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 4px 4px 0 0;
 }
 
 .dashboard-header {

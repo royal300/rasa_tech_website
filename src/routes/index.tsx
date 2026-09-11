@@ -248,50 +248,18 @@ function HeroSystem({ mouse = { x: 0, y: 0 } }: { mouse?: { x: number; y: number
 
 function AboutSystem() {
   return (
-    <div className="about-laptop-container" aria-label="RASA Tech Growth Analytics Dashboard">
+    <div className="about-laptop-container" aria-label="RASA Tech Showcase Video">
       <div className="laptop-screen-frame">
         <div className="laptop-camera-dot" />
-        <div className="laptop-display">
-          <div className="dashboard-header">
-            <div className="dashboard-title">
-              <span className="live-dot" /> RASA TECH / GROWTH ANALYTICS
-            </div>
-            <div className="dashboard-badge">+148.5% GROWTH</div>
-          </div>
-
-          <div className="dashboard-grid">
-            <div className="dash-card">
-              <small>MONTHLY VISITS</small>
-              <strong>128.4K</strong>
-              <span className="dash-trend">+34%</span>
-            </div>
-            <div className="dash-card">
-              <small>CONVERSIONS</small>
-              <strong>14,820</strong>
-              <span className="dash-trend">+52%</span>
-            </div>
-          </div>
-
-          <div className="dashboard-chart-area">
-            <div className="chart-label">PERFORMANCE ACCELERATION</div>
-            <div className="chart-bars">
-              <div className="bar bar-1" style={{ height: "35%" }} />
-              <div className="bar bar-2" style={{ height: "55%" }} />
-              <div className="bar bar-3" style={{ height: "45%" }} />
-              <div className="bar bar-4" style={{ height: "75%" }} />
-              <div className="bar bar-5" style={{ height: "90%" }} />
-              <div className="bar bar-6" style={{ height: "100%" }} />
-            </div>
-            <svg className="chart-growth-line" viewBox="0 0 300 80" preserveAspectRatio="none">
-              <path
-                d="M 10,65 Q 60,50 110,40 T 210,20 T 290,8"
-                fill="none"
-                stroke="#ff7a00"
-                strokeWidth="3"
-                className="path-growth-animated"
-              />
-            </svg>
-          </div>
+        <div className="laptop-display video-display-wrap">
+          <video
+            src="/video.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="laptop-video-player"
+          />
         </div>
       </div>
       <div className="laptop-keyboard-base">
