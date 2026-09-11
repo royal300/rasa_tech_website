@@ -383,7 +383,7 @@ function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [pricingCategory, setPricingCategory] = useState<"web" | "social">("web");
+  const [pricingCategory, setPricingCategory] = useState<"social" | "web">("social");
   const [activeWhyIndex, setActiveWhyIndex] = useState<number>(0);
   const [heroMouse, setHeroMouse] = useState({ x: 0, y: 0 });
   const [processProgress, setProcessProgress] = useState(0);
@@ -698,23 +698,77 @@ function Index() {
             <div className="pricing-toggle-wrap">
               <button
                 type="button"
-                className={`pricing-toggle-btn ${pricingCategory === "web" ? "active" : ""}`}
-                onClick={() => setPricingCategory("web")}
-              >
-                WEB DEVELOPMENT
-              </button>
-              <button
-                type="button"
                 className={`pricing-toggle-btn ${pricingCategory === "social" ? "active" : ""}`}
                 onClick={() => setPricingCategory("social")}
               >
                 SOCIAL MEDIA MARKETING
               </button>
+              <button
+                type="button"
+                className={`pricing-toggle-btn ${pricingCategory === "web" ? "active" : ""}`}
+                onClick={() => setPricingCategory("web")}
+              >
+                WEB DEVELOPMENT
+              </button>
             </div>
           </div>
 
           <div className="pricing-grid">
-            {pricingCategory === "web" ? (
+            {pricingCategory === "social" ? (
+              <>
+                <PricingPlan
+                  number="01"
+                  name="BASIC"
+                  price="₹ 14,499 / Month"
+                  description="Essential Social Media Management"
+                >
+                  <li>Facebook & Instagram Management</li>
+                  <li>4-5 Post / Week</li>
+                  <li>3-4 Short Video / Week</li>
+                  <li>2 Long Video / Month</li>
+                  <li>Social Media Engagement</li>
+                  <li>Content Creation & Strategy</li>
+                  <li>Page SEO Optimization</li>
+                  <li>Ad Campaign Setup & Monitoring</li>
+                  <li>Ad Spent Budget Up to ₹10,000</li>
+                  <li>Monthly Reporting</li>
+                </PricingPlan>
+                <PricingPlan
+                  number="02"
+                  name="STANDARD"
+                  price="₹ 29,999 / Month"
+                  popular={true}
+                  description="Advanced Growth & Content Strategy"
+                >
+                  <li>Facebook, Instagram & YouTube Management</li>
+                  <li>5-6 Post / Week</li>
+                  <li>4-5 Short Video / Week</li>
+                  <li>3 Long Video / Month</li>
+                  <li>Dedicated Account Manager</li>
+                  <li>Brand Strategy & Growth</li>
+                  <li>Influencer Collaboration Setup</li>
+                  <li>Ad Campaign Optimization</li>
+                  <li>Ad Spent Budget Up to ₹25,000</li>
+                  <li>Bi-Weekly Reporting & Analytics</li>
+                </PricingPlan>
+                <PricingPlan
+                  number="03"
+                  name="PREMIUM"
+                  price="₹ 49,999 / Month"
+                  description="Complete Digital Brand Dominance"
+                >
+                  <li>Full Multi-Channel Management</li>
+                  <li>Daily Posts & Reels/Shorts</li>
+                  <li>4 Long Format Videos / Month</li>
+                  <li>Complete Content Production</li>
+                  <li>High-Converting Ad Campaigns</li>
+                  <li>Advanced Lead Generation System</li>
+                  <li>Ad Spent Budget Up to ₹50,000</li>
+                  <li>Weekly Performance & ROI Review</li>
+                  <li>24/7 Dedicated Support</li>
+                </PricingPlan>
+              </>
+            ) : (
               <>
                 <PricingPlan
                   number="01"
@@ -768,58 +822,6 @@ function Index() {
                   <li>Product Review</li>
                   <li>24/7 Customer Care</li>
                   <li>Extra Charges For Additional Requirements</li>
-                </PricingPlan>
-              </>
-            ) : (
-              <>
-                <PricingPlan
-                  number="01"
-                  name="BASIC"
-                  price="₹ 14,499 / Month"
-                  description="Essential Social Media Management"
-                >
-                  <li>Facebook & Instagram Management</li>
-                  <li>4-5 Post / Week</li>
-                  <li>3-4 Short Video / Week</li>
-                  <li>2 Long Video / Month</li>
-                  <li>Social Media Engagement</li>
-                  <li>Relevant Hashtag</li>
-                  <li>Paid Ad Additional</li>
-                </PricingPlan>
-                <PricingPlan
-                  number="02"
-                  name="STANDARD"
-                  price="₹ 19,499 / Month"
-                  popular={true}
-                  description="Growth Social Media & Video Strategy"
-                >
-                  <li>Facebook, Instagram, Youtube Management</li>
-                  <li>5-8 Post / Week</li>
-                  <li>4-6 Short Video / Week</li>
-                  <li>3 (5 To 10 Minutes) Long Video / Month</li>
-                  <li>Social Media Engagement</li>
-                  <li>Relevant Hashtag</li>
-                  <li>Social Site Optimization</li>
-                  <li>Free Creative</li>
-                  <li>Paid Ad Additional</li>
-                </PricingPlan>
-                <PricingPlan
-                  number="03"
-                  name="PREMIUM"
-                  price="₹ 25,499 / Month"
-                  description="Full Scale Multi-Channel Dominance"
-                >
-                  <li>Facebook, Instagram, Youtube Management</li>
-                  <li>50 Post / Week</li>
-                  <li>70 Short Video / Week</li>
-                  <li>6 Long Video / Month</li>
-                  <li>Social Media Engagement</li>
-                  <li>Relevant Hashtag</li>
-                  <li>Social Site Optimization</li>
-                  <li>Youtube Content Writing</li>
-                  <li>Follow Campaign Build</li>
-                  <li>Free Creative</li>
-                  <li>Paid Ad Additional</li>
                 </PricingPlan>
               </>
             )}
