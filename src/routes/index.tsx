@@ -844,6 +844,9 @@ function Index() {
                 <a href="https://wa.me/918617201731" target="_blank" rel="noopener noreferrer">
                   WHATSAPP <ArrowUpRight size={13} />
                 </a>
+                <a href="https://www.facebook.com/profile.php?id=61594128368179" target="_blank" rel="noopener noreferrer">
+                  FACEBOOK <ArrowUpRight size={13} />
+                </a>
                 <a href="#contact">
                   INSTAGRAM <ArrowUpRight size={13} />
                 </a>
