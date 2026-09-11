@@ -83,160 +83,23 @@ const services: Service[] = [
 
 const serviceOptions = [...services.map((service) => service.name), "OTHER"];
 
-const clientIcons = {
-  microsoft: (
-    <svg width="20" height="20" viewBox="0 0 23 23" fill="none">
-      <path d="M0 0h11v11H0z" fill="#f25022"/>
-      <path d="M12 0h11v11H12z" fill="#7fba00"/>
-      <path d="M0 12h11v11H0z" fill="#00a4ef"/>
-      <path d="M12 12h11v11H12z" fill="#ffb900"/>
-    </svg>
-  ),
-  storyblok: (
-    <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
-      <rect width="32" height="32" rx="8" fill="#00B3B0"/>
-      <path d="M10 9h8a5 5 0 0 1 0 10H10V9zm0 10h9a5 5 0 0 1 0 10H10V19z" fill="#000" opacity="0.2"/>
-      <path d="M9 8h8a5 5 0 0 1 0 8H9V8zm0 8h9a5 5 0 0 1 0 8H9V16z" fill="#FFFFFF"/>
-    </svg>
-  ),
-  shutterstock: (
-    <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
-      <rect width="32" height="32" rx="6" fill="#EE2B2E"/>
-      <path d="M9 14V9h5v3h-2v2H9zm14 4v5h-5v-3h2v-2h3z" fill="#FFFFFF"/>
-    </svg>
-  ),
-  cursor: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-      <path d="M12 2L2 7l10 5 10-5-10-5z" fill="#A0AEC0"/>
-      <path d="M2 17l10 5V12L2 7v10z" fill="#718096"/>
-      <path d="M22 17l-10 5V12l10-5v10z" fill="#CBD5E0"/>
-    </svg>
-  ),
-  hubspot: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-      <circle cx="12" cy="12" r="4" fill="#FF7A59"/>
-      <circle cx="18" cy="7" r="2.5" fill="#FF7A59"/>
-      <circle cx="6" cy="17" r="2.5" fill="#FF7A59"/>
-      <path d="M12 8V4.5M14.5 9.5l3.5-2M9.5 14.5l-3.5 2.5" stroke="#FF7A59" strokeWidth="2" strokeLinecap="round"/>
-    </svg>
-  ),
-  n8n: (
-    <svg width="24" height="18" viewBox="0 0 32 24" fill="none">
-      <circle cx="6" cy="12" r="4" fill="#FF6584"/>
-      <circle cx="16" cy="6" r="3.5" fill="#FF6584"/>
-      <circle cx="16" cy="18" r="3.5" fill="#FF6584"/>
-      <circle cx="26" cy="12" r="4" fill="#FF6584"/>
-      <path d="M9.5 10.5l3.5-3m-3.5 6l3.5 3m6-6l3.5-3m-3.5 6l3.5 3" stroke="#FF6584" strokeWidth="2" strokeLinecap="round"/>
-    </svg>
-  ),
-  google: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-      <path d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.62z" fill="#FBBC05"/>
-      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
-    </svg>
-  ),
-  wordpress: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-      <circle cx="12" cy="12" r="11" fill="#21759B"/>
-      <path d="M2.5 12a9.5 9.5 0 0 0 14.5 8.1L8.5 7.2l-6 13C2.2 18.2 2 15.2 2 12zM12 2.5c2.3 0 4.4.8 6.1 2.2l-4.1 11.8L10 8.5 7.1 17 4.2 8.7A9.5 9.5 0 0 1 12 2.5zM17.5 7.5l4 11.5A9.5 9.5 0 0 0 21.5 12c0-1.8-.5-3.5-1.4-5z" fill="#FFFFFF"/>
-    </svg>
-  ),
-  uniform: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-      <path d="M12 2L2 7l10 5 10-5-10-5z" fill="#2563EB"/>
-      <path d="M2 7v10l10 5V12L2 7z" fill="#1D4ED8"/>
-      <path d="M22 7v10l-10 5V12l10-5z" fill="#EF4444"/>
-    </svg>
-  ),
-  shopify: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-      <path d="M16 6.5s-1.5-1.5-3.5-1.5-3.5 1.5-3.5 1.5L7 7v14l10 1V7l-1-.5z" fill="#95BF47"/>
-      <path d="M12 5c-1.5 0-2.5 1-2.5 1.5L9 7h6l-.5-.5S13.5 5 12 5z" fill="#5E8E3E"/>
-      <path d="M12.5 10.5c-1 0-1.5.5-1.5 1s.5.8 1.2 1c1.2.3 2 .8 2 2.2 0 1.5-1.3 2.3-2.7 2.3-1.5 0-2.5-.7-2.5-.7l.3-1.3s.8.5 1.8.5c.7 0 1.2-.3 1.2-.8 0-.4-.4-.7-1.1-.9-1.3-.4-2.1-1-2.1-2.2 0-1.4 1.2-2.3 2.6-2.3 1.2 0 2.2.5 2.2.5l-.4 1.2s-.7-.5-1.4-.5z" fill="#FFFFFF"/>
-    </svg>
-  ),
-  figma: (
-    <svg width="16" height="20" viewBox="0 0 24 36" fill="none">
-      <path d="M6 36c3.3 0 6-2.7 6-6v-6H6c-3.3 0-6 2.7-6 6s2.7 6 6 6z" fill="#0ACF83"/>
-      <path d="M0 18c0-3.3 2.7-6 6-6h6v12H6c-3.3 0-6-2.7-6-6z" fill="#A259FF"/>
-      <path d="M0 6c0-3.3 2.7-6 6-6h6v12H6C2.7 12 0 9.3 0 6z" fill="#F24E1E"/>
-      <path d="M12 0h6c3.3 0 6 2.7 6 6s-2.7 6-6 6h-6V0z" fill="#FF7262"/>
-      <path d="M24 18c0 3.3-2.7 6-6 6s-6-2.7-6-6 2.7-6 6-6 6 2.7 6 6z" fill="#1ABCFE"/>
-    </svg>
-  ),
-  slack: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-      <path d="M6 15a2.5 2.5 0 1 1 0-5H8.5V15H6zM6 8.5a2.5 2.5 0 1 1 5 0V11H6V8.5z" fill="#E01E5A"/>
-      <path d="M15 6a2.5 2.5 0 1 1 5 0V8.5H15V6zM8.5 6a2.5 2.5 0 1 1 0-5H11V6H8.5z" fill="#36C5F0"/>
-      <path d="M18 9a2.5 2.5 0 1 1 0 5H15.5V9H18zM18 15.5a2.5 2.5 0 1 1-5 0V13H18v2.5z" fill="#2EB67D"/>
-      <path d="M9 18a2.5 2.5 0 1 1-5 0V15.5H9V18zM15.5 18a2.5 2.5 0 1 1 0 5H13V18h2.5z" fill="#ECB22E"/>
-    </svg>
-  ),
-  stripe: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-      <path d="M13.9 8.6c0-.9-.7-1.4-1.9-1.4-1.7 0-3.9.7-5.5 1.6L5 5c1.9-.9 4.4-1.5 7-1.5 4.5 0 7.4 2.3 7.4 6 0 5.6-7.7 5.9-7.7 8.5 0 1 .9 1.4 2.2 1.4 2 0 4.5-.9 6.2-1.9l1.6 3.9c-2.1 1.2-5 1.9-7.8 1.9-4.8 0-7.8-2.4-7.8-6.1.1-6 7.7-6.2 7.7-8.6z" fill="#635BFF"/>
-    </svg>
-  ),
-  vercel: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-      <path d="M12 1L24 22H0L12 1z" fill="#FFFFFF"/>
-    </svg>
-  ),
-  notion: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-      <rect width="24" height="24" rx="4" fill="#111111" stroke="#444" strokeWidth="1"/>
-      <path d="M6 6.5l3.5.5v11l-3.5-.5V6.5zm3.5.5L16 17.5V6.5l2.5.5v11L15 17.5 8.5 7v.0z" fill="#FFFFFF"/>
-    </svg>
-  ),
-  aws: (
-    <svg width="22" height="20" viewBox="0 0 28 20" fill="none">
-      <path d="M6 7c0-1.5 1-2.5 3-2.5 1.8 0 2.8.7 3.2 1.5V3.8C11.5 3.3 10 3 8.5 3 4.5 3 2 5.2 2 8.5c0 5 7 4 7 6.5 0 .8-.8 1.2-2 1.2-1.5 0-3-.6-4-1.5l-1.5 2c1.4 1.3 3.5 2 5.5 2 4.2 0 6.5-2 6.5-5.5 0-5.2-7.5-4.2-7.5-6.7z" fill="#FF9900"/>
-      <path d="M3 17.5c6 3 13 3 20-2" stroke="#FF9900" strokeWidth="2.2" strokeLinecap="round"/>
-      <path d="M21 13.5l3 2-1 3.5" stroke="#FF9900" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  ),
-  meta: (
-    <svg width="22" height="18" viewBox="0 0 28 20" fill="none">
-      <path d="M20.5 4C18 4 16 5.8 14 8.5 12 5.8 10 4 7.5 4 3.4 4 1 7.2 1 11.2c0 4.2 2.7 6.8 6.5 6.8 2.8 0 5-1.8 6.5-4.2 1.5 2.4 3.7 4.2 6.5 4.2 3.8 0 6.5-2.6 6.5-6.8C27 7.2 24.6 4 20.5 4zm-13 11c-2.3 0-3.8-1.6-3.8-3.8 0-2.3 1.5-4.2 3.8-4.2 1.6 0 3.2 1.4 4.7 3.8-1.5 2.5-3.1 4.2-4.7 4.2zm13 0c-1.6 0-3.2-1.7-4.7-4.2 1.5-2.4 3.1-3.8 4.7-3.8 2.3 0 3.8 1.9 3.8 4.2 0 2.2-1.5 3.8-3.8 3.8z" fill="#0081FB"/>
-    </svg>
-  ),
-  openai: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-      <path d="M22.27 9.8a5.98 5.98 0 0 0-.52-4.93 6.04 6.04 0 0 0-6.47-2.82 6.02 6.02 0 0 0-4.66-2.07 6.06 6.06 0 0 0-5.78 4.18 6.01 6.01 0 0 0-4.04 2.9 6.04 6.04 0 0 0 .75 7.03 5.98 5.98 0 0 0 .52 4.93 6.04 6.04 0 0 0 6.47 2.82 6.06 6.06 0 0 0 4.66 2.07 6.05 6.05 0 0 0 5.78-4.18 6.01 6.01 0 0 0 4.04-2.9 6.04 6.04 0 0 0-.75-7.03z" stroke="#10A37F" strokeWidth="1.8" strokeLinejoin="round"/>
-    </svg>
-  ),
-  github: (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-      <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" fill="#FFFFFF"/>
-    </svg>
-  ),
-};
-
 const clientRow1 = [
-  { name: "Microsoft", icon: clientIcons.microsoft },
-  { name: "Storyblok", icon: clientIcons.storyblok },
-  { name: "Shutterstock", icon: clientIcons.shutterstock },
-  { name: "Cursor", icon: clientIcons.cursor },
-  { name: "Shopify", icon: clientIcons.shopify },
-  { name: "Figma", icon: clientIcons.figma },
-  { name: "Slack", icon: clientIcons.slack },
-  { name: "Stripe", icon: clientIcons.stripe },
-  { name: "Vercel", icon: clientIcons.vercel },
-  { name: "Notion", icon: clientIcons.notion },
+  "1.png",
+  "2.png",
+  "3.png",
+  "4.png",
+  "5.png",
+  "6.png",
+  "7.png",
 ];
 
 const clientRow2 = [
-  { name: "Hubspot", icon: clientIcons.hubspot },
-  { name: "n8n", icon: clientIcons.n8n },
-  { name: "Google", icon: clientIcons.google },
-  { name: "WordPress", icon: clientIcons.wordpress },
-  { name: "Uniform", icon: clientIcons.uniform },
-  { name: "AWS", icon: clientIcons.aws },
-  { name: "Meta", icon: clientIcons.meta },
-  { name: "OpenAI", icon: clientIcons.openai },
-  { name: "GitHub", icon: clientIcons.github },
+  "8.png",
+  "9.png",
+  "10.png",
+  "11.png",
+  "12.png",
+  "13.png",
 ];
 
 function SignalLine({ className = "" }: { className?: string }) {
@@ -667,7 +530,7 @@ function Index() {
       <header className={`site-header ${scrolled ? "header-scrolled" : ""}`}>
         <a className="brand-mark" href="#home" onClick={closeMenu}><img src={logoUrl} alt="RASA Tech" /></a>
         <nav className={`desktop-nav ${menuOpen ? "nav-open" : ""}`} aria-label="Main navigation">
-          {[["Home", "home"], ["About", "about"], ["Services", "services"], ["Process", "process"], ["Why Us", "why"], ["Clients", "clients"], ["Pricing", "pricing"], ["Contact", "contact"]].map(([label, id]) => (
+          {[["Home", "home"], ["About", "about"], ["Services", "services"], ["Pricing", "pricing"], ["Contact", "contact"]].map(([label, id]) => (
             <a key={id} href={`#${id}`} onClick={closeMenu}>{label}</a>
           ))}
           <div className="mobile-only-cta">
@@ -796,10 +659,9 @@ function Index() {
             {/* Row 1 Autoplay Marquee - Moving Left */}
             <div className="clients-carousel-row">
               <div className="clients-marquee-track">
-                {[...clientRow1, ...clientRow1, ...clientRow1, ...clientRow1].map((client, idx) => (
+                {[...clientRow1, ...clientRow1, ...clientRow1, ...clientRow1].map((file, idx) => (
                   <div key={`r1-${idx}`} className="client-card">
-                    <span className="client-logo-icon">{client.icon}</span>
-                    <span className="client-name">{client.name}</span>
+                    <img src={`/ALL%20LOGOS%201080X1080/${file}`} alt={`Client Logo ${file}`} className="client-logo-img" />
                   </div>
                 ))}
               </div>
@@ -808,10 +670,9 @@ function Index() {
             {/* Row 2 Autoplay Marquee - Moving Right */}
             <div className="clients-carousel-row">
               <div className="clients-marquee-track-reverse">
-                {[...clientRow2, ...clientRow2, ...clientRow2, ...clientRow2].map((client, idx) => (
+                {[...clientRow2, ...clientRow2, ...clientRow2, ...clientRow2].map((file, idx) => (
                   <div key={`r2-${idx}`} className="client-card">
-                    <span className="client-logo-icon">{client.icon}</span>
-                    <span className="client-name">{client.name}</span>
+                    <img src={`/ALL%20LOGOS%201080X1080/${file}`} alt={`Client Logo ${file}`} className="client-logo-img" />
                   </div>
                 ))}
               </div>
@@ -930,7 +791,7 @@ function Index() {
           </div>
         </section>
 
-        <section id="contact" className="contact-section page-section content-section"><div className="section-grid contact-grid"><div className="section-intro reveal"><SectionLabel number="07">CONTACT</SectionLabel><h2>HAVE  AN  IDEA?<br /><span>LET'S  BUILD  IT.</span></h2><p>Tell us what you're building, what you're trying to improve, or where you want to grow.</p><div className="contact-details"><a href="mailto:hello@rasatech.com">hello@rasatech.com <ArrowUpRight size={14} /></a><a href="tel:+918617201731">+91 86172 01731 <ArrowUpRight size={14} /></a><span>INDIA</span><a href="https://wa.me/918617201731" target="_blank" rel="noopener noreferrer">WHATSAPP <ArrowUpRight size={14} /></a></div></div><div className="contact-form-wrap reveal">{submitted ? <div className="form-success"><div><Check /></div><h3>MESSAGE RECEIVED.</h3><p>We'll be in touch at the email you shared.</p><button onClick={() => setSubmitted(false)}>SEND ANOTHER <ArrowUpRight size={14} /></button></div> : <form onSubmit={handleSubmit}><div className="form-row"><label>NAME<input required name="name" placeholder="Your name" /></label><label>EMAIL<input required type="email" name="email" placeholder="you@company.com" /></label></div><div className="form-row"><label>PHONE<input name="phone" placeholder="+91 XXXXX XXXXX" /></label><label>COMPANY<input name="company" placeholder="Company name" /></label></div><label>SERVICE<div className="select-wrap"><select name="service" defaultValue=""><option value="" disabled>Select a service</option>{serviceOptions.map((option) => <option key={option}>{option}</option>)}</select><ChevronDown size={16} /></div></label><label>MESSAGE<textarea required name="message" placeholder="Tell us about your next move..." rows={4} /></label><Button type="submit">START A CONVERSATION <ArrowUpRight size={16} /></Button></form>}</div></div></section>
+        <section id="contact" className="contact-section page-section content-section"><div className="section-grid contact-grid"><div className="section-intro reveal"><SectionLabel number="07">CONTACT</SectionLabel><h2>HAVE  AN  IDEA?<br /><span>LET'S  BUILD  IT.</span></h2><p>Tell us what you're building, what you're trying to improve, or where you want to grow.</p><div className="contact-details-wrap"><div className="contact-highlight-box"><a href="mailto:support@rasatech.in" className="contact-highlight-item"><span>Email :</span> <strong>support@rasatech.in</strong> <ArrowUpRight size={16} /></a><a href="tel:9332312300" className="contact-highlight-item"><span>Contact Us :</span> <strong>9332312300</strong> <ArrowUpRight size={16} /></a></div></div></div><div className="contact-form-wrap reveal">{submitted ? <div className="form-success"><div><Check /></div><h3>MESSAGE RECEIVED.</h3><p>We'll be in touch at the email you shared.</p><button onClick={() => setSubmitted(false)}>SEND ANOTHER <ArrowUpRight size={14} /></button></div> : <form onSubmit={handleSubmit}><div className="form-row"><label>NAME<input required name="name" placeholder="Your name" /></label><label>EMAIL<input required type="email" name="email" placeholder="you@company.com" /></label></div><div className="form-row"><label>PHONE<input name="phone" placeholder="+91 XXXXX XXXXX" /></label><label>COMPANY<input name="company" placeholder="Company name" /></label></div><label>SERVICE<div className="select-wrap"><select name="service" defaultValue=""><option value="" disabled>Select a service</option>{serviceOptions.map((option) => <option key={option}>{option}</option>)}</select><ChevronDown size={16} /></div></label><label>MESSAGE<textarea required name="message" placeholder="Tell us about your next move..." rows={4} /></label><Button type="submit">START A CONVERSATION <ArrowUpRight size={16} /></Button></form>}</div></div></section>
 
         <section className="final-cta page-section"><SignalLine className="final-signal" /><div className="final-cta-inner reveal"><p className="eyebrow"><span className="eyebrow-pulse" />THE NEXT SYSTEM STARTS HERE</p><h2>READY  TO  BUILD<br /><span>WHAT'S  NEXT?</span></h2><p>Let's turn your next digital idea into something built to perform.</p><Button asChild><a href="#contact">START A CONVERSATION <ArrowUpRight size={17} /></a></Button></div></section>
       </main>
@@ -952,16 +813,24 @@ function Index() {
                   ["Home", "home"],
                   ["About", "about"],
                   ["Services", "services"],
-                  ["Process", "process"],
-                  ["Why Us", "why"],
-                  ["Clients", "clients"],
                   ["Pricing", "pricing"],
-                  ["Contact", "contact"],
                 ].map(([label, id]) => (
                   <a key={id} href={`#${id}`}>
                     {label}
                   </a>
                 ))}
+              </div>
+            </div>
+
+            <div className="footer-contact-col">
+              <h4 className="footer-col-title">CONTACT</h4>
+              <div className="footer-contact-vertical">
+                <a href="mailto:support@rasatech.in">
+                  Email: support@rasatech.in <ArrowUpRight size={13} />
+                </a>
+                <a href="tel:9332312300">
+                  Contact Us: 9332312300 <ArrowUpRight size={13} />
+                </a>
               </div>
             </div>
 
