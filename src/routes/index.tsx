@@ -357,8 +357,8 @@ function ServiceModule({ service }: { service: Service }) {
   );
 }
 
-function PricingPlan({ number, name, description, popular, children }: { number: string; name: string; description: string; popular?: boolean; children: ReactNode }) {
-  return <article className={`pricing-plan reveal stagger-item ${popular ? "pricing-plan-featured" : ""}`}><div className="plan-top"><span>{number}</span>{popular && <b>MOST POPULAR</b>}</div><h3>{name}</h3><p>{description}</p><div className="plan-price">{name === "CUSTOM" ? "LET'S DISCUSS" : "₹ XX,XXX"}</div><div className="plan-rule" /><span className="plan-includes">INCLUDES</span><ul>{children}</ul><a className="text-link" href="#contact">START A CONVERSATION <ArrowUpRight size={15} /></a></article>;
+function PricingPlan({ number, name, price, description, popular, children }: { number: string; name: string; price: string; description: string; popular?: boolean; children: ReactNode }) {
+  return <article className={`pricing-plan reveal stagger-item ${popular ? "pricing-plan-featured" : ""}`}><div className="plan-top"><span>{number}</span>{popular && <b>MOST POPULAR</b>}</div><h3>{name}</h3><p>{description}</p><div className="plan-price">{price}</div><div className="plan-rule" /><span className="plan-includes">INCLUDES</span><ul>{children}</ul><a className="text-link" href="#contact">START A CONVERSATION <ArrowUpRight size={15} /></a></article>;
 }
 
 export const Route = createFileRoute("/")({
@@ -713,36 +713,56 @@ function Index() {
               <>
                 <PricingPlan
                   number="01"
-                  name="STARTER"
-                  price="15,000"
-                  description="For businesses establishing a modern, high-performance web presence."
+                  name="BASIC"
+                  price="₹ 29,999"
+                  description="Simple Website with Good UI"
                 >
-                  <li>1-5 Custom Responsive Pages</li>
-                  <li>Mobile-First Responsive Layout</li>
-                  <li>Basic SEO & Speed Optimization</li>
-                  <li>Contact Form & WhatsApp Integration</li>
+                  <li>Custom Domain</li>
+                  <li>Free Domain For 1 Year</li>
+                  <li>Free SSL Certificate</li>
+                  <li>Unlimited Bandwidth</li>
+                  <li>10 GB Storage Space</li>
+                  <li>24/7 Customer Care</li>
                 </PricingPlan>
                 <PricingPlan
                   number="02"
-                  name="GROWTH"
-                  price="35,000"
-                  description="For businesses ready for dynamic web apps and maximum conversion."
+                  name="STANDARD"
+                  price="₹ 69,999"
+                  popular={true}
+                  description="Creative Design, Dynamic Website"
                 >
-                  <li>Custom Web App / Dynamic Pages</li>
-                  <li>Advanced Interactive Animations</li>
-                  <li>Full Technical & Local SEO</li>
-                  <li>Server & Domain Infrastructure</li>
+                  <li>Basic E-Commerce Website</li>
+                  <li>Custom Domain For 1 Year</li>
+                  <li>Free Hosting For 1 Year</li>
+                  <li>Unlimited Bandwidth</li>
+                  <li>50 GB Storage Space</li>
+                  <li>250 Product Listing</li>
+                  <li>Secure Online Payments</li>
+                  <li>Customer Accounts</li>
+                  <li>Customized Reports</li>
+                  <li>24/7 Customer Care</li>
                 </PricingPlan>
                 <PricingPlan
                   number="03"
-                  name="SCALE"
-                  price="CUSTOM"
-                  description="Complete digital ecosystem built for ambitious brands and enterprise scope."
+                  name="PREMIUM"
+                  price="₹ 1,14,999"
+                  description="Dynamic Ecommerce Website"
                 >
-                  <li>Custom Platform / Portal</li>
-                  <li>Dedicated Server Architecture</li>
-                  <li>Automated Workflows & CRM</li>
-                  <li>Priority Ongoing Support</li>
+                  <li>Advance E-Commerce Website</li>
+                  <li>Android App With Playstore Publish</li>
+                  <li>Secure Online Payments</li>
+                  <li>Customer Accounts</li>
+                  <li>Free Domain For 1 Year</li>
+                  <li>Unlimited Bandwidth</li>
+                  <li>Unlimited Storage Space</li>
+                  <li>Customized Reports</li>
+                  <li>Priority Customer Care</li>
+                  <li>Unlimited Product Listing</li>
+                  <li>Multiple Currencies</li>
+                  <li>Sell On Social Channels</li>
+                  <li>Product Review</li>
+                  <li>24/7 Customer Care</li>
+                  <li>Extra Charges For Additional Requirements</li>
                 </PricingPlan>
               </>
             ) : (
