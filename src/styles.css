@@ -1886,11 +1886,18 @@ html.lenis body {
   z-index: 1;
 }
 
-.team-hero h1.team-oneliner-heading {
-  font-size: clamp(16px, 4vw, 58px);
-  white-space: nowrap;
+.gradient-text-orange-white {
+  background: linear-gradient(135deg, var(--orange) 0%, #ffab4d 45%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
+.team-hero h1.team-hero-heading {
+  font-size: clamp(32px, 5.2vw, 68px);
+  line-height: 1.12;
   margin: 10px 0;
-  line-height: 1.1;
   font-family: var(--font-display);
   font-weight: 400;
   letter-spacing: -0.03em;
@@ -2069,12 +2076,14 @@ html.lenis body {
   }
   
   .team-hero {
-    padding: 100px 16px 20px;
+    padding: 105px 16px 25px;
   }
   
-  .team-hero h1.team-oneliner-heading {
-    font-size: clamp(14px, 4.4vw, 24px);
-    white-space: nowrap;
+  .team-hero h1.team-hero-heading {
+    font-size: clamp(26px, 7.5vw, 42px) !important;
+    line-height: 1.15 !important;
+    white-space: normal !important;
+    font-weight: 600 !important;
   }
   
   .team-section {

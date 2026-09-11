@@ -34,7 +34,7 @@ type TeamMember = {
 const teamMembers: TeamMember[] = [
   {
     id: "1",
-    name: "Subhojit Ghosh",
+    name: "Ashok Kumar Das",
     role: "CEO & Founder",
     badge: "Leadership",
     bio: "Driving strategic vision, market positioning, and agency expansion across high-impact digital sectors.",
@@ -45,7 +45,7 @@ const teamMembers: TeamMember[] = [
   },
   {
     id: "2",
-    name: "Rajarshi Mukhopadhyay",
+    name: "Amit Karmakar",
     role: "Co-Founder & CTO",
     badge: "Technology",
     bio: "Architecting cloud systems, web performance engines, and automated business integrations.",
@@ -56,8 +56,8 @@ const teamMembers: TeamMember[] = [
   },
   {
     id: "3",
-    name: "Priya Sharma",
-    role: "Chief Operating Officer",
+    name: "Riju Karmakar",
+    role: "Strategic Operations Director",
     badge: "Operations",
     bio: "Optimizing client campaign execution, project roadmaps, and cross-functional team workflows.",
     image: dummyUserImg,
@@ -67,7 +67,7 @@ const teamMembers: TeamMember[] = [
   },
   {
     id: "4",
-    name: "Arpan Bhattacharya",
+    name: "Sandipan Sarkar",
     role: "Head of Digital Marketing",
     badge: "Marketing",
     bio: "Spearheading multi-channel growth, performance marketing, and targeted ROI-driven campaigns.",
@@ -78,43 +78,10 @@ const teamMembers: TeamMember[] = [
   },
   {
     id: "5",
-    name: "Ankita Roy",
-    role: "Lead UI/UX Architect",
+    name: "Disha Das",
+    role: "Lead UI/UX & Brand Strategist",
     badge: "Design",
     bio: "Crafting intuitive digital product experiences, high-converting interfaces, and sleek design systems.",
-    image: dummyUserImg,
-    linkedin: "https://linkedin.com",
-    twitter: "https://twitter.com",
-    email: "mailto:support@rasatech.in",
-  },
-  {
-    id: "6",
-    name: "Rohan Das",
-    role: "Senior Full-Stack Engineer",
-    badge: "Engineering",
-    bio: "Building fast, reliable web applications and scalable API infrastructure with modern technologies.",
-    image: dummyUserImg,
-    linkedin: "https://linkedin.com",
-    twitter: "https://twitter.com",
-    email: "mailto:support@rasatech.in",
-  },
-  {
-    id: "7",
-    name: "Sayan Sengupta",
-    role: "Influencer & Campaign Lead",
-    badge: "Strategy",
-    bio: "Connecting brands with top creators, managing viral campaigns, and scaling influencer outreach.",
-    image: dummyUserImg,
-    linkedin: "https://linkedin.com",
-    twitter: "https://twitter.com",
-    email: "mailto:support@rasatech.in",
-  },
-  {
-    id: "8",
-    name: "Sneha Ganguly",
-    role: "WhatsApp Automation Lead",
-    badge: "Automation",
-    bio: "Designing automated conversational sales funnels, CRM integrations, and instant messaging systems.",
     image: dummyUserImg,
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",
@@ -204,7 +171,11 @@ function TeamPage() {
         {/* Team Hero Section */}
         <section className="team-hero">
           <div className="team-hero-inner">
-            <h1 className="team-oneliner-heading">MEET THE MINDS BEHIND RASA TECH.</h1>
+            <h1 className="team-hero-heading">
+              MEET THE MINDS BEHIND
+              <br />
+              <span className="gradient-text-orange-white">RASA TECH.</span>
+            </h1>
           </div>
         </section>
 
