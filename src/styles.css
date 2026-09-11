@@ -1031,9 +1031,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   top: 50%;
   width: 14px;
   height: 14px;
-  background: #ff7a00;
+  background: #ffffff !important;
   border-radius: 50%;
-  box-shadow: 0 0 10px #ff7a00, 0 0 20px #ff7a00, 0 0 30px #ff7a00;
+  box-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px rgba(255, 255, 255, 0.9) !important;
   transform: translate(-50%, -50%);
   z-index: 2;
   animation: orange-runner-pingpong 3.5s ease-in-out infinite alternate;
@@ -1393,6 +1393,13 @@ a.text-link:hover svg,
   grid-template-columns: repeat(3, 1fr);
   gap: 20px !important;
   margin-top: 30px !important;
+}
+
+@media (max-width: 900px) {
+  .pricing-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
 }
 
 .pricing-plan {
