@@ -13,6 +13,7 @@ import {
   Server,
   Share2,
   Smartphone,
+  Users,
   X,
 } from "lucide-react";
 import Lenis from "lenis";
@@ -27,7 +28,7 @@ type Service = {
   description: string;
   capabilities: string[];
   icon: typeof Code2;
-  visual: "browser" | "social" | "search" | "server" | "phone" | "messages";
+  visual: "browser" | "social" | "search" | "influencer" | "phone" | "messages";
 };
 
 const services: Service[] = [
@@ -57,11 +58,11 @@ const services: Service[] = [
   },
   {
     number: "04",
-    name: "Server Hosting",
-    description: "Reliable hosting infrastructure designed for speed, stability, security and dependable digital performance.",
-    capabilities: ["Managed Hosting", "Server Monitoring", "Performance & Security"],
-    icon: Server,
-    visual: "server",
+    name: "Influencer Marketing",
+    description: "Strategic creator and influencer partnerships designed to amplify brand authority, drive viral engagement, and convert targeted audiences.",
+    capabilities: ["Creator Partnerships", "Campaign Management", "Brand Reach & Growth"],
+    icon: Users,
+    visual: "influencer",
   },
   {
     number: "05",
@@ -239,7 +240,7 @@ function HeroSystem({ mouse = { x: 0, y: 0 } }: { mouse?: { x: number; y: number
       <SystemNode label="Web Development" position="node-web" icon={Globe2} />
       <SystemNode label="SOCIAL MEDIA" position="node-social" icon={Share2} />
       <SystemNode label="SEO & GMB" position="node-seo" icon={Search} />
-      <SystemNode label="Server Hosting" position="node-server" icon={Server} />
+      <SystemNode label="Influencer Marketing" position="node-server" icon={Users} />
       <SystemNode label="App Development" position="node-app" icon={Smartphone} />
       <SystemNode label="WhatsApp Automation" position="node-whatsapp" icon={MessageCircle} />
     </div>
@@ -273,7 +274,40 @@ function ServiceVisual({ type }: { type: Service["visual"] }) {
   if (type === "browser") return <div className="visual-browser"><div className="visual-topbar"><i /><i /><i /><span>rasa.tech / system</span></div><div className="browser-body"><div className="code-lines"><i /><i /><i /><i /><i /></div><div className="ui-blocks"><span /><span /><span /><span /></div><div className="browser-signal" /></div></div>;
   if (type === "social") return <div className="visual-social"><div className="social-panel social-panel-main"><span className="visual-avatar" /><b>content / 02</b><i /><i /><i /></div><div className="social-panel social-panel-small"><span>↑ 84.2%</span><small>audience signal</small></div><div className="social-panel social-panel-dot"><MessageCircle size={14} /></div><div className="social-line" /></div>;
   if (type === "search") return <div className="visual-search"><div className="search-box"><Search size={13} /><span>your business</span><b>⌕</b></div><div className="search-result"><span>01</span><div><b>RASA TECH</b><small>Digital systems built to grow</small></div><em>↑</em></div><div className="search-result muted"><span>02</span><div><b>LOCAL RESULT</b><small>Visibility / 74%</small></div><em>↑</em></div><div className="search-graph"><i /><i /><i /><i /><i /><i /></div></div>;
-  if (type === "server") return <div className="visual-server"><div className="server-stack"><span /><span /><span /></div><div className="server-status"><b><i /> ALL SYSTEMS</b><small>99.98% uptime</small></div><div className="server-node server-node-a" /><div className="server-node server-node-b" /><div className="server-link" /></div>;
+  if (type === "influencer")
+    return (
+      <div className="visual-influencer">
+        <div className="influencer-card">
+          <div className="influencer-header">
+            <span className="influencer-avatar">
+              <Users size={12} />
+            </span>
+            <div className="influencer-info">
+              <b>CREATOR NETWORK</b>
+              <small>Verified Campaign</small>
+            </div>
+            <span className="influencer-badge">ACTIVE</span>
+          </div>
+          <div className="influencer-stats">
+            <div>
+              <small>TOTAL REACH</small>
+              <b>1.2M+</b>
+            </div>
+            <div>
+              <small>ENGAGEMENT</small>
+              <b className="stat-highlight">8.4% ↑</b>
+            </div>
+          </div>
+        </div>
+        <div className="influencer-pulse-wrap">
+          <span className="pulse-ring ring-1" />
+          <span className="pulse-ring ring-2" />
+          <div className="influencer-node">
+            <Users size={12} />
+          </div>
+        </div>
+      </div>
+    );
   if (type === "phone") return <div className="visual-phone"><div className="phone-frame"><div className="phone-notch" /><div className="phone-screen"><span className="phone-greeting">HELLO, WORLD<span>.</span></span><div className="phone-card"><small>ACTIVITY</small><b>+ 24.08%</b><i /></div><div className="phone-nav"><span /><span /><span /></div></div></div><div className="phone-signal" /></div>;
   return <div className="visual-messages"><div className="message-bubble bubble-left">Hi, let's build <span>↗</span></div><div className="message-bubble bubble-right">Something great.</div><div className="message-typing"><i /><i /><i /></div><div className="message-pulse" /></div>;
 }
