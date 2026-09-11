@@ -270,6 +270,156 @@ function AboutSystem() {
   );
 }
 
+function MagneticButton({
+  children,
+  className = "",
+  strength = 0.35,
+}: {
+  children: ReactNode;
+  className?: string;
+  strength?: number;
+}) {
+  const btnRef = useRef<HTMLDivElement>(null);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!btnRef.current) return;
+    const { left, top, width, height } = btnRef.current.getBoundingClientRect();
+    const centerX = left + width / 2;
+    const centerY = top + height / 2;
+    const deltaX = (e.clientX - centerX) * strength;
+    const deltaY = (e.clientY - centerY) * strength;
+    setPosition({ x: deltaX, y: deltaY });
+  };
+
+  const handleMouseLeave = () => {
+    setPosition({ x: 0, y: 0 });
+  };
+
+  return (
+    <div
+      ref={btnRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className={`magnetic-btn-wrap ${className}`}
+      style={{
+        transform: `translate3d(${position.x}px, ${position.y}px, 0px)`,
+        transition: position.x === 0 && position.y === 0 
+          ? "transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)" 
+          : "transform 0.12s ease-out",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function MouseSpotlight() {
+  const [spotlightPos, setSpotlightPos] = useState({ opacity: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setSpotlightPos({ opacity: 1 });
+      document.documentElement.style.setProperty("--spotlight-x", `${e.clientX}px`);
+      document.documentElement.style.setProperty("--spotlight-y", `${e.clientY}px`);
+    };
+
+    const handleMouseLeave = () => {
+      setSpotlightPos({ opacity: 0 });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseleave", handleMouseLeave);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, []);
+
+  return (
+    <div
+      className="mouse-spotlight-layer"
+      style={{ opacity: spotlightPos.opacity }}
+      aria-hidden="true"
+    />
+  );
+}
+
+function WhatsAppChatPreview() {
+  const [messages, setMessages] = useState<Array<{ sender: "bot" | "user"; text: string; time: string }>>([
+    { sender: "bot", text: "👋 Hi! Welcome to RASA Tech. How can we supercharge your business today?", time: "10:30 AM" },
+  ]);
+  const [isTyping, setIsTyping] = useState(false);
+  const [activePrompt, setActivePrompt] = useState<string | null>(null);
+
+  const prompts = [
+    { label: "⚡ Instant Quote", query: "Can I get an instant pricing quote?", reply: "🚀 Custom Web & Automation projects start at ₹9,999! Includes 24/7 lead sync & CRM integration." },
+    { label: "📅 Book Demo", query: "I want to schedule a live demo.", reply: "📅 Great! Our team will connect with you on WhatsApp within 15 mins. Or call 8617201731!" },
+    { label: "🤖 Auto Leads", query: "How does auto lead capture work?", reply: "🤖 Every Facebook & website inquiry instantly receives an automated WhatsApp follow-up with your catalog!" },
+    { label: "💬 Live Support", query: "Can I talk with a human agent?", reply: "👨‍💻 Connecting you to our lead engineer now. Expect a direct response shortly!" },
+  ];
+
+  const handleChipClick = (prompt: typeof prompts[0]) => {
+    if (isTyping) return;
+    setActivePrompt(prompt.label);
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    
+    setMessages((prev) => [...prev, { sender: "user", text: prompt.query, time: timeStr }]);
+    setIsTyping(true);
+
+    setTimeout(() => {
+      setMessages((prev) => [
+        ...prev,
+        { sender: "bot", text: prompt.reply, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) },
+      ]);
+      setIsTyping(false);
+    }, 850);
+  };
+
+  return (
+    <div className="interactive-whatsapp-visual">
+      <div className="whatsapp-header">
+        <div className="whatsapp-avatar-wrap">
+          <MessageCircle size={14} className="text-black" />
+          <span className="online-indicator" />
+        </div>
+        <div className="whatsapp-title">
+          <b>RASA TECH BOT</b>
+          <small>● Online • Instant Automation Demo</small>
+        </div>
+      </div>
+      <div className="whatsapp-chat-body">
+        {messages.map((msg, idx) => (
+          <div key={idx} className={`whatsapp-bubble ${msg.sender === "user" ? "bubble-user" : "bubble-bot"}`}>
+            <p>{msg.text}</p>
+            <span className="bubble-time">
+              {msg.time} {msg.sender === "user" && <span className="check-marks">✓✓</span>}
+            </span>
+          </div>
+        ))}
+        {isTyping && (
+          <div className="whatsapp-bubble bubble-bot typing-indicator">
+            <span className="dot" /><span className="dot" /><span className="dot" />
+          </div>
+        )}
+      </div>
+      <div className="whatsapp-chips-bar">
+        {prompts.map((p) => (
+          <button
+            key={p.label}
+            className={`chat-chip ${activePrompt === p.label ? "active" : ""}`}
+            onClick={() => handleChipClick(p)}
+            disabled={isTyping}
+          >
+            {p.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function ServiceVisual({ type }: { type: Service["visual"] }) {
   if (type === "browser") return <div className="visual-browser"><div className="visual-topbar"><i /><i /><i /><span>rasa.tech / system</span></div><div className="browser-body"><div className="code-lines"><i /><i /><i /><i /><i /></div><div className="ui-blocks"><span /><span /><span /><span /></div><div className="browser-signal" /></div></div>;
   if (type === "social") return <div className="visual-social"><div className="social-panel social-panel-main"><span className="visual-avatar" /><b>content / 02</b><i /><i /><i /></div><div className="social-panel social-panel-small"><span>↑ 84.2%</span><small>audience signal</small></div><div className="social-panel social-panel-dot"><MessageCircle size={14} /></div><div className="social-line" /></div>;
@@ -309,7 +459,7 @@ function ServiceVisual({ type }: { type: Service["visual"] }) {
       </div>
     );
   if (type === "phone") return <div className="visual-phone"><div className="phone-frame"><div className="phone-notch" /><div className="phone-screen"><span className="phone-greeting">HELLO, WORLD<span>.</span></span><div className="phone-card"><small>ACTIVITY</small><b>+ 24.08%</b><i /></div><div className="phone-nav"><span /><span /><span /></div></div></div><div className="phone-signal" /></div>;
-  return <div className="visual-messages"><div className="message-bubble bubble-left">Hi, let's build <span>↗</span></div><div className="message-bubble bubble-right">Something great.</div><div className="message-typing"><i /><i /><i /></div><div className="message-pulse" /></div>;
+  return <WhatsAppChatPreview />;
 }
 
 function ServiceModule({ service }: { service: Service }) {
@@ -360,7 +510,54 @@ function ServiceModule({ service }: { service: Service }) {
 }
 
 function PricingPlan({ number, name, price, description, popular, children }: { number: string; name: string; price: string; description: string; popular?: boolean; children: ReactNode }) {
-  return <article className={`pricing-plan reveal stagger-item ${popular ? "pricing-plan-featured" : ""}`}><div className="plan-top"><span>{number}</span>{popular && <b>MOST POPULAR</b>}</div><h3>{name}</h3><p>{description}</p><div className="plan-price">{price}</div><div className="plan-rule" /><span className="plan-includes">INCLUDES</span><ul>{children}</ul><a className="text-link" href="#contact">START A CONVERSATION <ArrowUpRight size={15} /></a></article>;
+  const [cardMouse, setCardMouse] = useState({ x: 50, y: 50, rotateX: 0, rotateY: 0, isHovered: false });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const px = e.clientX - rect.left;
+    const py = e.clientY - rect.top;
+    const xPct = (px / rect.width) * 100;
+    const yPct = (py / rect.height) * 100;
+    const rotateX = -((py - rect.height / 2) / (rect.height / 2)) * 8;
+    const rotateY = ((px - rect.width / 2) / (rect.width / 2)) * 8;
+    setCardMouse({ x: xPct, y: yPct, rotateX, rotateY, isHovered: true });
+  };
+
+  const handleMouseLeave = () => {
+    setCardMouse({ x: 50, y: 50, rotateX: 0, rotateY: 0, isHovered: false });
+  };
+
+  return (
+    <article
+      className={`pricing-plan reveal stagger-item ${popular ? "pricing-plan-featured" : ""}`}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        transform: cardMouse.isHovered
+          ? `perspective(1000px) rotateX(${cardMouse.rotateX}deg) rotateY(${cardMouse.rotateY}deg) translateY(-6px)`
+          : "perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)",
+        transition: cardMouse.isHovered ? "transform 0.1s cubic-bezier(0.1, 1, 0.1, 1)" : "transform 0.5s ease",
+      }}
+    >
+      <div
+        className="service-spotlight"
+        style={{
+          opacity: cardMouse.isHovered ? 1 : 0,
+          background: `radial-gradient(circle at ${cardMouse.x}% ${cardMouse.y}%, rgba(255, 122, 0, 0.22), transparent 70%)`,
+        }}
+      />
+      <div className="plan-top"><span>{number}</span>{popular && <b>MOST POPULAR</b>}</div>
+      <h3>{name}</h3>
+      <p>{description}</p>
+      <div className="plan-price">{price}</div>
+      <div className="plan-rule" />
+      <span className="plan-includes">INCLUDES</span>
+      <ul>{children}</ul>
+      <MagneticButton>
+        <a className="text-link" href="#contact">START A CONVERSATION <ArrowUpRight size={15} /></a>
+      </MagneticButton>
+    </article>
+  );
 }
 
 export const Route = createFileRoute("/")({
@@ -526,6 +723,7 @@ function Index() {
 
   return (
     <div className="rasa-site">
+      <MouseSpotlight />
       <div id="scroll-progress" className="scroll-progress-bar" aria-hidden="true" />
       <div className="custom-cursor" aria-hidden="true"><span /></div>
       <div className="site-network" aria-hidden="true"><span /><span /><span /><span /><span /></div>
@@ -539,19 +737,23 @@ function Index() {
           <Link to="/team" onClick={closeMenu}>Our Team</Link>
           <a href="#contact" onClick={closeMenu}>Contact</a>
           <div className="mobile-only-cta">
-            <Button asChild className="w-full h-12 text-sm font-semibold border-orange bg-orange text-black hover:bg-orange-hot">
-              <a href="#contact" onClick={closeMenu}>LET'S TALK <ArrowUpRight size={16} /></a>
-            </Button>
+            <MagneticButton className="w-full">
+              <Button asChild className="w-full h-12 text-sm font-semibold border-orange bg-orange text-black hover:bg-orange-hot">
+                <a href="#contact" onClick={closeMenu}>LET'S TALK <ArrowUpRight size={16} /></a>
+              </Button>
+            </MagneticButton>
           </div>
         </nav>
-        <Button asChild className="header-cta"><a href="#contact" onClick={closeMenu}>LET'S TALK <ArrowUpRight size={16} /></a></Button>
+        <MagneticButton>
+          <Button asChild className="header-cta"><a href="#contact" onClick={closeMenu}>LET'S TALK <ArrowUpRight size={16} /></a></Button>
+        </MagneticButton>
         <Button variant="ghost" size="icon" className="menu-toggle" aria-label={menuOpen ? "Close menu" : "Open menu"} onClick={() => setMenuOpen((open) => !open)}>{menuOpen ? <X /> : <Menu />}</Button>
       </header>
 
       <main>
         <section id="home" className="hero-section page-section" onMouseMove={handleHeroMouseMove} onMouseLeave={handleHeroMouseLeave}>
           <div className="hero-grid" />
-          <div className="hero-copy reveal"><p className="eyebrow"><span className="eyebrow-pulse" />RASA TECH <span>/</span> DIGITAL SYSTEMS</p><TypewriterHeading /><p className="hero-description">RASA Tech builds websites, digital experiences, marketing systems and technology that help ambitious businesses grow.</p><div className="hero-actions"><Button asChild><a href="#contact">START A PROJECT <ArrowUpRight size={17} /></a></Button><a className="outline-action" href="#services">EXPLORE SERVICES <ArrowDown size={16} /></a></div></div>
+          <div className="hero-copy reveal"><p className="eyebrow"><span className="eyebrow-pulse" />RASA TECH <span>/</span> DIGITAL SYSTEMS</p><TypewriterHeading /><p className="hero-description">RASA Tech builds websites, digital experiences, marketing systems and technology that help ambitious businesses grow.</p><div className="hero-actions"><MagneticButton><Button asChild><a href="#contact">START A PROJECT <ArrowUpRight size={17} /></a></Button></MagneticButton><MagneticButton><a className="outline-action" href="#services">EXPLORE SERVICES <ArrowDown size={16} /></a></MagneticButton></div></div>
           <div className="hero-visual reveal"><HeroSystem mouse={heroMouse} /></div>
           <div className="hero-scroll-line" aria-hidden="true" />
         </section>

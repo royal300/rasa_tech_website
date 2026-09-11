@@ -89,6 +89,149 @@ const teamMembers: TeamMember[] = [
   },
 ];
 
+function MagneticButton({
+  children,
+  className = "",
+  strength = 0.35,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  strength?: number;
+}) {
+  const btnRef = useRef<HTMLDivElement>(null);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!btnRef.current) return;
+    const { left, top, width, height } = btnRef.current.getBoundingClientRect();
+    const centerX = left + width / 2;
+    const centerY = top + height / 2;
+    const deltaX = (e.clientX - centerX) * strength;
+    const deltaY = (e.clientY - centerY) * strength;
+    setPosition({ x: deltaX, y: deltaY });
+  };
+
+  const handleMouseLeave = () => {
+    setPosition({ x: 0, y: 0 });
+  };
+
+  return (
+    <div
+      ref={btnRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className={`magnetic-btn-wrap ${className}`}
+      style={{
+        transform: `translate3d(${position.x}px, ${position.y}px, 0px)`,
+        transition: position.x === 0 && position.y === 0 
+          ? "transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)" 
+          : "transform 0.12s ease-out",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function MouseSpotlight() {
+  const [spotlightPos, setSpotlightPos] = useState({ opacity: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setSpotlightPos({ opacity: 1 });
+      document.documentElement.style.setProperty("--spotlight-x", `${e.clientX}px`);
+      document.documentElement.style.setProperty("--spotlight-y", `${e.clientY}px`);
+    };
+
+    const handleMouseLeave = () => {
+      setSpotlightPos({ opacity: 0 });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseleave", handleMouseLeave);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, []);
+
+  return (
+    <div
+      className="mouse-spotlight-layer"
+      style={{ opacity: spotlightPos.opacity }}
+      aria-hidden="true"
+    />
+  );
+}
+
+function TeamCard({ member }: { member: TeamMember }) {
+  const [cardMouse, setCardMouse] = useState({ x: 50, y: 50, rotateX: 0, rotateY: 0, isHovered: false });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const px = e.clientX - rect.left;
+    const py = e.clientY - rect.top;
+    const xPct = (px / rect.width) * 100;
+    const yPct = (py / rect.height) * 100;
+    const rotateX = -((py - rect.height / 2) / (rect.height / 2)) * 8;
+    const rotateY = ((px - rect.width / 2) / (rect.width / 2)) * 8;
+    setCardMouse({ x: xPct, y: yPct, rotateX, rotateY, isHovered: true });
+  };
+
+  const handleMouseLeave = () => {
+    setCardMouse({ x: 50, y: 50, rotateX: 0, rotateY: 0, isHovered: false });
+  };
+
+  return (
+    <div
+      className="team-card"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        transform: cardMouse.isHovered
+          ? `perspective(1000px) rotateX(${cardMouse.rotateX}deg) rotateY(${cardMouse.rotateY}deg) translateY(-6px)`
+          : "perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)",
+        transition: cardMouse.isHovered ? "transform 0.1s cubic-bezier(0.1, 1, 0.1, 1)" : "transform 0.5s ease",
+      }}
+    >
+      <div
+        className="service-spotlight"
+        style={{
+          opacity: cardMouse.isHovered ? 1 : 0,
+          background: `radial-gradient(circle at ${cardMouse.x}% ${cardMouse.y}%, rgba(255, 122, 0, 0.22), transparent 70%)`,
+        }}
+      />
+      <div className="team-card-img-wrapper">
+        <img src={member.image} alt={member.name} />
+        <div className="team-card-img-overlay" />
+      </div>
+      <div className="team-card-body">
+        <span className="team-role-badge">{member.badge}</span>
+        <h3>{member.name}</h3>
+        <div className="team-card-title">{member.role}</div>
+        <p className="team-card-bio">{member.bio}</p>
+        <div className="team-card-socials">
+          {member.linkedin && (
+            <a href={member.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <Linkedin size={15} />
+            </a>
+          )}
+          {member.twitter && (
+            <a href={member.twitter} target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+              <Twitter size={15} />
+            </a>
+          )}
+          {member.email && (
+            <a href={member.email} aria-label="Email">
+              <Mail size={15} />
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function TeamPage() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -133,6 +276,7 @@ function TeamPage() {
 
   return (
     <div className="rasa-site">
+      <MouseSpotlight />
       <div className="custom-cursor" aria-hidden="true"><span /></div>
       <div className="site-network" aria-hidden="true"><span /><span /><span /><span /><span /></div>
 
@@ -148,14 +292,18 @@ function TeamPage() {
           <Link to="/team" className="text-orange-500 font-semibold" onClick={closeMenu}>Our Team</Link>
           <a href="/#contact" onClick={closeMenu}>Contact</a>
           <div className="mobile-only-cta">
-            <Button asChild className="w-full h-12 text-sm font-semibold border-orange bg-orange text-black hover:bg-orange-hot">
-              <a href="/#contact" onClick={closeMenu}>LET'S TALK <ArrowUpRight size={16} /></a>
-            </Button>
+            <MagneticButton className="w-full">
+              <Button asChild className="w-full h-12 text-sm font-semibold border-orange bg-orange text-black hover:bg-orange-hot">
+                <a href="/#contact" onClick={closeMenu}>LET'S TALK <ArrowUpRight size={16} /></a>
+              </Button>
+            </MagneticButton>
           </div>
         </nav>
-        <Button asChild className="header-cta">
-          <a href="/#contact" onClick={closeMenu}>LET'S TALK <ArrowUpRight size={16} /></a>
-        </Button>
+        <MagneticButton>
+          <Button asChild className="header-cta">
+            <a href="/#contact" onClick={closeMenu}>LET'S TALK <ArrowUpRight size={16} /></a>
+          </Button>
+        </MagneticButton>
         <Button
           variant="ghost"
           size="icon"
@@ -183,35 +331,7 @@ function TeamPage() {
         <section className="team-section">
           <div className="team-grid">
             {teamMembers.map((member) => (
-              <div key={member.id} className="team-card">
-                <div className="team-card-img-wrapper">
-                  <img src={member.image} alt={member.name} />
-                  <div className="team-card-img-overlay" />
-                </div>
-                <div className="team-card-body">
-                  <span className="team-role-badge">{member.badge}</span>
-                  <h3>{member.name}</h3>
-                  <div className="team-card-title">{member.role}</div>
-                  <p className="team-card-bio">{member.bio}</p>
-                  <div className="team-card-socials">
-                    {member.linkedin && (
-                      <a href={member.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                        <Linkedin size={15} />
-                      </a>
-                    )}
-                    {member.twitter && (
-                      <a href={member.twitter} target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-                        <Twitter size={15} />
-                      </a>
-                    )}
-                    {member.email && (
-                      <a href={member.email} aria-label="Email">
-                        <Mail size={15} />
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </div>
+              <TeamCard key={member.id} member={member} />
             ))}
           </div>
         </section>
@@ -224,9 +344,11 @@ function TeamPage() {
             <h2>LET'S BUILD SOMETHING GREAT.</h2>
             <p>Connect with our team today and let's supercharge your digital growth.</p>
             <div className="final-cta-action">
-              <a href="/#contact" className="start-conversation-btn">
-                START A CONVERSATION <ArrowUpRight size={16} />
-              </a>
+              <MagneticButton>
+                <a href="/#contact" className="start-conversation-btn">
+                  START A CONVERSATION <ArrowUpRight size={16} />
+                </a>
+              </MagneticButton>
             </div>
           </div>
         </section>
