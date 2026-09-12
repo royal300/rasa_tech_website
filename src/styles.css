@@ -2004,6 +2004,7 @@ html.lenis body {
   color: #ffffff;
   margin: 0 0 4px;
   letter-spacing: -0.02em;
+  text-transform: capitalize;
 }
 
 .team-card-title {
@@ -2012,6 +2013,7 @@ html.lenis body {
   font-weight: 600;
   letter-spacing: 0.03em;
   margin-bottom: 10px;
+  text-transform: capitalize;
 }
 
 .team-card-bio {
