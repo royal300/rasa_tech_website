@@ -198,11 +198,11 @@ function HeroSystem({ mouse = { x: 0, y: 0 } }: { mouse?: { x: number; y: number
             <img src="/icons/whastpp.png" alt="WhatsApp" width="18" height="18" />
           </div>
         </div>
-        <div className="revolving-icon icon-pos-right" title="Instagram">
+        <a href="https://www.instagram.com/rasatech.in/" target="_blank" rel="noopener noreferrer" className="revolving-icon icon-pos-right" title="Instagram">
           <div className="revolving-icon-inner">
             <img src="/icons/instagram1.webp" alt="Instagram" width="18" height="18" />
           </div>
-        </div>
+        </a>
       </div>
 
       {/* Orbit 2 with revolving Facebook & YouTube icons */}
@@ -1083,7 +1083,7 @@ function Index() {
                 <a href="https://www.facebook.com/profile.php?id=61594128368179" target="_blank" rel="noopener noreferrer">
                   FACEBOOK <ArrowUpRight size={13} />
                 </a>
-                <a href="#contact">
+                <a href="https://www.instagram.com/rasatech.in/" target="_blank" rel="noopener noreferrer">
                   INSTAGRAM <ArrowUpRight size={13} />
                 </a>
                 <a href="#contact">

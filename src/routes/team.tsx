@@ -384,7 +384,9 @@ function TeamPage() {
               <a href="https://www.facebook.com/profile.php?id=61594128368179" target="_blank" rel="noopener noreferrer">
                 FACEBOOK <ArrowUpRight size={13} />
               </a>
-              <a href="/#contact">INSTAGRAM <ArrowUpRight size={13} /></a>
+              <a href="https://www.instagram.com/rasatech.in/" target="_blank" rel="noopener noreferrer">
+                INSTAGRAM <ArrowUpRight size={13} />
+              </a>
               <a href="/#contact">LINKEDIN <ArrowUpRight size={13} /></a>
             </div>
           </div>
