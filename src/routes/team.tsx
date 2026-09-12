@@ -27,7 +27,6 @@ type TeamMember = {
   bio: string;
   image: string;
   linkedin?: string;
-  twitter?: string;
   email?: string;
 };
 
@@ -38,53 +37,48 @@ const teamMembers: TeamMember[] = [
     role: "CEO & Founder",
     badge: "Leadership",
     bio: "Driving strategic vision, market positioning, and agency expansion across high-impact digital sectors.",
-    image: dummyUserImg,
+    image: "/teams/ashok.jpg",
     linkedin: "https://linkedin.com",
-    twitter: "https://twitter.com",
     email: "mailto:support@rasatech.in",
   },
   {
     id: "2",
-    name: "Amit Karmakar",
-    role: "Co-Founder & CTO",
-    badge: "Technology",
-    bio: "Architecting cloud systems, web performance engines, and automated business integrations.",
-    image: dummyUserImg,
+    name: "Disha Das",
+    role: "Co-Founder & Manager",
+    badge: "Management",
+    bio: "Overseeing operations, team management, client relations, and brand growth initiatives.",
+    image: "/teams/disha.jpg",
     linkedin: "https://linkedin.com",
-    twitter: "https://twitter.com",
     email: "mailto:support@rasatech.in",
   },
   {
     id: "3",
     name: "Riju Karmakar",
-    role: "Strategic Operations Director",
+    role: "Co-Founder & Operational Head",
     badge: "Operations",
     bio: "Optimizing client campaign execution, project roadmaps, and cross-functional team workflows.",
-    image: dummyUserImg,
+    image: "/teams/riju.jpg",
     linkedin: "https://linkedin.com",
-    twitter: "https://twitter.com",
     email: "mailto:support@rasatech.in",
   },
   {
     id: "4",
-    name: "Sandipan Sarkar",
-    role: "Head of Digital Marketing",
-    badge: "Marketing",
-    bio: "Spearheading multi-channel growth, performance marketing, and targeted ROI-driven campaigns.",
-    image: dummyUserImg,
+    name: "Amit Karmakar",
+    role: "Co-Founder & Developer",
+    badge: "Technology",
+    bio: "Architecting cloud systems, web performance engines, and automated business integrations.",
+    image: "/teams/amit.jpg",
     linkedin: "https://linkedin.com",
-    twitter: "https://twitter.com",
     email: "mailto:support@rasatech.in",
   },
   {
     id: "5",
-    name: "Disha Das",
-    role: "Lead UI/UX & Brand Strategist",
-    badge: "Design",
-    bio: "Crafting intuitive digital product experiences, high-converting interfaces, and sleek design systems.",
-    image: dummyUserImg,
+    name: "Sandipan Sarkar",
+    role: "Co-Founder & Editor",
+    badge: "Editorial",
+    bio: "Spearheading multi-channel video editing, visual storytelling, and high-impact digital creative content.",
+    image: "/teams/sandipan.jpg",
     linkedin: "https://linkedin.com",
-    twitter: "https://twitter.com",
     email: "mailto:support@rasatech.in",
   },
 ];
@@ -213,17 +207,12 @@ function TeamCard({ member }: { member: TeamMember }) {
         <div className="team-card-socials">
           {member.linkedin && (
             <a href={member.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-              <Linkedin size={15} />
-            </a>
-          )}
-          {member.twitter && (
-            <a href={member.twitter} target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-              <Twitter size={15} />
+              <Linkedin size={16} />
             </a>
           )}
           {member.email && (
             <a href={member.email} aria-label="Email">
-              <Mail size={15} />
+              <Mail size={16} />
             </a>
           )}
         </div>
