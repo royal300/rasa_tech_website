@@ -3,16 +3,22 @@ import {
   ArrowDown,
   ArrowUp,
   ArrowUpRight,
+  Bot,
   Check,
   ChevronDown,
   Code2,
+  FileText,
   Globe2,
   Menu,
   MessageCircle,
+  PhoneCall,
   Search,
   Server,
+  Settings,
   Share2,
   Smartphone,
+  Sparkles,
+  Target,
   X,
 } from "lucide-react";
 import Lenis from "lenis";
@@ -81,7 +87,7 @@ const services: Service[] = [
   },
 ];
 
-const serviceOptions = [...services.map((service) => service.name), "OTHER"];
+const serviceOptions = ["AI Integration & Automation", ...services.map((service) => service.name), "OTHER"];
 
 function SignalLine({ className = "" }: { className?: string }) {
   return <span aria-hidden="true" className={`signal-line ${className}`} />;
@@ -342,6 +348,319 @@ function PricingPlan({ number, name, description, popular, children }: { number:
   return <article className={`pricing-plan reveal stagger-item ${popular ? "pricing-plan-featured" : ""}`}><div className="plan-top"><span>{number}</span>{popular && <b>MOST POPULAR</b>}</div><h3>{name}</h3><p>{description}</p><div className="plan-price">{name === "CUSTOM" ? "LET'S DISCUSS" : "₹ XX,XXX"}</div><div className="plan-rule" /><span className="plan-includes">INCLUDES</span><ul>{children}</ul><a className="text-link" href="#contact">START A CONVERSATION <ArrowUpRight size={15} /></a></article>;
 }
 
+type AISolution = {
+  id: string;
+  number: string;
+  title: string;
+  description: string;
+  icon: typeof MessageCircle;
+};
+
+const aiSolutions: AISolution[] = [
+  {
+    id: "chat",
+    number: "01",
+    title: "AI Chat Assistant",
+    description: "24/7 Customer Support",
+    icon: Bot,
+  },
+  {
+    id: "content",
+    number: "02",
+    title: "AI Content Generation",
+    description: "Create Faster, Better Content",
+    icon: FileText,
+  },
+  {
+    id: "workflow",
+    number: "03",
+    title: "Workflow Automation",
+    description: "Automate Repetitive Tasks",
+    icon: Settings,
+  },
+  {
+    id: "voice",
+    number: "04",
+    title: "AI Voice Calling Agents",
+    description: "Automate Customer Calls",
+    icon: PhoneCall,
+  },
+  {
+    id: "sales",
+    number: "05",
+    title: "Lead & Sales Automation",
+    description: "Capture & Convert Leads",
+    icon: Target,
+  },
+];
+
+function AIChipIcon({ className = "" }: { className?: string }) {
+  return (
+    <div className={`ai-chip-icon-wrapper ${className}`}>
+      <svg
+        width="46"
+        height="46"
+        viewBox="0 0 48 48"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="ai-chip-svg"
+      >
+        <defs>
+          <linearGradient id="aiChipGrad" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#ffaa33" />
+            <stop offset="1" stopColor="#ff5500" />
+          </linearGradient>
+        </defs>
+
+        {/* Central chip body */}
+        <rect
+          x="13"
+          y="13"
+          width="22"
+          height="22"
+          rx="5"
+          stroke="url(#aiChipGrad)"
+          strokeWidth="1.8"
+          fill="rgba(255, 122, 0, 0.12)"
+        />
+        <text
+          x="24"
+          y="27.5"
+          textAnchor="middle"
+          fill="#ffffff"
+          fontSize="11.5"
+          fontWeight="800"
+          fontFamily="system-ui, sans-serif"
+          letterSpacing="0.08em"
+        >
+          AI
+        </text>
+
+        {/* Top pins */}
+        <path d="M19 13V7M24 13V5M29 13V7" stroke="#ff7a00" strokeWidth="1.6" strokeLinecap="round" />
+        <circle cx="19" cy="6" r="1.5" fill="#ffaa33" />
+        <circle cx="24" cy="4" r="1.8" fill="#ffcc00" />
+        <circle cx="29" cy="6" r="1.5" fill="#ffaa33" />
+
+        {/* Bottom pins */}
+        <path d="M19 35V41M24 35V43M29 35V41" stroke="#ff7a00" strokeWidth="1.6" strokeLinecap="round" />
+        <circle cx="19" cy="42" r="1.5" fill="#ffaa33" />
+        <circle cx="24" cy="44" r="1.8" fill="#ffcc00" />
+        <circle cx="29" cy="42" r="1.5" fill="#ffaa33" />
+
+        {/* Left pins */}
+        <path d="M13 19H7M13 24H5M13 29H7" stroke="#ff7a00" strokeWidth="1.6" strokeLinecap="round" />
+        <circle cx="6" cy="19" r="1.5" fill="#ffaa33" />
+        <circle cx="4" cy="24" r="1.8" fill="#ffcc00" />
+        <circle cx="6" cy="29" r="1.5" fill="#ffaa33" />
+
+        {/* Right pins */}
+        <path d="M35 19H41M35 24H43M35 29H41" stroke="#ff7a00" strokeWidth="1.6" strokeLinecap="round" />
+        <circle cx="42" cy="19" r="1.5" fill="#ffaa33" />
+        <circle cx="44" cy="24" r="1.8" fill="#ffcc00" />
+        <circle cx="42" cy="29" r="1.5" fill="#ffaa33" />
+      </svg>
+    </div>
+  );
+}
+
+function AISolutionsSection() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const sourceNodeRef = useRef<HTMLDivElement>(null);
+  const targetNodesRef = useRef<(HTMLDivElement | null)[]>([]);
+  const [paths, setPaths] = useState<string[]>([]);
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+  const calculatePaths = () => {
+    if (!containerRef.current || !sourceNodeRef.current) return;
+    const container = containerRef.current;
+    const containerRect = container.getBoundingClientRect();
+    if (containerRect.width === 0 || containerRect.height === 0) return;
+
+    const isMobile = window.innerWidth <= 960;
+    const sourceRect = sourceNodeRef.current.getBoundingClientRect();
+    const sx = sourceRect.left + sourceRect.width / 2 - containerRect.left;
+    const sy = sourceRect.top + sourceRect.height / 2 - containerRect.top;
+
+    const newPaths: string[] = [];
+
+    for (let i = 0; i < aiSolutions.length; i++) {
+      const targetEl = targetNodesRef.current[i];
+      if (!targetEl) continue;
+      const targetRect = targetEl.getBoundingClientRect();
+      const tx = targetRect.left + targetRect.width / 2 - containerRect.left;
+      const ty = targetRect.top + targetRect.height / 2 - containerRect.top;
+
+      if (!isMobile) {
+        // Desktop View:
+        // All five lines originate from the exact same source point (sx, sy) at bottom-center of the main card,
+        // smoothly curve outward and downward toward the five service cards, terminating precisely at each top-center node (tx, ty).
+        const dy = ty - sy;
+        const dx = tx - sx;
+
+        const cp1x = sx + dx * 0.35;
+        const cp1y = sy + dy * 0.32;
+        const cp2x = tx - dx * 0.05;
+        const cp2y = ty - dy * 0.35;
+
+        newPaths.push(`M ${sx} ${sy} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${tx} ${ty}`);
+      } else {
+        // Mobile View:
+        // Side-by-side / horizontal flow: single shared connection source point on right edge of AI hub,
+        // with five curved lines branching toward the service cards on the right.
+        const dx = tx - sx;
+        const cp1x = sx + dx * 0.45;
+        const cp1y = sy;
+        const cp2x = sx + dx * 0.55;
+        const cp2y = ty;
+
+        newPaths.push(`M ${sx} ${sy} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${tx} ${ty}`);
+      }
+    }
+
+    setDimensions({ width: containerRect.width, height: containerRect.height });
+    setPaths(newPaths);
+  };
+
+  useEffect(() => {
+    calculatePaths();
+
+    let ro: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== "undefined" && containerRef.current) {
+      ro = new ResizeObserver(() => {
+        calculatePaths();
+      });
+      ro.observe(containerRef.current);
+    }
+
+    window.addEventListener("resize", calculatePaths);
+    const t1 = setTimeout(calculatePaths, 150);
+    const t2 = setTimeout(calculatePaths, 600);
+
+    return () => {
+      window.removeEventListener("resize", calculatePaths);
+      ro?.disconnect();
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, []);
+
+  return (
+    <section id="ai-solutions" className="ai-section page-section content-section">
+      <div className="section-heading reveal ai-header-centered">
+        <SectionLabel number="02">AI ECOSYSTEM</SectionLabel>
+        <div>
+          <h2 className="single-line-heading services-gradient-title">INTELLIGENCE  THAT  AUTOMATES</h2>
+        </div>
+      </div>
+
+      <div className="ai-ecosystem-outer reveal" ref={containerRef}>
+        {/* Ambient Corner Captions (Desktop) */}
+        <div className="ai-ambient-tag top-left" aria-hidden="true">
+          <span>AI TODAY</span>
+          <span>A STRONGER TOMORROW</span>
+          <div className="ai-ambient-dash" />
+        </div>
+
+        <div className="ai-ambient-tag top-right" aria-hidden="true">
+          <span>AUTOMATE</span>
+          <span>INNOVATE</span>
+          <span>SCALE</span>
+          <div className="ai-ambient-dash" />
+        </div>
+
+        {/* Dynamic Glowing Neon SVG Connector Lines */}
+        <svg
+          className="ai-connector-svg"
+          width={dimensions.width || "100%"}
+          height={dimensions.height || "100%"}
+          aria-hidden="true"
+        >
+          {paths.map((p, idx) => (
+            <g key={idx}>
+              {/* Soft atmospheric neon glow */}
+              <path d={p} className="ai-connector-glow" />
+              {/* Crisp glowing neon line */}
+              <path d={p} className="ai-connector-line" />
+              {/* Traveling light pulse along the line */}
+              <path d={p} className="ai-connector-pulse" style={{ animationDelay: `${idx * 0.45}s` }} />
+            </g>
+          ))}
+        </svg>
+
+        {/* The Main Hub Card */}
+        <div className="ai-main-card">
+          <div className="ai-main-card-glow-bg" aria-hidden="true" />
+          <AIChipIcon />
+          <h3 className="ai-main-card-title">
+            Integrate AI<br />
+            <span className="ai-gradient-text">with Your Business</span>
+          </h3>
+          <div className="ai-main-card-badge">
+            <span>SMART SOLUTIONS</span>
+            <span className="ai-badge-separator" />
+            <span>REAL GROWTH</span>
+          </div>
+
+          {/* Single Shared Source Connection Node */}
+          <div ref={sourceNodeRef} className="ai-source-node">
+            <span className="ai-node-ring" />
+            <span className="ai-node-core" />
+          </div>
+        </div>
+
+        {/* Five Service Cards */}
+        <div className="ai-cards-container">
+          {aiSolutions.map((sol, index) => {
+            const Icon = sol.icon;
+            return (
+              <div key={sol.id} className="ai-service-card stagger-item">
+                {/* Target Connection Node */}
+                <div
+                  ref={(el) => {
+                    targetNodesRef.current[index] = el;
+                  }}
+                  className="ai-target-node"
+                >
+                  <span className="ai-node-ring" />
+                  <span className="ai-node-core" />
+                </div>
+
+                <span className="ai-card-quote" aria-hidden="true">“</span>
+
+                <div className="ai-card-icon-box">
+                  <Icon size={20} strokeWidth={1.75} />
+                </div>
+
+                <div className="ai-card-content">
+                  <h4 className="ai-card-title">{sol.title}</h4>
+                  <p className="ai-card-desc">{sol.description}</p>
+                </div>
+
+                <div className="ai-card-footer">
+                  <span className="ai-card-dash" />
+                  <span className="ai-card-num">{sol.number}</span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Ambient Bottom Bar (Desktop) */}
+        <div className="ai-bottom-ambient-bar" aria-hidden="true">
+          <span className="ai-brand-label">RASA TECH</span>
+          <span className="ai-partner-label">
+            <span className="ai-partner-dash" /> YOUR PARTNER IN AI TRANSFORMATION
+          </span>
+        </div>
+
+        {/* Ambient Wave Backdrop */}
+        <div className="ai-wave-backdrop" aria-hidden="true" />
+      </div>
+    </section>
+  );
+}
+
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
@@ -511,7 +830,7 @@ function Index() {
       <header className={`site-header ${scrolled ? "header-scrolled" : ""}`}>
         <a className="brand-mark" href="#home" onClick={closeMenu}><img src={logoUrl} alt="RASA Tech" /></a>
         <nav className={`desktop-nav ${menuOpen ? "nav-open" : ""}`} aria-label="Main navigation">
-          {[["Home", "home"], ["About", "about"], ["Services", "services"], ["Pricing", "pricing"], ["Contact", "contact"]].map(([label, id]) => (
+          {[["Home", "home"], ["About", "about"], ["AI Solutions", "ai-solutions"], ["Services", "services"], ["Pricing", "pricing"], ["Contact", "contact"]].map(([label, id]) => (
             <a key={id} href={`#${id}`} onClick={closeMenu}>{label}</a>
           ))}
           <div className="mobile-only-cta">
@@ -532,15 +851,17 @@ function Index() {
           <div className="hero-scroll-line" aria-hidden="true" />
         </section>
 
-        <div className="capability-strip"><div className="marquee-track" style={{ animationDuration: `${Math.max(8, 32 / scrollSpeed)}s` }}>{[...Array(2)].flatMap((_, group) => services.map((service) => <span key={`${group}-${service.name}`}>{service.name} <b>•</b></span>))}</div></div>
+        <div className="capability-strip"><div className="marquee-track" style={{ animationDuration: `${Math.max(8, 32 / scrollSpeed)}s` }}>{[...Array(2)].flatMap((_, group) => ["AI Integration", ...services.map((service) => service.name)].map((name) => <span key={`${group}-${name}`}>{name} <b>•</b></span>))}</div></div>
 
         <section id="about" className="about-section page-section content-section">
           <div className="section-grid"><div className="section-intro reveal"><SectionLabel number="01">ABOUT RASA TECH</SectionLabel><h2>WE  TURN  DIGITAL  PRESENCE<br /><span>INTO  DIGITAL  ADVANTAGE.</span></h2><p>RASA Tech combines technology, design and digital marketing to create digital systems that are built to perform — not simply look good.</p><a className="text-link" href="#contact">BUILD WITH US <ArrowUpRight size={15} /></a></div><div className="about-visual reveal"><AboutSystem /></div></div>
         </section>
 
+        <AISolutionsSection />
+
         <section id="services" className="services-section page-section content-section">
           <div className="section-heading reveal services-header-centered">
-            <SectionLabel number="02">SERVICES</SectionLabel>
+            <SectionLabel number="03">SERVICES</SectionLabel>
             <div>
               <h2 className="single-line-heading services-gradient-title">SERVICES  WE  PROVIDE</h2>
             </div>
@@ -550,7 +871,7 @@ function Index() {
 
         <section id="process" className="process-section page-section content-section">
           <div className="section-heading reveal">
-            <SectionLabel number="03">PROCESS</SectionLabel>
+            <SectionLabel number="04">PROCESS</SectionLabel>
             <div>
               <h2 className="single-line-heading">FROM  IDEA  <span>TO  IMPACT.</span></h2>
             </div>
@@ -590,7 +911,7 @@ function Index() {
         <section id="why" className="why-section page-section content-section">
           <div className="section-grid why-grid">
             <div className="section-intro reveal">
-              <SectionLabel number="04">WHY RASA TECH</SectionLabel>
+              <SectionLabel number="05">WHY RASA TECH</SectionLabel>
               <h2>NOT  JUST  ANOTHER<br /><span>DIGITAL  AGENCY.</span></h2>
               <p className="why-lead">We connect the thinking, making and momentum it takes to turn digital into an advantage.</p>
             </div>
@@ -626,7 +947,7 @@ function Index() {
 
         <section id="pricing" className="pricing-section page-section content-section">
           <div className="section-heading reveal pricing-header-centered">
-            <SectionLabel number="05">PRICING</SectionLabel>
+            <SectionLabel number="06">PRICING</SectionLabel>
             <div>
               <h2 className="single-line-heading services-gradient-title">CHOOSE  THE  RIGHT  <span>LEVEL  OF  GROWTH.</span></h2>
               <p>Clear starting points tailored to your business goals and current stage.</p>
@@ -735,7 +1056,7 @@ function Index() {
           </div>
         </section>
 
-        <section id="contact" className="contact-section page-section content-section"><div className="section-grid contact-grid"><div className="section-intro reveal"><SectionLabel number="06">CONTACT</SectionLabel><h2>HAVE  AN  IDEA?<br /><span>LET'S  BUILD  IT.</span></h2><p>Tell us what you're building, what you're trying to improve, or where you want to grow.</p><div className="contact-details"><a href="mailto:hello@rasatech.com">hello@rasatech.com <ArrowUpRight size={14} /></a><a href="tel:+918617201731">+91 86172 01731 <ArrowUpRight size={14} /></a><span>INDIA</span><a href="https://wa.me/918617201731" target="_blank" rel="noopener noreferrer">WHATSAPP <ArrowUpRight size={14} /></a></div></div><div className="contact-form-wrap reveal">{submitted ? <div className="form-success"><div><Check /></div><h3>MESSAGE RECEIVED.</h3><p>We'll be in touch at the email you shared.</p><button onClick={() => setSubmitted(false)}>SEND ANOTHER <ArrowUpRight size={14} /></button></div> : <form onSubmit={handleSubmit}><div className="form-row"><label>NAME<input required name="name" placeholder="Your name" /></label><label>EMAIL<input required type="email" name="email" placeholder="you@company.com" /></label></div><div className="form-row"><label>PHONE<input name="phone" placeholder="+91 XXXXX XXXXX" /></label><label>COMPANY<input name="company" placeholder="Company name" /></label></div><label>SERVICE<div className="select-wrap"><select name="service" defaultValue=""><option value="" disabled>Select a service</option>{serviceOptions.map((option) => <option key={option}>{option}</option>)}</select><ChevronDown size={16} /></div></label><label>MESSAGE<textarea required name="message" placeholder="Tell us about your next move..." rows={4} /></label><Button type="submit">START A CONVERSATION <ArrowUpRight size={16} /></Button></form>}</div></div></section>
+        <section id="contact" className="contact-section page-section content-section"><div className="section-grid contact-grid"><div className="section-intro reveal"><SectionLabel number="07">CONTACT</SectionLabel><h2>HAVE  AN  IDEA?<br /><span>LET'S  BUILD  IT.</span></h2><p>Tell us what you're building, what you're trying to improve, or where you want to grow.</p><div className="contact-details"><a href="mailto:hello@rasatech.com">hello@rasatech.com <ArrowUpRight size={14} /></a><a href="tel:+918617201731">+91 86172 01731 <ArrowUpRight size={14} /></a><span>INDIA</span><a href="https://wa.me/918617201731" target="_blank" rel="noopener noreferrer">WHATSAPP <ArrowUpRight size={14} /></a></div></div><div className="contact-form-wrap reveal">{submitted ? <div className="form-success"><div><Check /></div><h3>MESSAGE RECEIVED.</h3><p>We'll be in touch at the email you shared.</p><button onClick={() => setSubmitted(false)}>SEND ANOTHER <ArrowUpRight size={14} /></button></div> : <form onSubmit={handleSubmit}><div className="form-row"><label>NAME<input required name="name" placeholder="Your name" /></label><label>EMAIL<input required type="email" name="email" placeholder="you@company.com" /></label></div><div className="form-row"><label>PHONE<input name="phone" placeholder="+91 XXXXX XXXXX" /></label><label>COMPANY<input name="company" placeholder="Company name" /></label></div><label>SERVICE<div className="select-wrap"><select name="service" defaultValue=""><option value="" disabled>Select a service</option>{serviceOptions.map((option) => <option key={option}>{option}</option>)}</select><ChevronDown size={16} /></div></label><label>MESSAGE<textarea required name="message" placeholder="Tell us about your next move..." rows={4} /></label><Button type="submit">START A CONVERSATION <ArrowUpRight size={16} /></Button></form>}</div></div></section>
 
         <section className="final-cta page-section"><SignalLine className="final-signal" /><div className="final-cta-inner reveal"><p className="eyebrow"><span className="eyebrow-pulse" />THE NEXT SYSTEM STARTS HERE</p><h2>READY  TO  BUILD<br /><span>WHAT'S  NEXT?</span></h2><p>Let's turn your next digital idea into something built to perform.</p><Button asChild><a href="#contact">START A CONVERSATION <ArrowUpRight size={17} /></a></Button></div></section>
       </main>
@@ -756,6 +1077,7 @@ function Index() {
                 {[
                   ["Home", "home"],
                   ["About", "about"],
+                  ["AI Solutions", "ai-solutions"],
                   ["Services", "services"],
                   ["Process", "process"],
                   ["Why Us", "why"],
