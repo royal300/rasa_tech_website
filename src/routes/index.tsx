@@ -381,7 +381,7 @@ function AiIntegrationSection() {
             <div key={item.number} className="ai-solution-card">
               <span className="ai-card-target-dot" />
               <div className="ai-card-icon-wrap">
-                <Icon size={24} strokeWidth={1.75} />
+                <Icon size={28} strokeWidth={1.75} />
               </div>
               <h3>{item.title}</h3>
               <p>{item.subtitle}</p>
