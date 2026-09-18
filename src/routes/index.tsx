@@ -3,16 +3,23 @@ import {
   ArrowDown,
   ArrowUp,
   ArrowUpRight,
+  Bot,
   Check,
   ChevronDown,
   Code2,
+  Cpu,
+  FileText,
   Globe2,
   Menu,
   MessageCircle,
+  MessageSquare,
+  PhoneCall,
   Search,
   Server,
+  Settings,
   Share2,
   Smartphone,
+  Target,
   Users,
   X,
 } from "lucide-react";
@@ -267,6 +274,126 @@ function AboutSystem() {
         <div className="laptop-notch" />
       </div>
     </div>
+  );
+}
+
+type AiSolution = {
+  number: string;
+  title: string;
+  subtitle: string;
+  icon: typeof MessageSquare;
+};
+
+const aiSolutions: AiSolution[] = [
+  {
+    number: "01",
+    title: "AI Chat Assistant",
+    subtitle: "24/7 Customer Support",
+    icon: MessageSquare,
+  },
+  {
+    number: "02",
+    title: "AI Content Generation",
+    subtitle: "Create Faster, Better Content",
+    icon: FileText,
+  },
+  {
+    number: "03",
+    title: "Workflow Automation",
+    subtitle: "Automate Repetitive Tasks",
+    icon: Settings,
+  },
+  {
+    number: "04",
+    title: "AI Voice Calling Agents",
+    subtitle: "Automate Customer Calls",
+    icon: PhoneCall,
+  },
+  {
+    number: "05",
+    title: "Lead & Sales Automation",
+    subtitle: "Capture & Convert Leads",
+    icon: Target,
+  },
+];
+
+function AiIntegrationSection() {
+  return (
+    <section className="ai-integration-section page-section">
+      {/* Top Main Central Node Box */}
+      <div className="ai-top-box-wrapper reveal">
+        <div className="ai-top-box">
+          <div className="ai-chip-badge">
+            <Cpu size={30} strokeWidth={1.75} />
+          </div>
+          <h2>
+            Integrate AI
+            <br />
+            with <span>Your Business</span>
+          </h2>
+          <div className="ai-top-divider" />
+          <p className="ai-top-tagline">SMART SOLUTIONS • REAL GROWTH</p>
+          <span className="ai-source-node-dot" />
+        </div>
+      </div>
+
+      {/* 5 Curved Branch Connecting Lines SVG */}
+      <div className="ai-svg-connector-wrap reveal">
+        <svg
+          className="ai-svg-connector"
+          viewBox="0 0 1000 90"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          {/* Node 1: Leftmost */}
+          <path
+            d="M 500 0 C 500 45, 100 45, 100 90"
+            className="ai-connector-line"
+          />
+          {/* Node 2: Mid-Left */}
+          <path
+            d="M 500 0 C 500 45, 300 45, 300 90"
+            className="ai-connector-line"
+          />
+          {/* Node 3: Center */}
+          <path
+            d="M 500 0 C 500 45, 500 45, 500 90"
+            className="ai-connector-line"
+          />
+          {/* Node 4: Mid-Right */}
+          <path
+            d="M 500 0 C 500 45, 700 45, 700 90"
+            className="ai-connector-line"
+          />
+          {/* Node 5: Rightmost */}
+          <path
+            d="M 500 0 C 500 45, 900 45, 900 90"
+            className="ai-connector-line"
+          />
+        </svg>
+      </div>
+
+      {/* 5 Bottom Rectangular Solution Cards */}
+      <div className="ai-bottom-grid reveal">
+        {aiSolutions.map((item) => {
+          const Icon = item.icon;
+          return (
+            <div key={item.number} className="ai-solution-card">
+              <span className="ai-card-target-dot" />
+              <div className="ai-card-icon-wrap">
+                <Icon size={24} strokeWidth={1.75} />
+              </div>
+              <h3>{item.title}</h3>
+              <p>{item.subtitle}</p>
+              <div className="ai-card-footer">
+                <div className="ai-card-rule" />
+                <span className="ai-card-number">{item.number}</span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
   );
 }
 
@@ -763,6 +890,8 @@ function Index() {
         <section id="about" className="about-section page-section content-section">
           <div className="section-grid"><div className="section-intro reveal"><SectionLabel number="01">ABOUT RASA TECH</SectionLabel><h2>WE  TURN  DIGITAL  PRESENCE<br /><span>INTO  DIGITAL  ADVANTAGE.</span></h2><p>RASA Tech combines technology, design and digital marketing to create digital systems that are built to perform — not simply look good.</p><a className="text-link" href="#contact">BUILD WITH US <ArrowUpRight size={15} /></a></div><div className="about-visual reveal"><AboutSystem /></div></div>
         </section>
+
+        <AiIntegrationSection />
 
         <section id="services" className="services-section page-section content-section">
           <div className="section-heading reveal services-header-centered">
