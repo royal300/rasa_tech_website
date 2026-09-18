@@ -19,6 +19,7 @@ import {
   Settings,
   Share2,
   Smartphone,
+  Sparkles,
   Target,
   Users,
   X,
@@ -318,16 +319,32 @@ const aiSolutions: AiSolution[] = [
 ];
 
 function AiIntegrationSection() {
+  const desktopPaths = [
+    "M 500 0 C 500 45, 100 45, 100 90",
+    "M 500 0 C 500 45, 300 45, 300 90",
+    "M 500 0 C 500 45, 500 45, 500 90",
+    "M 500 0 C 500 45, 700 45, 700 90",
+    "M 500 0 C 500 45, 900 45, 900 90",
+  ];
+
+  const mobilePaths = [
+    "M 250 0 C 250 45, 50 45, 50 90",
+    "M 250 0 C 250 45, 150 45, 150 90",
+    "M 250 0 C 250 45, 250 45, 250 90",
+    "M 250 0 C 250 45, 350 45, 350 90",
+    "M 250 0 C 250 45, 450 45, 450 90",
+  ];
+
   return (
     <section className="ai-integration-section page-section">
       {/* Top Main Central Node Box */}
       <div className="ai-top-box-wrapper reveal">
         <div className="ai-top-box">
           <div className="ai-chip-badge">
-            <Cpu size={30} strokeWidth={1.75} />
+            <Sparkles size={30} strokeWidth={1.75} />
           </div>
           <h2>
-            Integrate AI
+            Integrate <b className="ai-highlight-caps">AI</b>
             <br />
             with <span>Your Business</span>
           </h2>
@@ -337,43 +354,55 @@ function AiIntegrationSection() {
         </div>
       </div>
 
-      {/* 5 Curved Branch Connecting Lines SVG */}
-      <div className="ai-svg-connector-wrap reveal">
+      {/* Desktop 5 Curved Branch Connecting Lines SVG with Running White Dots */}
+      <div className="ai-svg-connector-wrap ai-desktop-only reveal">
         <svg
           className="ai-svg-connector"
           viewBox="0 0 1000 90"
           preserveAspectRatio="none"
           aria-hidden="true"
         >
-          {/* Node 1: Leftmost */}
-          <path
-            d="M 500 0 C 500 45, 100 45, 100 90"
-            className="ai-connector-line"
-          />
-          {/* Node 2: Mid-Left */}
-          <path
-            d="M 500 0 C 500 45, 300 45, 300 90"
-            className="ai-connector-line"
-          />
-          {/* Node 3: Center */}
-          <path
-            d="M 500 0 C 500 45, 500 45, 500 90"
-            className="ai-connector-line"
-          />
-          {/* Node 4: Mid-Right */}
-          <path
-            d="M 500 0 C 500 45, 700 45, 700 90"
-            className="ai-connector-line"
-          />
-          {/* Node 5: Rightmost */}
-          <path
-            d="M 500 0 C 500 45, 900 45, 900 90"
-            className="ai-connector-line"
-          />
+          {desktopPaths.map((path, idx) => (
+            <g key={idx}>
+              <path d={path} className="ai-connector-line" />
+              {/* Running White Particle Dot */}
+              <circle r="4.5" fill="#ffffff" className="ai-running-white-dot">
+                <animateMotion
+                  path={path}
+                  dur={`${2.2 + idx * 0.3}s`}
+                  repeatCount="indefinite"
+                />
+              </circle>
+            </g>
+          ))}
         </svg>
       </div>
 
-      {/* 5 Bottom Rectangular Solution Cards */}
+      {/* Mobile SVG Connector with Running White Dots */}
+      <div className="ai-svg-connector-wrap ai-mobile-only reveal">
+        <svg
+          className="ai-svg-connector"
+          viewBox="0 0 500 90"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          {mobilePaths.map((path, idx) => (
+            <g key={idx}>
+              <path d={path} className="ai-connector-line" />
+              {/* Running White Particle Dot */}
+              <circle r="4" fill="#ffffff" className="ai-running-white-dot">
+                <animateMotion
+                  path={path}
+                  dur={`${2.2 + idx * 0.3}s`}
+                  repeatCount="indefinite"
+                />
+              </circle>
+            </g>
+          ))}
+        </svg>
+      </div>
+
+      {/* 5 Solution Cards Grid */}
       <div className="ai-bottom-grid reveal">
         {aiSolutions.map((item) => {
           const Icon = item.icon;
