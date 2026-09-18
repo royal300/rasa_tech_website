@@ -319,108 +319,81 @@ const aiSolutions: AiSolution[] = [
 ];
 
 function AiIntegrationSection() {
-  const desktopPaths = [
-    "M 500 0 C 500 45, 100 45, 100 90",
-    "M 500 0 C 500 45, 300 45, 300 90",
-    "M 500 0 C 500 45, 500 45, 500 90",
-    "M 500 0 C 500 45, 700 45, 700 90",
-    "M 500 0 C 500 45, 900 45, 900 90",
-  ];
-
-  const mobilePaths = [
-    "M 250 0 C 250 45, 50 45, 50 90",
-    "M 250 0 C 250 45, 150 45, 150 90",
-    "M 250 0 C 250 45, 250 45, 250 90",
-    "M 250 0 C 250 45, 350 45, 350 90",
-    "M 250 0 C 250 45, 450 45, 450 90",
+  const paths = [
+    { d: "M 0 240 C 70 240, 90 38, 160 38", dur: "2.2s" },
+    { d: "M 0 240 C 70 240, 90 138, 160 138", dur: "2.5s" },
+    { d: "M 0 240 L 160 240", dur: "2.0s" },
+    { d: "M 0 240 C 70 240, 90 342, 160 342", dur: "2.7s" },
+    { d: "M 0 240 C 70 240, 90 442, 160 442", dur: "2.4s" },
   ];
 
   return (
     <section className="ai-integration-section page-section">
-      {/* Top Main Central Node Box */}
-      <div className="ai-top-box-wrapper reveal">
-        <div className="ai-top-box">
-          <div className="ai-chip-badge">
-            <Sparkles size={30} strokeWidth={1.75} />
+      <div className="ai-tree-container reveal">
+        {/* Left Main Source Box */}
+        <div className="ai-left-box">
+          <div className="ai-top-badge">
+            <Sparkles size={34} strokeWidth={1.75} />
           </div>
           <h2>
             Integrate <b className="ai-highlight-caps">AI</b>
             <br />
             with <span>Your Business</span>
           </h2>
-          <div className="ai-top-divider" />
-          <p className="ai-top-tagline">SMART SOLUTIONS • REAL GROWTH</p>
+          <div className="ai-box-divider" />
+          <p className="ai-box-tagline">
+            SMART SOLUTIONS
+            <br />
+            REAL GROWTH
+          </p>
           <span className="ai-source-node-dot" />
         </div>
-      </div>
 
-      {/* Desktop 5 Curved Branch Connecting Lines SVG with Running White Dots */}
-      <div className="ai-svg-connector-wrap ai-desktop-only reveal">
-        <svg
-          className="ai-svg-connector"
-          viewBox="0 0 1000 90"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-        >
-          {desktopPaths.map((path, idx) => (
-            <g key={idx}>
-              <path d={path} className="ai-connector-line" />
-              {/* Running White Particle Dot */}
-              <circle r="4.5" fill="#ffffff" className="ai-running-white-dot">
-                <animateMotion
-                  path={path}
-                  dur={`${2.2 + idx * 0.3}s`}
-                  repeatCount="indefinite"
-                />
-              </circle>
-            </g>
-          ))}
-        </svg>
-      </div>
+        {/* Middle SVG Bezier Curve Connectors with Running White Dots */}
+        <div className="ai-tree-svg-wrap">
+          <svg
+            className="ai-tree-svg"
+            viewBox="0 0 160 480"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            {paths.map((item, idx) => (
+              <g key={idx}>
+                <path d={item.d} className="ai-tree-path" />
+                <circle r="4" fill="#ffffff" className="ai-running-white-dot">
+                  <animateMotion
+                    path={item.d}
+                    dur={item.dur}
+                    repeatCount="indefinite"
+                  />
+                </circle>
+              </g>
+            ))}
+          </svg>
+        </div>
 
-      {/* Mobile SVG Connector with Running White Dots */}
-      <div className="ai-svg-connector-wrap ai-mobile-only reveal">
-        <svg
-          className="ai-svg-connector"
-          viewBox="0 0 500 90"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-        >
-          {mobilePaths.map((path, idx) => (
-            <g key={idx}>
-              <path d={path} className="ai-connector-line" />
-              {/* Running White Particle Dot */}
-              <circle r="4" fill="#ffffff" className="ai-running-white-dot">
-                <animateMotion
-                  path={path}
-                  dur={`${2.2 + idx * 0.3}s`}
-                  repeatCount="indefinite"
-                />
-              </circle>
-            </g>
-          ))}
-        </svg>
-      </div>
-
-      {/* 5 Solution Cards Grid */}
-      <div className="ai-bottom-grid reveal">
-        {aiSolutions.map((item) => {
-          const Icon = item.icon;
-          return (
-            <div key={item.number} className="ai-solution-card">
-              <span className="ai-card-target-dot" />
-              <div className="ai-card-icon-wrap">
-                <Icon size={28} strokeWidth={1.75} />
+        {/* Right 5 Horizontal Solution Cards Stack */}
+        <div className="ai-right-stack">
+          {aiSolutions.map((item) => {
+            const Icon = item.icon;
+            return (
+              <div key={item.number} className="ai-tree-card">
+                <span className="ai-target-node-dot" />
+                <div className="ai-tree-card-icon">
+                  <Icon size={26} strokeWidth={1.75} />
+                </div>
+                <div className="ai-tree-card-content">
+                  <h3>{item.title}</h3>
+                  <p>{item.subtitle}</p>
+                </div>
+                <div className="ai-tree-card-right">
+                  <div className="ai-tree-card-v-rule" />
+                  <span className="ai-tree-card-num">{item.number}</span>
+                </div>
               </div>
-              <h3>{item.title}</h3>
-              <p>{item.subtitle}</p>
-              <div className="ai-card-footer">
-                <div className="ai-card-rule" />
-                <span className="ai-card-number">{item.number}</span>
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </section>
   );
