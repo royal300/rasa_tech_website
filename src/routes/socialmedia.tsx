@@ -208,48 +208,6 @@ const socialProjects: SocialClientProject[] = [
   },
 ];
 
-// ----------------------------------------------------------------------
-// Moving Photoshop & Premiere Pro Software Badges Component
-// ----------------------------------------------------------------------
-
-function SoftwareShowcaseBadges() {
-  return (
-    <div className="software-showcase-bar">
-      <div className="software-badge badge-ps" title="Adobe Photoshop">
-        <span className="software-glow" />
-        <span className="software-code">Ps</span>
-        <div className="software-info">
-          <b>PHOTOSHOP</b>
-          <small>Visual Editing</small>
-        </div>
-      </div>
-      <div className="software-badge badge-pr" title="Adobe Premiere Pro">
-        <span className="software-glow" />
-        <span className="software-code">Pr</span>
-        <div className="software-info">
-          <b>PREMIERE PRO</b>
-          <small>Cinematic Cut</small>
-        </div>
-      </div>
-      <div className="software-badge badge-ae" title="Adobe After Effects">
-        <span className="software-glow" />
-        <span className="software-code">Ae</span>
-        <div className="software-info">
-          <b>AFTER EFFECTS</b>
-          <small>Motion Graphics</small>
-        </div>
-      </div>
-      <div className="software-badge badge-ai" title="Adobe Illustrator">
-        <span className="software-glow" />
-        <span className="software-code">Ai</span>
-        <div className="software-info">
-          <b>ILLUSTRATOR</b>
-          <small>Vector Art</small>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 // ----------------------------------------------------------------------
 // Main Social Media Page Component
@@ -371,8 +329,17 @@ function SocialMediaPage() {
               </MagneticButton>
             </div>
 
-            {/* Software Showcase Floating Bar */}
-            <SoftwareShowcaseBadges />
+            {/* Social Media Showcase Video */}
+            <div className="social-hero-video-container">
+              <video
+                src="/social-vid.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="social-hero-video-player"
+              />
+            </div>
           </div>
         </section>
 
