@@ -361,115 +361,114 @@ function WebDevPage() {
               </MagneticButton>
             </div>
 
-            {/* 3D Web Development Visual with Cool Orange & White Moving Motion Lines */}
+            {/* 3D Web Development Visual with Cyber Line Motion & Ambient Orange Backlight */}
             <div className="webdev-visual-hero-graphic">
               <div className="graphic-frame-container">
+                {/* Radiant Pulsing Orange Backlight */}
+                <div className="hero-orange-ambient-glow" aria-hidden="true" />
+                <div className="hero-light-streak-beam" aria-hidden="true" />
+
+                {/* Animated Horizontal Cyber Scan Beam */}
+                <div className="cyber-horizontal-scanner" aria-hidden="true" />
+
+                {/* Animated Cyber Circuit & Stream Lines SVG */}
                 <svg
                   className="webdev-motion-lines-svg"
-                  viewBox="0 0 700 650"
+                  viewBox="0 0 700 620"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                   preserveAspectRatio="xMidYMid meet"
                   aria-hidden="true"
                 >
                   <defs>
-                    <linearGradient id="orangeWhiteGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#ff7a00" stopOpacity="0.8" />
-                      <stop offset="50%" stopColor="#ffffff" stopOpacity="0.9" />
-                      <stop offset="100%" stopColor="#ff7a00" stopOpacity="0.2" />
+                    <linearGradient id="cyberLineGradOrange" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#ff7a00" stopOpacity="0" />
+                      <stop offset="25%" stopColor="#ff7a00" stopOpacity="0.8" />
+                      <stop offset="50%" stopColor="#ffffff" stopOpacity="1" />
+                      <stop offset="75%" stopColor="#ff7a00" stopOpacity="0.8" />
+                      <stop offset="100%" stopColor="#ff7a00" stopOpacity="0" />
                     </linearGradient>
-                    <linearGradient id="orangeWhiteGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor="#ffffff" stopOpacity="0.8" />
-                      <stop offset="60%" stopColor="#ff7a00" stopOpacity="0.7" />
-                      <stop offset="100%" stopColor="#ffffff" stopOpacity="0.2" />
+                    <linearGradient id="cyberLineGradWhite" x1="100%" y1="0%" x2="0%" y2="0%">
+                      <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
+                      <stop offset="30%" stopColor="#ffffff" stopOpacity="0.9" />
+                      <stop offset="60%" stopColor="#ff7a00" stopOpacity="0.8" />
+                      <stop offset="100%" stopColor="#ff7a00" stopOpacity="0" />
                     </linearGradient>
+                    <filter id="laserGlow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="3" result="blur" />
+                      <feMerge>
+                        <feMergeNode in="blur" />
+                        <feMergeNode in="SourceGraphic" />
+                      </feMerge>
+                    </filter>
                   </defs>
 
-                  {/* Outer Orbit Path with Orange/White Dashes */}
-                  <path
-                    id="outerOrbitPath"
-                    d="M 50,325 a 300,250 0 1,0 600,0 a 300,250 0 1,0 -600,0"
-                    className="motion-orbit-dash-orange"
-                  />
+                  {/* Horizontal Stream Lines */}
+                  <path id="streamLine1" d="M 20 180 L 680 180" className="cyber-stream-line" stroke="url(#cyberLineGradOrange)" />
+                  <path id="streamLine2" d="M 680 260 L 20 260" className="cyber-stream-line-rev" stroke="url(#cyberLineGradWhite)" />
+                  <path id="streamLine3" d="M 20 440 L 680 440" className="cyber-stream-line" stroke="url(#cyberLineGradOrange)" />
+                  <path id="streamLine4" d="M 680 510 L 20 510" className="cyber-stream-line-rev" stroke="url(#cyberLineGradWhite)" />
 
-                  {/* Inner Tilted Orbit Path with White Dashes */}
-                  <path
-                    id="innerOrbitPath"
-                    d="M 640,325 C 640,165 480,85 350,85 C 220,85 60,165 60,325 C 60,485 220,565 350,565 C 480,565 640,485 640,325 Z"
-                    className="motion-orbit-dash-white"
-                  />
+                  {/* 90-Degree Angular Circuit Step Traces */}
+                  <path id="circuitTopLeft" d="M 40 130 L 200 130 L 260 70 L 460 70" className="circuit-trace-dash" />
+                  <path id="circuitTopRight" d="M 660 130 L 500 130 L 440 70 L 240 70" className="circuit-trace-dash-rev" />
+                  <path id="circuitBottomLeft" d="M 40 490 L 200 490 L 260 550 L 480 550" className="circuit-trace-dash" />
+                  <path id="circuitBottomRight" d="M 660 490 L 500 490 L 440 550 L 220 550" className="circuit-trace-dash-rev" />
 
-                  {/* Dynamic Flowing Motion Curves */}
-                  <path
-                    id="motionCurveTop"
-                    d="M 70,180 C 140,80 300,45 440,65 C 570,85 640,180 660,300"
-                    stroke="url(#orangeWhiteGrad1)"
-                    className="motion-curve-gradient"
-                  />
-                  <path
-                    id="motionCurveBottom"
-                    d="M 630,450 C 560,550 400,585 260,565 C 130,545 60,450 40,330"
-                    stroke="url(#orangeWhiteGrad2)"
-                    className="motion-curve-gradient"
-                  />
-
-                  {/* Moving Running White & Orange Glowing Dots along the Paths */}
-                  <circle r="4" fill="#ffffff" className="motion-pulse-dot-white">
-                    <animateMotion
-                      dur="6s"
-                      repeatCount="indefinite"
-                    >
-                      <mpath href="#motionCurveTop" />
+                  {/* Moving Glowing White & Orange Dots along the Straight Circuit Paths */}
+                  <circle r="4" fill="#ffffff" filter="url(#laserGlow)">
+                    <animateMotion dur="4s" repeatCount="indefinite">
+                      <mpath href="#circuitTopLeft" />
                     </animateMotion>
                   </circle>
 
-                  <circle r="4.5" fill="#ff7a00" className="motion-pulse-dot-orange">
-                    <animateMotion
-                      dur="6s"
-                      repeatCount="indefinite"
-                      begin="-3s"
-                    >
-                      <mpath href="#motionCurveBottom" />
+                  <circle r="4.5" fill="#ff7a00" filter="url(#laserGlow)">
+                    <animateMotion dur="4.5s" repeatCount="indefinite" begin="-2s">
+                      <mpath href="#circuitTopRight" />
                     </animateMotion>
                   </circle>
 
-                  <circle r="3.5" fill="#ffffff" className="motion-pulse-dot-white">
-                    <animateMotion
-                      dur="10s"
-                      repeatCount="indefinite"
-                    >
-                      <mpath href="#outerOrbitPath" />
+                  <circle r="4" fill="#ffffff" filter="url(#laserGlow)">
+                    <animateMotion dur="4.2s" repeatCount="indefinite" begin="-1s">
+                      <mpath href="#circuitBottomLeft" />
                     </animateMotion>
                   </circle>
 
-                  <circle r="4" fill="#ff7a00" className="motion-pulse-dot-orange">
-                    <animateMotion
-                      dur="10s"
-                      repeatCount="indefinite"
-                      begin="-5s"
-                    >
-                      <mpath href="#outerOrbitPath" />
+                  <circle r="4.5" fill="#ff7a00" filter="url(#laserGlow)">
+                    <animateMotion dur="4.8s" repeatCount="indefinite" begin="-2.5s">
+                      <mpath href="#circuitBottomRight" />
                     </animateMotion>
                   </circle>
 
-                  <circle r="3.5" fill="#ffffff" className="motion-pulse-dot-white">
-                    <animateMotion
-                      dur="8s"
-                      repeatCount="indefinite"
-                      keyPoints="1;0"
-                      keyTimes="0;1"
-                    >
-                      <mpath href="#innerOrbitPath" />
+                  <circle r="3.5" fill="#ffffff" filter="url(#laserGlow)">
+                    <animateMotion dur="3.5s" repeatCount="indefinite">
+                      <mpath href="#streamLine1" />
                     </animateMotion>
                   </circle>
 
-                  {/* Subtle Tech Cross Nodes */}
-                  <g opacity="0.6">
-                    <circle cx="85" cy="180" r="3" fill="#ff7a00" />
-                    <circle cx="615" cy="450" r="3" fill="#ffffff" />
-                    <circle cx="350" cy="85" r="2.5" fill="#ff7a00" />
-                    <circle cx="350" cy="565" r="2.5" fill="#ffffff" />
+                  <circle r="3.5" fill="#ff7a00" filter="url(#laserGlow)">
+                    <animateMotion dur="3.8s" repeatCount="indefinite" begin="-1.8s">
+                      <mpath href="#streamLine3" />
+                    </animateMotion>
+                  </circle>
+
+                  {/* Tech Grid Crosshair / Corner Brackets */}
+                  <g className="cyber-corner-markers" stroke="#ff7a00" strokeWidth="1.5">
+                    {/* Top Left */}
+                    <path d="M 60 90 L 60 60 L 90 60" />
+                    {/* Top Right */}
+                    <path d="M 640 90 L 640 60 L 610 60" />
+                    {/* Bottom Left */}
+                    <path d="M 60 530 L 60 560 L 90 560" />
+                    {/* Bottom Right */}
+                    <path d="M 640 530 L 640 560 L 610 560" />
                   </g>
+
+                  {/* Pulsing Target Nodes */}
+                  <circle cx="260" cy="70" r="3" fill="#ffffff" filter="url(#laserGlow)" />
+                  <circle cx="440" cy="70" r="3" fill="#ff7a00" filter="url(#laserGlow)" />
+                  <circle cx="260" cy="550" r="3" fill="#ff7a00" filter="url(#laserGlow)" />
+                  <circle cx="440" cy="550" r="3" fill="#ffffff" filter="url(#laserGlow)" />
                 </svg>
 
                 <img

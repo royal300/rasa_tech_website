@@ -2874,10 +2874,78 @@ html.lenis body {
   border-radius: 0;
   box-shadow: none;
   background: transparent;
-  padding: 20px 0;
+  padding: 30px 0;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Radiant Pulsing Orange Backlight in background of image */
+.hero-orange-ambient-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 480px;
+  height: 480px;
+  background: radial-gradient(circle, rgba(255, 122, 0, 0.45) 0%, rgba(255, 80, 0, 0.22) 40%, rgba(255, 122, 0, 0.06) 65%, transparent 75%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+  animation: ambient-orange-breathe 4.5s ease-in-out infinite alternate;
+}
+
+@keyframes ambient-orange-breathe {
+  0% {
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0.65;
+    filter: blur(45px);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.18);
+    opacity: 1;
+    filter: blur(35px);
+  }
+}
+
+.hero-light-streak-beam {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 280px;
+  height: 520px;
+  background: radial-gradient(ellipse at 50% 50%, rgba(255, 140, 0, 0.35) 0%, rgba(255, 100, 0, 0.15) 50%, transparent 80%);
+  filter: blur(30px);
+  pointer-events: none;
+  z-index: 0;
+  animation: streak-glow 4s ease-in-out infinite alternate;
+}
+
+@keyframes streak-glow {
+  0% { opacity: 0.5; transform: translate(-50%, -50%) scaleY(0.9); }
+  100% { opacity: 0.95; transform: translate(-50%, -50%) scaleY(1.12); }
+}
+
+/* Animated Horizontal Cyber Scan Beam */
+.cyber-horizontal-scanner {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 122, 0, 0.8) 25%, #ffffff 50%, rgba(255, 122, 0, 0.8) 75%, transparent 100%);
+  box-shadow: 0 0 14px rgba(255, 122, 0, 0.8), 0 0 4px #ffffff;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.75;
+  animation: cyber-scan-vertical 6s ease-in-out infinite alternate;
+}
+
+@keyframes cyber-scan-vertical {
+  0% { top: 12%; opacity: 0.2; }
+  20% { opacity: 0.85; }
+  80% { opacity: 0.85; }
+  100% { top: 88%; opacity: 0.2; }
 }
 
 /* WebDev Hero Motion Lines SVG */
@@ -2887,49 +2955,71 @@ html.lenis body {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
-  max-width: 660px;
+  max-width: 680px;
   height: auto;
   pointer-events: none;
   z-index: 0;
   overflow: visible;
 }
 
-.motion-orbit-dash-orange {
-  stroke: rgba(255, 122, 0, 0.4);
+/* Cyber Stream Lines */
+.cyber-stream-line {
   stroke-width: 1.5;
-  stroke-dasharray: 8 14;
-  animation: orbit-dash-spin 26s linear infinite;
+  stroke-dasharray: 25 120;
+  animation: stream-slide-right 3.5s linear infinite;
+  opacity: 0.85;
 }
 
-.motion-orbit-dash-white {
-  stroke: rgba(255, 255, 255, 0.3);
-  stroke-width: 1.2;
-  stroke-dasharray: 6 12;
-  animation: orbit-dash-reverse 32s linear infinite;
+.cyber-stream-line-rev {
+  stroke-width: 1.5;
+  stroke-dasharray: 20 100;
+  animation: stream-slide-left 4s linear infinite;
+  opacity: 0.85;
 }
 
-.motion-curve-gradient {
-  stroke-width: 1.8;
-  opacity: 0.75;
-  filter: drop-shadow(0 0 6px rgba(255, 122, 0, 0.4));
-}
-
-@keyframes orbit-dash-spin {
+@keyframes stream-slide-right {
   from { stroke-dashoffset: 0; }
-  to { stroke-dashoffset: 400; }
+  to { stroke-dashoffset: -290; }
 }
 
-@keyframes orbit-dash-reverse {
+@keyframes stream-slide-left {
   from { stroke-dashoffset: 0; }
-  to { stroke-dashoffset: -400; }
+  to { stroke-dashoffset: 240; }
 }
 
-.motion-pulse-dot-white {
-  filter: drop-shadow(0 0 6px #ffffff) drop-shadow(0 0 10px rgba(255, 255, 255, 0.9));
+/* Angular 90-Degree Circuit Step Traces */
+.circuit-trace-dash {
+  stroke: rgba(255, 122, 0, 0.5);
+  stroke-width: 1.5;
+  stroke-dasharray: 8 10;
+  animation: circuit-dash-flow 12s linear infinite;
 }
 
-.motion-pulse-dot-orange {
-  filter: drop-shadow(0 0 8px #ff7a00) drop-shadow(0 0 14px rgba(255, 122, 0, 0.9));
+.circuit-trace-dash-rev {
+  stroke: rgba(255, 255, 255, 0.4);
+  stroke-width: 1.5;
+  stroke-dasharray: 8 10;
+  animation: circuit-dash-flow-rev 14s linear infinite;
+}
+
+@keyframes circuit-dash-flow {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: 360; }
+}
+
+@keyframes circuit-dash-flow-rev {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -360; }
+}
+
+.cyber-corner-markers {
+  opacity: 0.65;
+  animation: corner-glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes corner-glow {
+  0% { opacity: 0.4; }
+  100% { opacity: 0.9; }
 }
 
 .webdev-hero-main-img {
