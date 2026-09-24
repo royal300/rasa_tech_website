@@ -2032,7 +2032,7 @@ html.lenis body {
 /* Founder Motivational Quote Card */
 .founder-quote-card {
   background: #090909;
-  border: 1px solid var(--soft-line);
+  border: none !important;
   border-radius: 12px;
   position: relative;
   overflow: hidden;
@@ -2040,14 +2040,27 @@ html.lenis body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
   animation: teamCardFadeIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) ease-out;
 }
 
 .founder-quote-card:hover {
   transform: translateY(-9px) scale(1.01);
-  border-color: rgba(255, 122, 0, 0.7);
-  box-shadow: 0 16px 40px rgba(255, 122, 0, 0.22);
+  box-shadow: 0 18px 44px rgba(255, 122, 0, 0.18);
+}
+
+.founder-quote-watermark {
+  position: absolute;
+  top: 15px;
+  right: 32px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(140px, 16vw, 240px);
+  line-height: 0.7;
+  color: rgba(255, 255, 255, 0.05);
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+  font-weight: 700;
 }
 
 .founder-quote-inner {
@@ -2100,12 +2113,13 @@ html.lenis body {
 
 .founder-quote-content {
   font-family: var(--font-display);
-  font-size: clamp(17px, 1.75vw, 23px);
-  line-height: 1.45;
-  color: #f1f1f1;
-  font-weight: 350;
+  font-size: clamp(21px, 2.2vw, 29px) !important;
+  line-height: 1.4 !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
   letter-spacing: -0.015em;
   margin: 0;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.7);
 }
 
 .founder-quote-author {
@@ -2362,7 +2376,16 @@ html.lenis body {
   }
 
   .founder-quote-card {
+    border: none !important;
     border-radius: 8px;
+  }
+
+  .founder-quote-watermark {
+    top: 4px;
+    right: 8px;
+    font-size: 80px;
+    line-height: 0.7;
+    color: rgba(255, 255, 255, 0.05);
   }
 
   .founder-quote-inner {
@@ -2389,10 +2412,12 @@ html.lenis body {
   }
 
   .founder-quote-content {
-    font-size: 10px;
-    line-height: 1.35;
+    font-size: clamp(11.5px, 3.2vw, 13.5px) !important;
+    font-weight: 600 !important;
+    line-height: 1.36 !important;
     margin: 0;
-    letter-spacing: 0;
+    color: #ffffff !important;
+    letter-spacing: -0.01em;
   }
 
   .founder-quote-author {

@@ -259,6 +259,7 @@ function FounderQuoteCard() {
           background: `radial-gradient(circle at ${cardMouse.x}% ${cardMouse.y}%, rgba(255, 122, 0, 0.22), transparent 70%)`,
         }}
       />
+      <div className="founder-quote-watermark" aria-hidden="true">“</div>
       <div className="founder-quote-inner">
         <div className="founder-quote-top">
           <div className="founder-quote-badge">
