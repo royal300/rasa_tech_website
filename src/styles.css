@@ -2874,13 +2874,67 @@ html.lenis body {
   border-radius: 0;
   box-shadow: none;
   background: transparent;
-  padding: 10px 0;
+  padding: 20px 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+/* WebDev Hero Motion Lines SVG */
+.webdev-motion-lines-svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 660px;
+  height: auto;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
+
+.motion-orbit-dash-orange {
+  stroke: rgba(255, 122, 0, 0.4);
+  stroke-width: 1.5;
+  stroke-dasharray: 8 14;
+  animation: orbit-dash-spin 26s linear infinite;
+}
+
+.motion-orbit-dash-white {
+  stroke: rgba(255, 255, 255, 0.3);
+  stroke-width: 1.2;
+  stroke-dasharray: 6 12;
+  animation: orbit-dash-reverse 32s linear infinite;
+}
+
+.motion-curve-gradient {
+  stroke-width: 1.8;
+  opacity: 0.75;
+  filter: drop-shadow(0 0 6px rgba(255, 122, 0, 0.4));
+}
+
+@keyframes orbit-dash-spin {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: 400; }
+}
+
+@keyframes orbit-dash-reverse {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -400; }
+}
+
+.motion-pulse-dot-white {
+  filter: drop-shadow(0 0 6px #ffffff) drop-shadow(0 0 10px rgba(255, 255, 255, 0.9));
+}
+
+.motion-pulse-dot-orange {
+  filter: drop-shadow(0 0 8px #ff7a00) drop-shadow(0 0 14px rgba(255, 122, 0, 0.9));
+}
+
 .webdev-hero-main-img {
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: 500px;
   height: auto;

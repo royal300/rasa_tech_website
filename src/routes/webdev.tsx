@@ -361,9 +361,117 @@ function WebDevPage() {
               </MagneticButton>
             </div>
 
-            {/* 3D Web Development Visual */}
+            {/* 3D Web Development Visual with Cool Orange & White Moving Motion Lines */}
             <div className="webdev-visual-hero-graphic">
               <div className="graphic-frame-container">
+                <svg
+                  className="webdev-motion-lines-svg"
+                  viewBox="0 0 700 650"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  preserveAspectRatio="xMidYMid meet"
+                  aria-hidden="true"
+                >
+                  <defs>
+                    <linearGradient id="orangeWhiteGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#ff7a00" stopOpacity="0.8" />
+                      <stop offset="50%" stopColor="#ffffff" stopOpacity="0.9" />
+                      <stop offset="100%" stopColor="#ff7a00" stopOpacity="0.2" />
+                    </linearGradient>
+                    <linearGradient id="orangeWhiteGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="#ffffff" stopOpacity="0.8" />
+                      <stop offset="60%" stopColor="#ff7a00" stopOpacity="0.7" />
+                      <stop offset="100%" stopColor="#ffffff" stopOpacity="0.2" />
+                    </linearGradient>
+                  </defs>
+
+                  {/* Outer Orbit Path with Orange/White Dashes */}
+                  <path
+                    id="outerOrbitPath"
+                    d="M 50,325 a 300,250 0 1,0 600,0 a 300,250 0 1,0 -600,0"
+                    className="motion-orbit-dash-orange"
+                  />
+
+                  {/* Inner Tilted Orbit Path with White Dashes */}
+                  <path
+                    id="innerOrbitPath"
+                    d="M 640,325 C 640,165 480,85 350,85 C 220,85 60,165 60,325 C 60,485 220,565 350,565 C 480,565 640,485 640,325 Z"
+                    className="motion-orbit-dash-white"
+                  />
+
+                  {/* Dynamic Flowing Motion Curves */}
+                  <path
+                    id="motionCurveTop"
+                    d="M 70,180 C 140,80 300,45 440,65 C 570,85 640,180 660,300"
+                    stroke="url(#orangeWhiteGrad1)"
+                    className="motion-curve-gradient"
+                  />
+                  <path
+                    id="motionCurveBottom"
+                    d="M 630,450 C 560,550 400,585 260,565 C 130,545 60,450 40,330"
+                    stroke="url(#orangeWhiteGrad2)"
+                    className="motion-curve-gradient"
+                  />
+
+                  {/* Moving Running White & Orange Glowing Dots along the Paths */}
+                  <circle r="4" fill="#ffffff" className="motion-pulse-dot-white">
+                    <animateMotion
+                      dur="6s"
+                      repeatCount="indefinite"
+                    >
+                      <mpath href="#motionCurveTop" />
+                    </animateMotion>
+                  </circle>
+
+                  <circle r="4.5" fill="#ff7a00" className="motion-pulse-dot-orange">
+                    <animateMotion
+                      dur="6s"
+                      repeatCount="indefinite"
+                      begin="-3s"
+                    >
+                      <mpath href="#motionCurveBottom" />
+                    </animateMotion>
+                  </circle>
+
+                  <circle r="3.5" fill="#ffffff" className="motion-pulse-dot-white">
+                    <animateMotion
+                      dur="10s"
+                      repeatCount="indefinite"
+                    >
+                      <mpath href="#outerOrbitPath" />
+                    </animateMotion>
+                  </circle>
+
+                  <circle r="4" fill="#ff7a00" className="motion-pulse-dot-orange">
+                    <animateMotion
+                      dur="10s"
+                      repeatCount="indefinite"
+                      begin="-5s"
+                    >
+                      <mpath href="#outerOrbitPath" />
+                    </animateMotion>
+                  </circle>
+
+                  <circle r="3.5" fill="#ffffff" className="motion-pulse-dot-white">
+                    <animateMotion
+                      dur="8s"
+                      repeatCount="indefinite"
+                      keyPoints="1;0"
+                      keyTimes="0;1"
+                    >
+                      <mpath href="#innerOrbitPath" />
+                    </animateMotion>
+                  </circle>
+
+                  {/* Subtle Tech Cross Nodes */}
+                  <g opacity="0.6">
+                    <circle cx="85" cy="180" r="3" fill="#ff7a00" />
+                    <circle cx="615" cy="450" r="3" fill="#ffffff" />
+                    <circle cx="350" cy="85" r="2.5" fill="#ff7a00" />
+                    <circle cx="350" cy="565" r="2.5" fill="#ffffff" />
+                  </g>
+                </svg>
+
                 <img
                   src="/web_dev.png"
                   alt="RASA Tech Web Development"
