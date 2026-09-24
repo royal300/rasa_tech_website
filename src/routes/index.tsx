@@ -812,16 +812,30 @@ function Index() {
     });
 
     const handleAnchorClick = (event: MouseEvent) => {
-      const link = (event.target as HTMLElement).closest<HTMLAnchorElement>('a[href^="#"]');
-      const id = link?.getAttribute("href");
-      if (!id || id === "#") return;
-      const section = document.querySelector<HTMLElement>(id);
+      const link = (event.target as HTMLElement).closest<HTMLAnchorElement>('a[href^="#"], a[href^="/#"]');
+      if (!link) return;
+      let rawHref = link.getAttribute("href") || "";
+      if (rawHref.startsWith("/")) rawHref = rawHref.slice(1);
+      if (!rawHref || rawHref === "#") return;
+      const section = document.querySelector<HTMLElement>(rawHref);
       if (!section) return;
       event.preventDefault();
       setMenuOpen(false);
-      lenis.scrollTo(section, { offset: -70, duration: 1.3, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+      const isMobile = window.innerWidth <= 768;
+      const offsetVal = isMobile ? -85 : -70;
+      lenis.scrollTo(section, { offset: offsetVal, duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
     };
     document.addEventListener("click", handleAnchorClick);
+
+    if (window.location.hash) {
+      setTimeout(() => {
+        const target = document.querySelector<HTMLElement>(window.location.hash);
+        if (target) {
+          const isMobile = window.innerWidth <= 768;
+          lenis.scrollTo(target, { offset: isMobile ? -85 : -70, immediate: true });
+        }
+      }, 150);
+    }
 
     return () => {
       document.removeEventListener("click", handleAnchorClick);
@@ -909,8 +923,8 @@ function Index() {
           <a href="#contact" onClick={closeMenu}>Contact</a>
           <div className="mobile-only-cta">
             <MagneticButton className="w-full">
-              <Button asChild className="w-full h-12 text-sm font-semibold border-orange bg-orange text-black hover:bg-orange-hot">
-                <a href="#contact" onClick={closeMenu}>LET'S TALK <ArrowUpRight size={16} /></a>
+              <Button asChild className="w-full h-12 text-sm font-bold border-none bg-orange text-white hover:bg-orange-hot shadow-lg">
+                <a href="#contact" onClick={closeMenu}>GET STARTED <ArrowUpRight size={16} /></a>
               </Button>
             </MagneticButton>
           </div>

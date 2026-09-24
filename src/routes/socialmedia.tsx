@@ -129,24 +129,24 @@ const socialServices: SocialService[] = [
     badge: "High Reach",
   },
   {
-    id: "branding-design",
+    id: "performance-marketing",
     number: "04",
-    title: "Visual Branding & Graphic Design",
-    subtitle: "Aesthetic Feed & Carousel Design",
-    description: "Pixel-perfect social posts, interactive carousel graphics, and custom visual templates that elevate your brand authority.",
-    features: ["Custom Feed Layouts", "Carousel Slides", "High-Impact Ads Creative", "Brand Guidelines"],
-    icon: Camera,
-    badge: "Visual Excellence",
+    title: "Performance Marketing",
+    subtitle: "High-ROAS Paid Ads & Lead Funnels",
+    description: "Data-driven Meta, Instagram, and Google ad campaigns engineered to maximize return on ad spend (ROAS), generate qualified customer leads, and scale profitability.",
+    features: ["High-Converting Ad Creatives", "Precision Audience Targeting", "A/B Testing & Funnels", "High ROAS Optimization"],
+    icon: TrendingUp,
+    badge: "High ROAS",
   },
   {
-    id: "paid-meta-ads",
+    id: "branding-design",
     number: "05",
-    title: "Paid Meta & Instagram Ad Campaigns",
-    subtitle: "Targeted Audience & Lead Acquisition",
-    description: "Data-driven Facebook and Instagram ad campaigns optimized for high ROAS, customer lead acquisition, and retargeting.",
-    features: ["Targeted Retargeting", "Ad Creative A/B Testing", "Conversion Tracking", "High ROAS Strategy"],
-    icon: TrendingUp,
-    badge: "Performance Marketing",
+    title: "Visual Branding & Graphic Design",
+    subtitle: "Aesthetic Feed & Carousel Design",
+    description: "Pixel-perfect social posts, interactive carousel graphics, and custom visual templates that elevate your brand authority and market prestige.",
+    features: ["Custom Feed Layouts", "Carousel Slides", "High-Impact Visual Assets", "Brand Identity Guidelines"],
+    icon: Camera,
+    badge: "Visual Excellence",
   },
   {
     id: "influencer-campaigns",
@@ -242,12 +242,27 @@ function SocialMediaPage() {
       }
     };
 
+    const handleAnchorClick = (event: MouseEvent) => {
+      const link = (event.target as HTMLElement).closest<HTMLAnchorElement>('a[href^="#"]');
+      const id = link?.getAttribute("href");
+      if (!id || id === "#") return;
+      const section = document.querySelector<HTMLElement>(id);
+      if (!section) return;
+      event.preventDefault();
+      setMenuOpen(false);
+      const isMobile = window.innerWidth <= 768;
+      const offsetVal = isMobile ? -85 : -70;
+      lenis.scrollTo(section, { offset: offsetVal, duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+    };
+    document.addEventListener("click", handleAnchorClick);
+
     window.addEventListener("scroll", onScroll);
     window.addEventListener("mousemove", moveCursor);
 
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("mousemove", moveCursor);
+      document.removeEventListener("click", handleAnchorClick);
       cancelAnimationFrame(rafId);
       lenis.destroy();
     };
@@ -270,14 +285,12 @@ function SocialMediaPage() {
           <Link to="/" onClick={closeMenu}>Home</Link>
           <a href="/#about" onClick={closeMenu}>About</a>
           <a href="/#services" onClick={closeMenu}>Services</a>
-          <Link to="/webdev" onClick={closeMenu}>Web Dev</Link>
-          <Link to="/socialmedia" className="text-orange-500 font-semibold" onClick={closeMenu}>Social Media</Link>
           <a href="/#pricing" onClick={closeMenu}>Pricing</a>
           <Link to="/team" onClick={closeMenu}>Our Team</Link>
           <a href="/#contact" onClick={closeMenu}>Contact</a>
           <div className="mobile-only-cta">
             <MagneticButton className="w-full">
-              <Button asChild className="w-full h-12 text-sm font-semibold border-orange bg-orange text-black hover:bg-orange-hot">
+              <Button asChild className="w-full h-12 text-sm font-bold border-none bg-orange text-white hover:bg-orange-hot shadow-lg">
                 <a href="/#contact" onClick={closeMenu}>GET STARTED <ArrowUpRight size={16} /></a>
               </Button>
             </MagneticButton>

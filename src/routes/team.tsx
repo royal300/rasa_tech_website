@@ -282,8 +282,8 @@ function TeamPage() {
           <a href="/#contact" onClick={closeMenu}>Contact</a>
           <div className="mobile-only-cta">
             <MagneticButton className="w-full">
-              <Button asChild className="w-full h-12 text-sm font-semibold border-orange bg-orange text-black hover:bg-orange-hot">
-                <a href="/#contact" onClick={closeMenu}>LET'S TALK <ArrowUpRight size={16} /></a>
+              <Button asChild className="w-full h-12 text-sm font-bold border-none bg-orange text-white hover:bg-orange-hot shadow-lg">
+                <a href="/#contact" onClick={closeMenu}>GET STARTED <ArrowUpRight size={16} /></a>
               </Button>
             </MagneticButton>
           </div>
