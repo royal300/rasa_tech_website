@@ -379,9 +379,7 @@ function WebDevPage() {
       if (!section) return;
       event.preventDefault();
       setMenuOpen(false);
-      const isMobile = window.innerWidth <= 768;
-      const offsetVal = isMobile ? -66 : -80;
-      lenis.scrollTo(section, { offset: offsetVal, duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+      lenis.scrollTo(section, { offset: 0, duration: 1.1, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
     };
     document.addEventListener("click", handleAnchorClick);
 

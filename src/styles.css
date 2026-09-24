@@ -307,12 +307,9 @@ html {
 @media (max-width: 1080px) {
   .hero-section { grid-template-columns: minmax(0, .9fr) minmax(430px, 1.1fr); padding-inline: 5vw; }.hero-copy h1 { font-size: clamp(48px, 7vw, 77px); }.hero-system { transform: scale(.9); transform-origin: center; }.section-grid { gap: 55px; }.services-grid { gap: 10px; }.service-module, .service-module:nth-child(2), .service-module:nth-child(3), .service-module:nth-child(4), .service-module:nth-child(5), .service-module:nth-child(6) { grid-column: span 6; }.service-module:nth-child(3), .service-module:nth-child(6) { min-height: 475px; }.site-header { grid-template-columns: 150px 1fr 150px; }
 }
-@media (max-width: 760px) {
-  html {
-    scroll-padding-top: 66px !important;
-  }
+@media (max-width: 768px) {
   .content-section {
-    padding: 32px 20px 48px !important;
+    padding: 16px 20px 42px !important;
   }
   #home,
   #about,
