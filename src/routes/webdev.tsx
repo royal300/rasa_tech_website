@@ -17,6 +17,8 @@ import {
   Smartphone,
   Sparkles,
   Terminal,
+  RotateCcw,
+  RotateCw,
   X,
   Zap,
 } from "lucide-react";
@@ -29,6 +31,96 @@ const logoUrl = "/logo.png";
 export const Route = createFileRoute("/webdev")({
   component: WebDevPage,
 });
+
+// ----------------------------------------------------------------------
+// 3D Flip Card Component for Services
+// ----------------------------------------------------------------------
+
+function WebDevServiceFlipCard({ service }: { service: WebDevService }) {
+  const [isFlipped, setIsFlipped] = useState(false);
+  const Icon = service.icon;
+
+  const handleToggle = () => setIsFlipped((prev) => !prev);
+
+  return (
+    <div
+      className="webdev-service-card"
+      onClick={handleToggle}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handleToggle();
+        }
+      }}
+      tabIndex={0}
+      role="button"
+      aria-label={`${service.title}. Click to ${isFlipped ? "flip back" : "view details"}`}
+    >
+      <div className={`flip-card-inner ${isFlipped ? "is-flipped" : ""}`}>
+        {/* Front Face: Rich Orange Gradient with Centered Title */}
+        <div className="flip-card-front">
+          <div className="flip-card-front-top">
+            <span className="flip-card-front-num">{service.number}</span>
+            <span className="flip-card-front-badge">{service.badge}</span>
+          </div>
+
+          <div className="flip-card-front-center">
+            <div className="flip-card-front-icon">
+              <Icon size={28} strokeWidth={2} />
+            </div>
+            <h3>{service.title}</h3>
+          </div>
+
+          <div className="flip-card-front-footer">
+            <span className="flip-hint-pill">
+              <span>View Details</span>
+              <RotateCw size={13} />
+            </span>
+          </div>
+        </div>
+
+        {/* Back Face: Black Theme with Sub-Points */}
+        <div className="flip-card-back">
+          <div className="flip-card-back-head">
+            <span className="webdev-card-num">{service.number}</span>
+            <span className="webdev-card-badge">{service.badge}</span>
+            <button
+              type="button"
+              className="flip-back-action-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleToggle();
+              }}
+              aria-label="Flip back to front"
+            >
+              <RotateCcw size={12} />
+              <span>Flip</span>
+            </button>
+          </div>
+
+          <div className="flip-card-back-body">
+            <h4 className="flip-card-back-title">{service.title}</h4>
+            <p className="webdev-card-subtitle">{service.subtitle}</p>
+            <p className="webdev-card-desc">{service.description}</p>
+
+            <ul className="webdev-card-features">
+              {service.features.map((feat) => (
+                <li key={feat}>
+                  <Check size={14} className="text-orange" />
+                  <span>{feat}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ----------------------------------------------------------------------
+// Main WebDev Page Component
+// ----------------------------------------------------------------------
 
 function MouseSpotlight() {
   const [pos, setPos] = useState({ x: 0, y: 0 });
@@ -506,31 +598,9 @@ function WebDevPage() {
           </div>
 
           <div className="webdev-services-grid">
-            {webDevServices.map((service) => {
-              const Icon = service.icon;
-              return (
-                <div key={service.id} className="webdev-service-card">
-                  <div className="webdev-card-head">
-                    <span className="webdev-card-num">{service.number}</span>
-                    <div className="webdev-icon-wrapper">
-                      <Icon size={24} strokeWidth={1.75} />
-                    </div>
-                    <span className="webdev-card-badge">{service.badge}</span>
-                  </div>
-                  <h3>{service.title}</h3>
-                  <p className="webdev-card-subtitle">{service.subtitle}</p>
-                  <p className="webdev-card-desc">{service.description}</p>
-                  <ul className="webdev-card-features">
-                    {service.features.map((feat) => (
-                      <li key={feat}>
-                        <Check size={14} className="text-orange" />
-                        <span>{feat}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              );
-            })}
+            {webDevServices.map((service) => (
+              <WebDevServiceFlipCard key={service.id} service={service} />
+            ))}
           </div>
         </section>
 
