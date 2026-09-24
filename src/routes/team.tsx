@@ -5,6 +5,7 @@ import {
   Linkedin,
   Mail,
   Menu,
+  Sparkles,
   Twitter,
   X,
 } from "lucide-react";
@@ -158,7 +159,7 @@ function MouseSpotlight() {
   );
 }
 
-function TeamCard({ member }: { member: TeamMember }) {
+function TeamCard({ member, className = "" }: { member: TeamMember; className?: string }) {
   const [cardMouse, setCardMouse] = useState({ x: 50, y: 50, rotateX: 0, rotateY: 0, isHovered: false });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -178,7 +179,7 @@ function TeamCard({ member }: { member: TeamMember }) {
 
   return (
     <div
-      className="team-card"
+      className={`team-card ${className}`}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{
@@ -215,6 +216,66 @@ function TeamCard({ member }: { member: TeamMember }) {
               <Mail size={16} />
             </a>
           )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function FounderQuoteCard() {
+  const [cardMouse, setCardMouse] = useState({ x: 50, y: 50, rotateX: 0, rotateY: 0, isHovered: false });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const px = e.clientX - rect.left;
+    const py = e.clientY - rect.top;
+    const xPct = (px / rect.width) * 100;
+    const yPct = (py / rect.height) * 100;
+    const rotateX = -((py - rect.height / 2) / (rect.height / 2)) * 6;
+    const rotateY = ((px - rect.width / 2) / (rect.width / 2)) * 6;
+    setCardMouse({ x: xPct, y: yPct, rotateX, rotateY, isHovered: true });
+  };
+
+  const handleMouseLeave = () => {
+    setCardMouse({ x: 50, y: 50, rotateX: 0, rotateY: 0, isHovered: false });
+  };
+
+  return (
+    <div
+      className="founder-quote-card"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        transform: cardMouse.isHovered
+          ? `perspective(1000px) rotateX(${cardMouse.rotateX}deg) rotateY(${cardMouse.rotateY}deg) translateY(-6px)`
+          : "perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)",
+        transition: cardMouse.isHovered ? "transform 0.1s cubic-bezier(0.1, 1, 0.1, 1)" : "transform 0.5s ease",
+      }}
+    >
+      <div
+        className="service-spotlight"
+        style={{
+          opacity: cardMouse.isHovered ? 1 : 0,
+          background: `radial-gradient(circle at ${cardMouse.x}% ${cardMouse.y}%, rgba(255, 122, 0, 0.22), transparent 70%)`,
+        }}
+      />
+      <div className="founder-quote-inner">
+        <div className="founder-quote-top">
+          <div className="founder-quote-badge">
+            <Sparkles size={11} className="quote-badge-icon" />
+            <span>MISSION & VISION</span>
+          </div>
+          <div className="quote-mark" aria-hidden="true">“</div>
+          <blockquote className="founder-quote-content">
+            Our mission is not just to build digital presence, but to engineer scalable digital advantage. We combine relentless technology with bold creative execution to empower ambitious brands to dominate their space.
+          </blockquote>
+        </div>
+        <div className="founder-quote-author">
+          <div className="founder-quote-line" />
+          <div className="founder-quote-meta">
+            <span className="founder-name">Ashok Kumar Das</span>
+            <span className="founder-title">Founder & CEO, RASA Tech</span>
+          </div>
         </div>
       </div>
     </div>
@@ -262,6 +323,9 @@ function TeamPage() {
   }, []);
 
   const closeMenu = () => setMenuOpen(false);
+
+  const founder = teamMembers[0];
+  const restMembers = teamMembers.slice(1);
 
   return (
     <div className="rasa-site">
@@ -316,12 +380,27 @@ function TeamPage() {
           </div>
         </section>
 
-        {/* 4 Column x 2 Row Team Grid */}
+        {/* Team Section */}
         <section className="team-section">
-          <div className="team-grid">
-            {teamMembers.map((member) => (
-              <TeamCard key={member.id} member={member} />
-            ))}
+          <div className="team-container">
+            {/* Row 1: Ashok Kumar Das first with motivational quote beside him */}
+            <div className="team-founder-spotlight">
+              <div className="founder-card-col">
+                <TeamCard member={founder} className="founder-spotlight-card" />
+              </div>
+              <div className="founder-quote-col">
+                <FounderQuoteCard />
+              </div>
+            </div>
+
+            {/* Next Row: Rest 4 Members in a single line on desktop */}
+            <div className="team-members-row">
+              <div className="team-members-grid">
+                {restMembers.map((member) => (
+                  <TeamCard key={member.id} member={member} />
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
