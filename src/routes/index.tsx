@@ -594,6 +594,7 @@ function ServiceVisual({ type }: { type: Service["visual"] }) {
 function ServiceModule({ service }: { service: Service }) {
   const Icon = service.icon;
   const isHighlighted = service.name === "SEO & GMB";
+  const isWebDev = service.name === "Web Development";
   const [cardMouse, setCardMouse] = useState({ x: 50, y: 50, rotateX: 0, rotateY: 0, isHovered: false });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -611,9 +612,9 @@ function ServiceModule({ service }: { service: Service }) {
     setCardMouse({ x: 50, y: 50, rotateX: 0, rotateY: 0, isHovered: false });
   };
 
-  return (
+  const content = (
     <article
-      className={`service-module service-${service.number} reveal stagger-item ${isHighlighted ? "service-highlighted" : ""}`}
+      className={`service-module service-${service.number} reveal stagger-item ${isHighlighted ? "service-highlighted" : ""} ${isWebDev ? "cursor-pointer" : ""}`}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{
@@ -630,12 +631,53 @@ function ServiceModule({ service }: { service: Service }) {
           background: `radial-gradient(circle at ${cardMouse.x}% ${cardMouse.y}%, rgba(255, 122, 0, 0.22), transparent 70%)`,
         }}
       />
-      <div className="service-head"><span className="service-number">{service.number}</span><Icon size={18} strokeWidth={1.5} /><span className="service-arrow"><ArrowUpRight size={18} /></span></div>
-      <div className="service-copy"><h3>{service.name}</h3><p>{service.description}</p><ul>{service.capabilities.map((capability) => <li key={capability}><Check size={13} />{capability}</li>)}</ul></div>
+      <div className="service-head">
+        <span className="service-number">{service.number}</span>
+        <Icon size={18} strokeWidth={1.5} />
+        <span className="service-arrow">
+          {isWebDev ? (
+            <Link to="/webdev" className="flex items-center justify-center text-orange hover:text-white transition-colors" aria-label="Explore Web Development">
+              <ArrowUpRight size={18} />
+            </Link>
+          ) : (
+            <ArrowUpRight size={18} />
+          )}
+        </span>
+      </div>
+      <div className="service-copy">
+        <h3>
+          {isWebDev ? (
+            <Link to="/webdev" className="hover:text-orange transition-colors">
+              {service.name}
+            </Link>
+          ) : (
+            service.name
+          )}
+        </h3>
+        <p>{service.description}</p>
+        <ul>
+          {service.capabilities.map((capability) => (
+            <li key={capability}>
+              <Check size={13} />
+              {capability}
+            </li>
+          ))}
+        </ul>
+      </div>
       <ServiceVisual type={service.visual} />
       <SignalLine />
     </article>
   );
+
+  if (isWebDev) {
+    return (
+      <Link to="/webdev" className="block no-underline text-inherit focus:outline-none">
+        {content}
+      </Link>
+    );
+  }
+
+  return content;
 }
 
 function PricingPlan({ number, name, price, description, popular, children }: { number: string; name: string; price: string; description: string; popular?: boolean; children: ReactNode }) {
