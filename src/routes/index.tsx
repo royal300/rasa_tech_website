@@ -612,7 +612,7 @@ function ServiceModule({ service }: { service: Service }) {
     setCardMouse({ x: 50, y: 50, rotateX: 0, rotateY: 0, isHovered: false });
   };
 
-  const content = (
+  return (
     <article
       className={`service-module service-${service.number} reveal stagger-item ${isHighlighted ? "service-highlighted" : ""} ${isWebDev ? "cursor-pointer" : ""}`}
       onMouseMove={handleMouseMove}
@@ -624,6 +624,13 @@ function ServiceModule({ service }: { service: Service }) {
         transition: cardMouse.isHovered ? "transform 0.1s cubic-bezier(0.1, 1, 0.1, 1)" : "transform 0.5s ease",
       }}
     >
+      {isWebDev && (
+        <Link
+          to="/webdev"
+          className="service-card-overlay-link"
+          aria-label="Explore Web Development Services"
+        />
+      )}
       <div
         className="service-spotlight"
         style={{
@@ -668,16 +675,6 @@ function ServiceModule({ service }: { service: Service }) {
       <SignalLine />
     </article>
   );
-
-  if (isWebDev) {
-    return (
-      <Link to="/webdev" className="block no-underline text-inherit focus:outline-none">
-        {content}
-      </Link>
-    );
-  }
-
-  return content;
 }
 
 function PricingPlan({ number, name, price, description, popular, children }: { number: string; name: string; price: string; description: string; popular?: boolean; children: ReactNode }) {
