@@ -352,9 +352,9 @@ html {
   .header-cta {
     display: none !important;
   }
-  .brand-mark {
+  .site-header .brand-mark {
     width: auto !important;
-    height: 32px !important;
+    height: 42px !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: flex-start !important;
@@ -364,10 +364,11 @@ html {
     margin: 0 !important;
     padding: 0 !important;
   }
-  .brand-mark img {
-    height: 24px !important;
+  .site-header .brand-mark img {
+    height: 38px !important;
     width: auto !important;
-    max-height: 24px !important;
+    max-height: 38px !important;
+    max-width: 145px !important;
     object-fit: contain !important;
     display: block !important;
   }
@@ -1737,6 +1738,22 @@ a.text-link:hover svg,
   .footer-top {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 32px !important;
+  }
+  .site-footer .brand-mark,
+  .footer-brand-col .brand-mark {
+    width: 190px !important;
+    max-width: 100% !important;
+    height: auto !important;
+    display: inline-flex !important;
+  }
+  .site-footer .brand-mark img,
+  .footer-brand-col .brand-mark img {
+    width: 190px !important;
+    max-width: 190px !important;
+    height: auto !important;
+    max-height: none !important;
+    object-fit: contain !important;
+    display: block !important;
   }
 }
 
