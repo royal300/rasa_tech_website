@@ -361,52 +361,44 @@ function WebDevPage() {
               </MagneticButton>
             </div>
 
-            {/* Interactive Browser Code Terminal Visual */}
-            <div className="webdev-visual-terminal">
-              <div className="terminal-header">
-                <div className="terminal-dots">
-                  <span className="dot red" />
-                  <span className="dot yellow" />
-                  <span className="dot green" />
-                </div>
-                <div className="terminal-address-bar">
-                  <Globe2 size={13} />
-                  <span>https://rasatech.in/webdev/high-performance-sites</span>
-                </div>
-                <div className="terminal-status-tag">
-                  <span className="status-pulse" /> 100/100 PERFORMANCE
-                </div>
-              </div>
-              <div className="terminal-body">
-                <div className="terminal-code-side">
-                  <p className="code-line"><span className="code-keyword">const</span> <span className="code-var">website</span> = <span className="code-fn">createHighSpeedSite</span>(&#123;</p>
-                  <p className="code-line indent"><span className="code-prop">performanceScore</span>: <span className="code-num">100</span>,</p>
-                  <p className="code-line indent"><span className="code-prop">seoReady</span>: <span className="code-bool">true</span>,</p>
-                  <p className="code-line indent"><span className="code-prop">responsive</span>: <span className="code-str">"all-devices"</span>,</p>
-                  <p className="code-line indent"><span className="code-prop">security</span>: <span className="code-str">"SSL-Encrypted"</span></p>
-                  <p className="code-line">&#125;);</p>
-                </div>
-                <div className="terminal-metrics-side">
-                  <div className="metric-box">
-                    <Gauge size={20} />
-                    <div>
-                      <b>0.4s</b>
-                      <small>Load Speed</small>
-                    </div>
+            {/* 3D Web Development Command Center Graphic Visual */}
+            <div className="webdev-visual-hero-graphic">
+              <div className="graphic-frame-container">
+                <img
+                  src="/webdev-hero-graphic.jpg"
+                  alt="RASA Tech Futuristic Web Development Command Center"
+                  className="webdev-hero-main-img"
+                />
+                <div className="graphic-glow-overlay" />
+                
+                {/* Floating Glass Chips */}
+                <div className="floating-chip chip-top-left">
+                  <div className="chip-icon">
+                    <Code2 size={16} />
                   </div>
-                  <div className="metric-box">
-                    <ShieldCheck size={20} />
-                    <div>
-                      <b>100%</b>
-                      <small>Secure &amp; Reliable</small>
-                    </div>
+                  <div className="chip-text">
+                    <b>FULL-STACK ENGINEERING</b>
+                    <small>React • Next.js • TypeScript</small>
                   </div>
-                  <div className="metric-box">
-                    <Zap size={20} />
-                    <div>
-                      <b>Mobile-First</b>
-                      <small>Responsive UI</small>
-                    </div>
+                </div>
+
+                <div className="floating-chip chip-bottom-right">
+                  <div className="chip-icon pulse-icon">
+                    <Gauge size={16} />
+                  </div>
+                  <div className="chip-text">
+                    <b>100/100 CORE WEB VITALS</b>
+                    <small>Sub-0.4s Ultra Fast Load</small>
+                  </div>
+                </div>
+
+                <div className="floating-chip chip-top-right">
+                  <div className="chip-icon">
+                    <Zap size={16} />
+                  </div>
+                  <div className="chip-text">
+                    <b>HIGH CONVERSION UI</b>
+                    <small>Pixel-Perfect Responsive</small>
                   </div>
                 </div>
               </div>
