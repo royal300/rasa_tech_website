@@ -2859,10 +2859,10 @@ html.lenis body {
   cursor: pointer;
 }
 
-/* WebDev Hero 3D Futuristic Graphic Showcase */
+/* WebDev Hero Graphic Showcase */
 .webdev-visual-hero-graphic {
   width: 100%;
-  max-width: 950px;
+  max-width: 800px;
   position: relative;
   margin: 10px auto 0;
 }
@@ -2870,12 +2870,11 @@ html.lenis body {
 .graphic-frame-container {
   position: relative;
   width: 100%;
-  border-radius: 24px;
-  overflow: hidden;
-  border: 1.5px solid rgba(255, 122, 0, 0.4);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 50px rgba(255, 122, 0, 0.25);
-  background: radial-gradient(circle at 50% 50%, rgba(255, 122, 0, 0.18) 0%, rgba(12, 10, 8, 0.95) 75%, #050403 100%);
-  padding: 35px 20px;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  padding: 10px 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2883,17 +2882,18 @@ html.lenis body {
 
 .webdev-hero-main-img {
   width: 100%;
-  max-width: 680px;
+  max-width: 520px;
   height: auto;
   display: block;
   object-fit: contain;
+  opacity: 1;
   mix-blend-mode: multiply;
-  filter: drop-shadow(0 0 30px rgba(255, 122, 0, 0.6)) contrast(1.15) brightness(1.05);
-  transition: transform 0.6s ease;
+  filter: drop-shadow(0 0 35px rgba(255, 122, 0, 0.45));
+  transition: transform 0.5s ease;
 }
 
 .graphic-frame-container:hover .webdev-hero-main-img {
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
 .graphic-glow-overlay {

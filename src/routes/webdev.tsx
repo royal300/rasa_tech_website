@@ -361,46 +361,14 @@ function WebDevPage() {
               </MagneticButton>
             </div>
 
-            {/* 3D Web Development Command Center Graphic Visual */}
+            {/* 3D Web Development Visual */}
             <div className="webdev-visual-hero-graphic">
               <div className="graphic-frame-container">
                 <img
                   src="/web_dev.png"
-                  alt="RASA Tech Futuristic Web Development Command Center"
+                  alt="RASA Tech Web Development"
                   className="webdev-hero-main-img"
                 />
-                <div className="graphic-glow-overlay" />
-                
-                {/* Floating Glass Chips */}
-                <div className="floating-chip chip-top-left">
-                  <div className="chip-icon">
-                    <Code2 size={16} />
-                  </div>
-                  <div className="chip-text">
-                    <b>FULL-STACK ENGINEERING</b>
-                    <small>React • Next.js • TypeScript</small>
-                  </div>
-                </div>
-
-                <div className="floating-chip chip-bottom-right">
-                  <div className="chip-icon pulse-icon">
-                    <Gauge size={16} />
-                  </div>
-                  <div className="chip-text">
-                    <b>100/100 CORE WEB VITALS</b>
-                    <small>Sub-0.4s Ultra Fast Load</small>
-                  </div>
-                </div>
-
-                <div className="floating-chip chip-top-right">
-                  <div className="chip-icon">
-                    <Zap size={16} />
-                  </div>
-                  <div className="chip-text">
-                    <b>HIGH CONVERSION UI</b>
-                    <small>Pixel-Perfect Responsive</small>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
