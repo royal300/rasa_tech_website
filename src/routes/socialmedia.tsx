@@ -2,23 +2,22 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowUp,
   ArrowUpRight,
+  Camera,
   Check,
-  Code2,
-  Cpu,
   ExternalLink,
-  Gauge,
+  Facebook,
+  Film,
   Globe2,
+  Instagram,
   Layers,
-  Layout,
   Menu,
-  Monitor,
-  ShieldCheck,
-  ShoppingBag,
-  Smartphone,
+  MessageCircle,
+  Share2,
   Sparkles,
-  Terminal,
+  TrendingUp,
+  Tv,
+  Video,
   X,
-  Zap,
 } from "lucide-react";
 import { useEffect, useState, useRef, type ReactNode } from "react";
 import Lenis from "lenis";
@@ -26,8 +25,8 @@ import { Button } from "@/components/ui/button";
 
 const logoUrl = "/logo.png";
 
-export const Route = createFileRoute("/webdev")({
-  component: WebDevPage,
+export const Route = createFileRoute("/socialmedia")({
+  component: SocialMediaPage,
 });
 
 function MouseSpotlight() {
@@ -85,7 +84,7 @@ function MagneticButton({ children, className = "" }: { children: ReactNode; cla
 // Data Structures
 // ----------------------------------------------------------------------
 
-interface WebDevService {
+interface SocialService {
   id: string;
   number: string;
   title: string;
@@ -94,160 +93,169 @@ interface WebDevService {
   features: string[];
   icon: any;
   badge: string;
+  hasSoftwareBadges?: boolean;
 }
 
-const webDevServices: WebDevService[] = [
+const socialServices: SocialService[] = [
   {
-    id: "static",
+    id: "content-cinematography",
     number: "01",
-    title: "Static & Landing Websites",
-    subtitle: "Fast, SEO-Optimized Landing Pages",
-    description: "Ultra-fast static websites and high-converting landing pages engineered for maximum SEO visibility, fast page loads, and seamless user conversion.",
-    features: ["100/100 Core Web Vitals", "Instant Page Load Speeds", "SEO & Meta Structured"],
-    icon: Globe2,
-    badge: "High Conversion",
+    title: "Content Creation & Cinematography",
+    subtitle: "High-End Video & Photo Production",
+    description: "Cinematic filming, professional color grading, and high-impact visual storytelling designed to capture instant attention on social media feeds.",
+    features: ["4K Cinematic Filming", "Professional Editing", "High-Converting Visuals", "Brand Storytelling"],
+    icon: Film,
+    badge: "Creative Studio",
+    hasSoftwareBadges: true,
   },
   {
-    id: "ecommerce",
+    id: "social-management",
     number: "02",
-    title: "E-Commerce Solutions",
-    subtitle: "High-Converting Online Stores",
-    description: "Robust e-commerce platforms with secure payment gateways, intuitive product filtering, inventory management, and smooth shopping experiences.",
-    features: ["Payment Gateway Setup", "Fast Checkout Flow", "Product & Inventory CMS"],
-    icon: ShoppingBag,
-    badge: "Scalable Sales",
+    title: "Social Media Management",
+    subtitle: "Full-Funnel Channel Growth",
+    description: "End-to-end management of Facebook, Instagram, and LinkedIn. From content calendars to active community engagement and growth analytics.",
+    features: ["Consistent Posting Schedule", "Audience Engagement", "Analytics & Insights", "Community Growth"],
+    icon: Share2,
+    badge: "Full-Service",
   },
   {
-    id: "accurate",
+    id: "reels-shortform",
     number: "03",
-    title: "Fast, Accurate & Professional Websites",
-    subtitle: "Precision Engineering & Modern UI",
-    description: "Custom-built professional business websites delivered with high accuracy, responsive design systems, pixel-perfect alignment, and zero bloat.",
-    features: ["Pixel-Perfect Design", "Responsive Layouts", "Zero Bloat Code"],
-    icon: Zap,
-    badge: "High Accuracy",
+    title: "Reels & Short-Form Video Growth",
+    subtitle: "Viral Content & Trending Audio",
+    description: "Engaging short-form videos tailored for Instagram Reels and TikTok with high-hook pacing, trending audio, and bold captions.",
+    features: ["Trending Audio Hooks", "Fast-Paced Editing", "Viral Content Strategy", "Cross-Platform Sharing"],
+    icon: Video,
+    badge: "High Reach",
   },
   {
-    id: "custom-apps",
+    id: "branding-design",
     number: "04",
-    title: "Custom Web Applications",
-    subtitle: "Scalable Full-Stack Solutions",
-    description: "Dynamic full-stack web applications featuring customized business workflows, API integrations, real-time dashboards, and secure backend systems.",
-    features: ["Modern React & Node Stack", "RESTful & GraphQL APIs", "Secure User Auth"],
-    icon: Layers,
-    badge: "Enterprise Ready",
+    title: "Visual Branding & Graphic Design",
+    subtitle: "Aesthetic Feed & Carousel Design",
+    description: "Pixel-perfect social posts, interactive carousel graphics, and custom visual templates that elevate your brand authority.",
+    features: ["Custom Feed Layouts", "Carousel Slides", "High-Impact Ads Creative", "Brand Guidelines"],
+    icon: Camera,
+    badge: "Visual Excellence",
   },
   {
-    id: "responsive",
+    id: "paid-meta-ads",
     number: "05",
-    title: "Responsive & Mobile-First Design",
-    subtitle: "Flawless Multi-Device Experience",
-    description: "Fluid, screen-adaptive web design ensuring flawless visuals, micro-interactions, and smooth navigation across mobile phones, tablets, and desktops.",
-    features: ["Touch-Optimized UI", "Adaptive Breakpoints", "Micro-Animations"],
-    icon: Smartphone,
-    badge: "Cross-Platform",
+    title: "Paid Meta & Instagram Ad Campaigns",
+    subtitle: "Targeted Audience & Lead Acquisition",
+    description: "Data-driven Facebook and Instagram ad campaigns optimized for high ROAS, customer lead acquisition, and retargeting.",
+    features: ["Targeted Retargeting", "Ad Creative A/B Testing", "Conversion Tracking", "High ROAS Strategy"],
+    icon: TrendingUp,
+    badge: "Performance Marketing",
   },
   {
-    id: "optimization",
+    id: "influencer-campaigns",
     number: "06",
-    title: "Maintenance & Speed Optimization",
-    subtitle: "24/7 Security & Performance Support",
-    description: "Continuous speed tuning, SSL security audits, domain/hosting management, and 24/7 technical maintenance to keep your site performing at its peak.",
-    features: ["24/7 Uptime Monitoring", "SSL & Security Audits", "Continuous Speed Optimization"],
-    icon: ShieldCheck,
-    badge: "24/7 Support",
+    title: "Creator & Influencer Marketing",
+    subtitle: "Authentic Brand Partnerships",
+    description: "Strategic partnerships with relevant digital creators to build authentic trust, reach new local audiences, and boost brand prestige.",
+    features: ["Creator Outreach", "Campaign Management", "Content Rights", "ROI Reporting"],
+    icon: Tv,
+    badge: "Brand Reach",
   },
 ];
 
-interface ProjectCardData {
+interface SocialClientProject {
   id: string;
   name: string;
   category: string;
   description: string;
-  url: string;
-  displayUrl: string;
+  facebookUrl?: string;
+  instagramUrl?: string;
   tags: string[];
-  gradient: string;
 }
 
-const clientProjects: ProjectCardData[] = [
+const socialProjects: SocialClientProject[] = [
   {
     id: "happy-valley",
     name: "Happy Valley Park",
     category: "Resort & Amusement Park",
-    description: "Interactive resort & water park platform engineered for seamless user booking, attraction exploration, and visitor engagement.",
-    url: "https://www.gohappyvalley.com",
-    displayUrl: "www.gohappyvalley.com",
-    tags: ["Custom Web", "Resort Portal", "SEO Optimized"],
-    gradient: "linear-gradient(135deg, rgba(255, 122, 0, 0.15) 0%, rgba(20, 15, 10, 0.9) 100%)",
-  },
-  {
-    id: "ande-industries",
-    name: "Ande Industries",
-    category: "Industrial & Manufacturing",
-    description: "High-impact corporate website showcasing industrial manufacturing capabilities, heavy equipment solutions, and client inquiry flows.",
-    url: "https://andeitpl.com/",
-    displayUrl: "andeitpl.com",
-    tags: ["Corporate Web", "Industrial UX", "Lead Generation"],
-    gradient: "linear-gradient(135deg, rgba(255, 122, 0, 0.2) 0%, rgba(15, 12, 10, 0.95) 100%)",
-  },
-  {
-    id: "saha-marble",
-    name: "Saha Marble and Tiles",
-    category: "Building & Architecture",
-    description: "Elegant product showcase catalog displaying premium marble collections, tile designs, and direct architectural consultation forms.",
-    url: "http://sahamarbleandtiles.com",
-    displayUrl: "sahamarbleandtiles.com",
-    tags: ["Product Showcase", "Tile Catalog", "Fast Load"],
-    gradient: "linear-gradient(135deg, rgba(255, 170, 0, 0.15) 0%, rgba(18, 14, 10, 0.9) 100%)",
+    description: "Social media management, viral reel production, and event campaigns boosting visitor engagement and bookings.",
+    facebookUrl: "https://www.facebook.com/happyvalleyparkbira/",
+    instagramUrl: "https://www.instagram.com/happyvalleypark",
+    tags: ["Reel Production", "Social Management", "Event Campaigns"],
   },
   {
     id: "gupta-interior",
     name: "Gupta Interior",
     category: "Interior & Architecture Design",
-    description: "Sleek portfolio platform presenting luxury residential and commercial interior design transformations with high-res galleries.",
-    url: "https://www.guptainterior.com/",
-    displayUrl: "www.guptainterior.com",
-    tags: ["Interior Portfolio", "Visual Showcase", "Modern UI"],
-    gradient: "linear-gradient(135deg, rgba(255, 122, 0, 0.18) 0%, rgba(12, 10, 8, 0.95) 100%)",
+    description: "Luxury interior design visual portfolio, high-definition transformation videos, and aesthetic Instagram feed curation.",
+    facebookUrl: "https://www.facebook.com/guptainteriorofficial/",
+    instagramUrl: "https://www.instagram.com/guptainterior_",
+    tags: ["Aesthetic Branding", "Interior Showcases", "Reels Growth"],
   },
   {
-    id: "buco-elevators",
-    name: "Buco Elevators",
-    category: "Engineering & Machinery",
-    description: "Professional industrial website for elevator manufacturing, maintenance services, technical specifications, and client support.",
-    url: "https://bucoelevators.in/",
-    displayUrl: "bucoelevators.in",
-    tags: ["Engineering Web", "Client Support", "Responsive UI"],
-    gradient: "linear-gradient(135deg, rgba(255, 122, 0, 0.15) 0%, rgba(15, 12, 10, 0.9) 100%)",
+    id: "parama-jewellery",
+    name: "Parama Jewellery Museum",
+    category: "Luxury Retail & Jewellery",
+    description: "Exquisite hallmarked gold and diamond jewelry branding, product cinematography, and targeted social media marketing.",
+    facebookUrl: "https://www.facebook.com/hallmarked.jewellery/",
+    instagramUrl: "https://www.instagram.com/parama_jewellery_museum",
+    tags: ["Luxury Content", "Jewelry Showcase", "Audience Growth"],
   },
   {
-    id: "advocate-raju",
-    name: "Advocate Raju Kumar Sha",
-    category: "Legal & Professional Services",
-    description: "Authoritative legal counsel portal detailing practice areas, legal consultation scheduling, and client case inquiry management.",
-    url: "https://rajkumarsha.com/",
-    displayUrl: "rajkumarsha.com",
-    tags: ["Legal Portal", "Consultation Setup", "Clean Design"],
-    gradient: "linear-gradient(135deg, rgba(255, 140, 0, 0.15) 0%, rgba(14, 11, 9, 0.95) 100%)",
-  },
-  {
-    id: "swarup-jewellers",
-    name: "Swarup Jewellers",
-    category: "Luxury Retail & E-Commerce",
-    description: "Exquisite online jewelry catalog showcasing handcrafted gold and diamond collections with instant store inquiry access.",
-    url: "https://swarupjewellers.com/",
-    displayUrl: "swarupjewellers.com",
-    tags: ["Luxury Retail", "Jewelry Catalog", "High Conversion"],
-    gradient: "linear-gradient(135deg, rgba(255, 180, 0, 0.18) 0%, rgba(16, 12, 8, 0.95) 100%)",
+    id: "jimmy-collection",
+    name: "Jimmy Collection",
+    category: "Fashion & Retail",
+    description: "Trendy fashion retail social management, seasonal style highlights, and customer engagement campaigns.",
+    facebookUrl: "https://www.facebook.com/JimmysCollectionbarasat/",
+    tags: ["Fashion Campaigns", "Facebook Growth", "Customer Reach"],
   },
 ];
 
 // ----------------------------------------------------------------------
-// Main WebDev Page Component
+// Moving Photoshop & Premiere Pro Software Badges Component
 // ----------------------------------------------------------------------
 
-function WebDevPage() {
+function SoftwareShowcaseBadges() {
+  return (
+    <div className="software-showcase-bar">
+      <div className="software-badge badge-ps" title="Adobe Photoshop">
+        <span className="software-glow" />
+        <span className="software-code">Ps</span>
+        <div className="software-info">
+          <b>PHOTOSHOP</b>
+          <small>Visual Editing</small>
+        </div>
+      </div>
+      <div className="software-badge badge-pr" title="Adobe Premiere Pro">
+        <span className="software-glow" />
+        <span className="software-code">Pr</span>
+        <div className="software-info">
+          <b>PREMIERE PRO</b>
+          <small>Cinematic Cut</small>
+        </div>
+      </div>
+      <div className="software-badge badge-ae" title="Adobe After Effects">
+        <span className="software-glow" />
+        <span className="software-code">Ae</span>
+        <div className="software-info">
+          <b>AFTER EFFECTS</b>
+          <small>Motion Graphics</small>
+        </div>
+      </div>
+      <div className="software-badge badge-ai" title="Adobe Illustrator">
+        <span className="software-glow" />
+        <span className="software-code">Ai</span>
+        <div className="software-info">
+          <b>ILLUSTRATOR</b>
+          <small>Vector Art</small>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ----------------------------------------------------------------------
+// Main Social Media Page Component
+// ----------------------------------------------------------------------
+
+function SocialMediaPage() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const lenisRef = useRef<Lenis | null>(null);
@@ -290,7 +298,7 @@ function WebDevPage() {
   const closeMenu = () => setMenuOpen(false);
 
   return (
-    <div className="rasa-site webdev-page-container">
+    <div className="rasa-site socialmedia-page-container">
       <MouseSpotlight />
       <div className="custom-cursor" aria-hidden="true"><span /></div>
       <div className="site-network" aria-hidden="true"><span /><span /><span /><span /><span /></div>
@@ -304,7 +312,8 @@ function WebDevPage() {
           <Link to="/" onClick={closeMenu}>Home</Link>
           <a href="/#about" onClick={closeMenu}>About</a>
           <a href="/#services" onClick={closeMenu}>Services</a>
-          <Link to="/webdev" className="text-orange-500 font-semibold" onClick={closeMenu}>Web Dev</Link>
+          <Link to="/webdev" onClick={closeMenu}>Web Dev</Link>
+          <Link to="/socialmedia" className="text-orange-500 font-semibold" onClick={closeMenu}>Social Media</Link>
           <a href="/#pricing" onClick={closeMenu}>Pricing</a>
           <Link to="/team" onClick={closeMenu}>Our Team</Link>
           <a href="/#contact" onClick={closeMenu}>Contact</a>
@@ -333,94 +342,55 @@ function WebDevPage() {
       </header>
 
       <main>
-        {/* Web Development Hero Section */}
-        <section className="webdev-hero">
-          <div className="webdev-hero-inner">
-            <div className="webdev-hero-badge">
+        {/* Social Media Hero Section */}
+        <section className="socialmedia-hero">
+          <div className="socialmedia-hero-inner">
+            <div className="socialmedia-hero-badge">
               <Sparkles size={16} />
-              <span>HIGH-PERFORMANCE WEB ENGINEERING</span>
+              <span>CONTENT CREATION &amp; SOCIAL MEDIA MARKETING</span>
             </div>
-            <h1 className="webdev-hero-heading">
-              ACCURATE, FAST &amp; SCALABLE
+            <h1 className="socialmedia-hero-heading">
+              CINEMATOGRAPHY, CONTENT &amp;
               <br />
-              <span className="gradient-text-orange-white">WEB DEVELOPMENT SOLUTIONS.</span>
+              <span className="gradient-text-orange-white">SOCIAL MEDIA GROWTH.</span>
             </h1>
-            <p className="webdev-hero-subtext">
-              We design and engineer lightning-fast static websites, robust e-commerce platforms, and custom web applications that captivate users, boost search rankings, and accelerate business growth.
+            <p className="socialmedia-hero-subtext">
+              We produce cinematic videos, professional visual content, and execute data-driven social media management strategies that capture instant attention, grow loyal audiences, and drive real business revenue.
             </p>
-            <div className="webdev-hero-actions">
+
+            <div className="socialmedia-hero-actions">
               <MagneticButton>
                 <a href="#projects" className="webdev-hero-primary-btn">
-                  EXPLORE OUR PROJECTS <ArrowUpRight size={16} />
+                  OUR CLIENT PROJECTS <ArrowUpRight size={16} />
                 </a>
               </MagneticButton>
               <MagneticButton>
                 <a href="/#contact" className="webdev-hero-secondary-btn">
-                  REQUEST A QUOTE
+                  START A CAMPAIGN
                 </a>
               </MagneticButton>
             </div>
 
-            {/* 3D Web Development Command Center Graphic Visual */}
-            <div className="webdev-visual-hero-graphic">
-              <div className="graphic-frame-container">
-                <img
-                  src="/web_dev.png"
-                  alt="RASA Tech Futuristic Web Development Command Center"
-                  className="webdev-hero-main-img"
-                />
-                <div className="graphic-glow-overlay" />
-                
-                {/* Floating Glass Chips */}
-                <div className="floating-chip chip-top-left">
-                  <div className="chip-icon">
-                    <Code2 size={16} />
-                  </div>
-                  <div className="chip-text">
-                    <b>FULL-STACK ENGINEERING</b>
-                    <small>React • Next.js • TypeScript</small>
-                  </div>
-                </div>
-
-                <div className="floating-chip chip-bottom-right">
-                  <div className="chip-icon pulse-icon">
-                    <Gauge size={16} />
-                  </div>
-                  <div className="chip-text">
-                    <b>100/100 CORE WEB VITALS</b>
-                    <small>Sub-0.4s Ultra Fast Load</small>
-                  </div>
-                </div>
-
-                <div className="floating-chip chip-top-right">
-                  <div className="chip-icon">
-                    <Zap size={16} />
-                  </div>
-                  <div className="chip-text">
-                    <b>HIGH CONVERSION UI</b>
-                    <small>Pixel-Perfect Responsive</small>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {/* Software Showcase Floating Bar */}
+            <SoftwareShowcaseBadges />
           </div>
         </section>
 
-        {/* Web Development Services Section */}
+        {/* Social Media Services Section */}
         <section className="webdev-services-section">
           <div className="webdev-section-head">
-            <p className="webdev-eyebrow">WHAT WE BUILD</p>
-            <h2>OUR WEB DEVELOPMENT SERVICES</h2>
+            <p className="webdev-eyebrow">WHAT WE DO</p>
+            <h2>OUR SOCIAL MEDIA &amp; CONTENT SERVICES</h2>
             <p className="webdev-section-subtitle">
-              Tailored web solutions engineered for speed, accuracy, and high conversion.
+              High-converting visual content, cinematic editing, and full social channel management.
             </p>
           </div>
 
           <div className="webdev-services-grid">
-            {webDevServices.map((service) => {
+            {socialServices.map((service) => {
               const Icon = service.icon;
               return (
-                <div key={service.id} className="webdev-service-card">
+                <div key={service.id} className="webdev-service-card social-service-card">
                   <div className="webdev-card-head">
                     <span className="webdev-card-num">{service.number}</span>
                     <div className="webdev-icon-wrapper">
@@ -431,6 +401,15 @@ function WebDevPage() {
                   <h3>{service.title}</h3>
                   <p className="webdev-card-subtitle">{service.subtitle}</p>
                   <p className="webdev-card-desc">{service.description}</p>
+                  
+                  {service.hasSoftwareBadges && (
+                    <div className="card-software-mini-row">
+                      <span className="mini-badge mini-ps">Ps Photoshop</span>
+                      <span className="mini-badge mini-pr">Pr Premiere</span>
+                      <span className="mini-badge mini-ae">Ae After Effects</span>
+                    </div>
+                  )}
+
                   <ul className="webdev-card-features">
                     {service.features.map((feat) => (
                       <li key={feat}>
@@ -445,40 +424,27 @@ function WebDevPage() {
           </div>
         </section>
 
-        {/* Our Projects Section */}
+        {/* Client Projects Section */}
         <section id="projects" className="webdev-projects-section">
           <div className="webdev-section-head">
-            <p className="webdev-eyebrow">PROVEN PORTFOLIO</p>
-            <h2>OUR FEATURED WEB PROJECTS</h2>
+            <p className="webdev-eyebrow">PROVEN RESULTS</p>
+            <h2>OUR SOCIAL MEDIA PROJECTS</h2>
             <p className="webdev-section-subtitle">
-              Explore real-world client websites designed, developed, and deployed by RASA Tech.
+              Client social media channels managed and grown by RASA Tech.
             </p>
           </div>
 
           <div className="webdev-projects-grid">
-            {clientProjects.map((project) => (
-              <div
-                key={project.id}
-                className="webdev-project-card"
-                style={{ background: project.gradient }}
-              >
+            {socialProjects.map((project) => (
+              <div key={project.id} className="webdev-project-card social-project-card">
                 <div className="project-card-top">
                   <span className="project-category-tag">{project.category}</span>
-                  <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="project-visit-icon-btn"
-                    aria-label={`Visit ${project.name}`}
-                  >
-                    <ExternalLink size={18} />
-                  </a>
                 </div>
 
                 <div className="project-card-body">
                   <h3 className="project-title">{project.name}</h3>
                   <p className="project-desc">{project.description}</p>
-                  
+
                   <div className="project-tags">
                     {project.tags.map((tag) => (
                       <span key={tag} className="project-tag-pill">
@@ -488,17 +454,31 @@ function WebDevPage() {
                   </div>
                 </div>
 
-                <div className="project-card-footer">
-                  <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="project-visit-btn"
-                  >
-                    <span>VISIT WEBSITE</span>
-                    <ArrowUpRight size={16} />
-                  </a>
-                  <span className="project-link-display">{project.displayUrl}</span>
+                <div className="social-client-links-footer">
+                  {project.facebookUrl && (
+                    <a
+                      href={project.facebookUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="social-btn btn-facebook"
+                    >
+                      <Facebook size={16} />
+                      <span>FACEBOOK</span>
+                      <ArrowUpRight size={14} />
+                    </a>
+                  )}
+                  {project.instagramUrl && (
+                    <a
+                      href={project.instagramUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="social-btn btn-instagram"
+                    >
+                      <Instagram size={16} />
+                      <span>INSTAGRAM</span>
+                      <ArrowUpRight size={14} />
+                    </a>
+                  )}
                 </div>
               </div>
             ))}
@@ -509,15 +489,15 @@ function WebDevPage() {
         <section className="webdev-cta">
           <div className="final-signal" />
           <div className="webdev-cta-inner">
-            <p className="eyebrow">READY TO BUILD YOUR WEBSITE?</p>
-            <h2>LET'S ENGINEER YOUR DIGITAL PRESENCE.</h2>
+            <p className="eyebrow">READY TO GROW YOUR SOCIAL MEDIA?</p>
+            <h2>LET'S CREATE HIGH-IMPACT CONTENT FOR YOUR BRAND.</h2>
             <p>
-              Connect with our web engineering team today to build a fast, accurate, and high-converting website for your business.
+              Connect with our content creation and social strategy team to elevate your brand presence today.
             </p>
             <div className="final-cta-action">
               <MagneticButton>
                 <a href="/#contact" className="start-conversation-btn">
-                  START YOUR WEB PROJECT <ArrowUpRight size={16} />
+                  START YOUR SOCIAL CAMPAIGN <ArrowUpRight size={16} />
                 </a>
               </MagneticButton>
             </div>
@@ -542,6 +522,7 @@ function WebDevPage() {
               <a href="/#about">About</a>
               <a href="/#services">Services</a>
               <Link to="/webdev">Web Development</Link>
+              <Link to="/socialmedia">Social Media</Link>
               <a href="/#pricing">Pricing</a>
               <Link to="/team">Our Team</Link>
             </div>

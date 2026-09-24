@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SocialmediaRouteImport } from './routes/socialmedia'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as WebdevRouteImport } from './routes/webdev'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SocialmediaRoute = SocialmediaRouteImport.update({
+  id: '/socialmedia',
+  path: '/socialmedia',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TeamRoute = TeamRouteImport.update({
@@ -31,30 +37,34 @@ const WebdevRoute = WebdevRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/socialmedia': typeof SocialmediaRoute
   '/team': typeof TeamRoute
   '/webdev': typeof WebdevRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/socialmedia': typeof SocialmediaRoute
   '/team': typeof TeamRoute
   '/webdev': typeof WebdevRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/socialmedia': typeof SocialmediaRoute
   '/team': typeof TeamRoute
   '/webdev': typeof WebdevRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/team' | '/webdev'
+  fullPaths: '/' | '/socialmedia' | '/team' | '/webdev'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/team' | '/webdev'
-  id: '__root__' | '/' | '/team' | '/webdev'
+  to: '/' | '/socialmedia' | '/team' | '/webdev'
+  id: '__root__' | '/' | '/socialmedia' | '/team' | '/webdev'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  SocialmediaRoute: typeof SocialmediaRoute
   TeamRoute: typeof TeamRoute
   WebdevRoute: typeof WebdevRoute
 }
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/socialmedia': {
+      id: '/socialmedia'
+      path: '/socialmedia'
+      fullPath: '/socialmedia'
+      preLoaderRoute: typeof SocialmediaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/team': {
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  SocialmediaRoute: SocialmediaRoute,
   TeamRoute: TeamRoute,
   WebdevRoute: WebdevRoute,
 }

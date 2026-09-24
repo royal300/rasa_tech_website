@@ -595,6 +595,9 @@ function ServiceModule({ service }: { service: Service }) {
   const Icon = service.icon;
   const isHighlighted = service.name === "SEO & GMB";
   const isWebDev = service.name === "Web Development";
+  const isSocialMedia = service.name === "Social Media Marketing";
+  const targetRoute = isWebDev ? "/webdev" : isSocialMedia ? "/socialmedia" : "";
+  const isLinkable = Boolean(targetRoute);
   const [cardMouse, setCardMouse] = useState({ x: 50, y: 50, rotateX: 0, rotateY: 0, isHovered: false });
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -614,7 +617,7 @@ function ServiceModule({ service }: { service: Service }) {
 
   return (
     <article
-      className={`service-module service-${service.number} reveal stagger-item ${isHighlighted ? "service-highlighted" : ""} ${isWebDev ? "cursor-pointer" : ""}`}
+      className={`service-module service-${service.number} reveal stagger-item ${isHighlighted ? "service-highlighted" : ""} ${isLinkable ? "cursor-pointer" : ""}`}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{
@@ -624,11 +627,11 @@ function ServiceModule({ service }: { service: Service }) {
         transition: cardMouse.isHovered ? "transform 0.1s cubic-bezier(0.1, 1, 0.1, 1)" : "transform 0.5s ease",
       }}
     >
-      {isWebDev && (
+      {isLinkable && (
         <Link
-          to="/webdev"
+          to={targetRoute}
           className="service-card-overlay-link"
-          aria-label="Explore Web Development Services"
+          aria-label={`Explore ${service.name}`}
         />
       )}
       <div
@@ -642,8 +645,8 @@ function ServiceModule({ service }: { service: Service }) {
         <span className="service-number">{service.number}</span>
         <Icon size={18} strokeWidth={1.5} />
         <span className="service-arrow">
-          {isWebDev ? (
-            <Link to="/webdev" className="flex items-center justify-center text-orange hover:text-white transition-colors" aria-label="Explore Web Development">
+          {isLinkable ? (
+            <Link to={targetRoute} className="flex items-center justify-center text-orange hover:text-white transition-colors" aria-label={`Explore ${service.name}`}>
               <ArrowUpRight size={18} />
             </Link>
           ) : (
@@ -653,8 +656,8 @@ function ServiceModule({ service }: { service: Service }) {
       </div>
       <div className="service-copy">
         <h3>
-          {isWebDev ? (
-            <Link to="/webdev" className="hover:text-orange transition-colors">
+          {isLinkable ? (
+            <Link to={targetRoute} className="hover:text-orange transition-colors">
               {service.name}
             </Link>
           ) : (
