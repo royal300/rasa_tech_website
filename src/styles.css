@@ -2882,13 +2882,12 @@ html.lenis body {
 
 .webdev-hero-main-img {
   width: 100%;
-  max-width: 520px;
+  max-width: 500px;
   height: auto;
   display: block;
   object-fit: contain;
   opacity: 1;
-  mix-blend-mode: multiply;
-  filter: drop-shadow(0 0 35px rgba(255, 122, 0, 0.45));
+  filter: drop-shadow(0 0 25px rgba(255, 122, 0, 0.4));
   transition: transform 0.5s ease;
 }
 
