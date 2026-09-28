@@ -409,6 +409,7 @@ function WebDevPage() {
           <Link to="/" onClick={closeMenu}>Home</Link>
           <a href="/#about" onClick={closeMenu}>About</a>
           <a href="/#services" onClick={closeMenu}>Services</a>
+          <Link to="/socialmedia" hash="projects" onClick={closeMenu}>Projects</Link>
           <a href="/#pricing" onClick={closeMenu}>Pricing</a>
           <Link to="/team" onClick={closeMenu}>Our Team</Link>
           <a href="/#contact" onClick={closeMenu}>Contact</a>
@@ -698,6 +699,7 @@ function WebDevPage() {
               <Link to="/">Home</Link>
               <a href="/#about">About</a>
               <a href="/#services">Services</a>
+              <Link to="/socialmedia" hash="projects">Projects</Link>
               <Link to="/webdev">Web Development</Link>
               <a href="/#pricing">Pricing</a>
               <Link to="/team">Our Team</Link>

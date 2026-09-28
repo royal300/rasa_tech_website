@@ -472,6 +472,7 @@ function SocialMediaPage() {
           <Link to="/" onClick={closeMenu}>Home</Link>
           <a href="/#about" onClick={closeMenu}>About</a>
           <a href="/#services" onClick={closeMenu}>Services</a>
+          <a href="#projects" onClick={closeMenu}>Projects</a>
           <a href="/#pricing" onClick={closeMenu}>Pricing</a>
           <Link to="/team" onClick={closeMenu}>Our Team</Link>
           <a href="/#contact" onClick={closeMenu}>Contact</a>
@@ -669,6 +670,7 @@ function SocialMediaPage() {
               <Link to="/">Home</Link>
               <a href="/#about">About</a>
               <a href="/#services">Services</a>
+              <a href="#projects">Projects</a>
               <Link to="/webdev">Web Development</Link>
               <Link to="/socialmedia">Social Media</Link>
               <a href="/#pricing">Pricing</a>

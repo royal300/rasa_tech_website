@@ -342,6 +342,7 @@ function TeamPage() {
           <Link to="/" onClick={closeMenu}>Home</Link>
           <a href="/#about" onClick={closeMenu}>About</a>
           <a href="/#services" onClick={closeMenu}>Services</a>
+          <Link to="/socialmedia" hash="projects" onClick={closeMenu}>Projects</Link>
           <a href="/#pricing" onClick={closeMenu}>Pricing</a>
           <Link to="/team" className="text-orange-500 font-semibold" onClick={closeMenu}>Our Team</Link>
           <a href="/#contact" onClick={closeMenu}>Contact</a>
@@ -438,6 +439,7 @@ function TeamPage() {
               <Link to="/">Home</Link>
               <a href="/#about">About</a>
               <a href="/#services">Services</a>
+              <Link to="/socialmedia" hash="projects">Projects</Link>
               <a href="/#pricing">Pricing</a>
               <Link to="/team">Our Team</Link>
             </div>
