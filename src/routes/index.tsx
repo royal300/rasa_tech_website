@@ -935,7 +935,7 @@ function Index() {
       <main>
         <section id="home" className="hero-section page-section" onMouseMove={handleHeroMouseMove} onMouseLeave={handleHeroMouseLeave}>
           <div className="hero-grid" />
-          <div className="hero-copy reveal"><p className="eyebrow"><span className="eyebrow-pulse" />RASA TECH <span>/</span> DIGITAL SYSTEMS</p><TypewriterHeading /><p className="hero-description">RASA Tech builds websites, digital experiences, marketing systems and technology that help ambitious businesses grow.</p><div className="hero-actions"><MagneticButton><Button asChild><a href="#contact">START A PROJECT <ArrowUpRight size={17} /></a></Button></MagneticButton><MagneticButton><a className="outline-action" href="#services">EXPLORE SERVICES <ArrowDown size={16} /></a></MagneticButton></div></div>
+          <div className="hero-copy reveal"><p className="eyebrow"><span className="eyebrow-pulse" />RASA TECH <span>/</span> DIGITAL SYSTEMS</p><TypewriterHeading /><p className="hero-description">RASA Tech builds websites, digital experiences, marketing systems and technology that help ambitious businesses grow.</p><div className="hero-actions"><MagneticButton><Button asChild><Link to="/socialmedia" hash="projects">OUR PROJECTS <ArrowUpRight size={17} /></Link></Button></MagneticButton><MagneticButton><a className="outline-action" href="#services">EXPLORE SERVICES <ArrowDown size={16} /></a></MagneticButton></div></div>
           <div className="hero-visual reveal"><HeroSystem mouse={heroMouse} /></div>
           <div className="hero-scroll-line" aria-hidden="true" />
         </section>

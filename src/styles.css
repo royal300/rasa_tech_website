@@ -4149,3 +4149,15 @@ html.lenis body {
   background: linear-gradient(135deg, rgba(225, 48, 108, 0.35), rgba(253, 29, 29, 0.35));
   box-shadow: 0 0 15px rgba(225, 48, 108, 0.4);
 }
+
+.btn-website {
+  background: rgba(255, 122, 0, 0.15);
+  border: 1px solid rgba(255, 122, 0, 0.5);
+  color: #ff7a00;
+}
+
+.btn-website:hover {
+  background: rgba(255, 122, 0, 0.3);
+  box-shadow: 0 0 15px rgba(255, 122, 0, 0.4);
+}
+

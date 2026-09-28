@@ -167,6 +167,7 @@ interface SocialClientProject {
   name: string;
   category: string;
   description: string;
+  websiteUrl?: string;
   facebookUrl?: string;
   instagramUrl?: string;
   tags: string[];
@@ -178,6 +179,7 @@ const socialProjects: SocialClientProject[] = [
     name: "Happy Valley Park",
     category: "Resort & Amusement Park",
     description: "Social media management, viral reel production, and event campaigns boosting visitor engagement and bookings.",
+    websiteUrl: "https://www.gohappyvalley.com",
     facebookUrl: "https://www.facebook.com/happyvalleyparkbira/",
     instagramUrl: "https://www.instagram.com/happyvalleypark",
     tags: ["Reel Production", "Social Management", "Event Campaigns"],
@@ -187,6 +189,7 @@ const socialProjects: SocialClientProject[] = [
     name: "Gupta Interior",
     category: "Interior & Architecture Design",
     description: "Luxury interior design visual portfolio, high-definition transformation videos, and aesthetic Instagram feed curation.",
+    websiteUrl: "https://www.guptainterior.com/",
     facebookUrl: "https://www.facebook.com/guptainteriorofficial/",
     instagramUrl: "https://www.instagram.com/guptainterior_",
     tags: ["Aesthetic Branding", "Interior Showcases", "Reels Growth"],
@@ -214,6 +217,7 @@ const socialProjects: SocialClientProject[] = [
     name: "Swarup Jewellers",
     category: "Jewellery & Luxury Retail",
     description: "Handcrafted traditional and contemporary gold jewelry collections, festive showcase reels, and customer reach campaigns.",
+    websiteUrl: "https://swarupjewellers.com/",
     facebookUrl: "https://www.facebook.com/share/1F15R5TsXH/?mibextid=wwXIfr",
     instagramUrl: "https://www.instagram.com/swarupjewellers",
     tags: ["Jewellery Branding", "Reels Marketing", "Audience Growth"],
@@ -409,15 +413,32 @@ function SocialMediaPage() {
       }
     };
 
+    const scrollToHash = () => {
+      if (window.location.hash) {
+        const target = document.querySelector<HTMLElement>(window.location.hash);
+        if (target) {
+          lenis.scrollTo(target, { offset: -50, duration: 1.1, immediate: false });
+        }
+      }
+    };
+
+    setTimeout(scrollToHash, 150);
+    setTimeout(scrollToHash, 500);
+    window.addEventListener("hashchange", scrollToHash);
+
     const handleAnchorClick = (event: MouseEvent) => {
-      const link = (event.target as HTMLElement).closest<HTMLAnchorElement>('a[href^="#"]');
-      const id = link?.getAttribute("href");
-      if (!id || id === "#") return;
-      const section = document.querySelector<HTMLElement>(id);
+      const link = (event.target as HTMLElement).closest<HTMLAnchorElement>('a[href^="#"], a[href^="/socialmedia#"]');
+      if (!link) return;
+      let rawHref = link.getAttribute("href") || "";
+      if (rawHref.startsWith("/socialmedia")) {
+        rawHref = rawHref.replace("/socialmedia", "");
+      }
+      if (!rawHref || rawHref === "#") return;
+      const section = document.querySelector<HTMLElement>(rawHref);
       if (!section) return;
       event.preventDefault();
       setMenuOpen(false);
-      lenis.scrollTo(section, { offset: 0, duration: 1.1, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+      lenis.scrollTo(section, { offset: -50, duration: 1.1, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
     };
     document.addEventListener("click", handleAnchorClick);
 
@@ -427,6 +448,7 @@ function SocialMediaPage() {
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("mousemove", moveCursor);
+      window.removeEventListener("hashchange", scrollToHash);
       document.removeEventListener("click", handleAnchorClick);
       cancelAnimationFrame(rafId);
       lenis.destroy();
@@ -569,6 +591,18 @@ function SocialMediaPage() {
                 </div>
 
                 <div className="social-client-links-footer">
+                  {project.websiteUrl && (
+                    <a
+                      href={project.websiteUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="social-btn btn-website"
+                    >
+                      <Globe2 size={16} />
+                      <span>WEBSITE</span>
+                      <ArrowUpRight size={14} />
+                    </a>
+                  )}
                   {project.facebookUrl && (
                     <a
                       href={project.facebookUrl}
