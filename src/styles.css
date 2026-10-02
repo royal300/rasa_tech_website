@@ -4386,13 +4386,46 @@ html.lenis body {
   font-weight: 500;
 }
 
+.pricing-offer-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 6px 0 10px;
+}
+
 .pricing-offer-card-price {
   color: #ff7a00;
   font-size: 38px;
   font-weight: 900;
   letter-spacing: -0.02em;
   font-family: var(--font-display);
-  margin: 6px 0 10px;
+  line-height: 1;
+}
+
+.pricing-offer-cut-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pricing-offer-cut-price {
+  color: #888888;
+  font-size: 17px;
+  font-weight: 700;
+  text-decoration: line-through;
+  text-decoration-color: #ff4444;
+}
+
+.pricing-offer-discount-badge {
+  background: rgba(255, 122, 0, 0.12);
+  color: #ff7a00;
+  border: 1px solid rgba(255, 122, 0, 0.35);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.04em;
 }
 
 .pricing-offer-action {
@@ -4577,9 +4610,22 @@ html.lenis body {
     font-size: 22px !important;
   }
 
+  .pricing-offer-price-row {
+    margin: 4px 0 10px !important;
+    gap: 8px !important;
+  }
+
   .pricing-offer-card-price {
-    font-size: 32px !important;
-    margin: 4px 0 12px !important;
+    font-size: 30px !important;
+  }
+
+  .pricing-offer-cut-price {
+    font-size: 15px !important;
+  }
+
+  .pricing-offer-discount-badge {
+    font-size: 10px !important;
+    padding: 2px 6px !important;
   }
 
   .pricing-offer-feature-list {

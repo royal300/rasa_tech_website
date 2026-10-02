@@ -975,7 +975,8 @@ function Index() {
                 <span>Special Offer For Limited Time Only</span>
               </div>
               <h2 className="hero-promo-title">
-                Build Your Website For Just <span className="hero-promo-price">₹4,999/-</span>
+                Build Your Website For Just{" "}
+                <span className="hero-promo-price">₹4,999/-</span>
               </h2>
               <div className="hero-promo-actions">
                 <a
@@ -992,7 +993,7 @@ function Index() {
             <div className="hero-promo-media">
               <div className="hero-promo-laptop-wrap">
                 <img
-                  src="/laptop.png"
+                  src="/laptop.png?v=3"
                   alt="RASA Tech Website Offer Preview"
                   className="hero-promo-laptop-img"
                 />
@@ -1155,7 +1156,7 @@ function Index() {
                 className={`pricing-toggle-btn ${pricingCategory === "web" ? "active" : ""}`}
                 onClick={() => setPricingCategory("web")}
               >
-                WEB DEVELOPMENT <span className="pricing-offer-pill">🔥 ₹4,999 OFFER</span>
+                WEB DEVELOPMENT
               </button>
             </div>
           </div>
@@ -1170,7 +1171,13 @@ function Index() {
                 </div>
                 <h3 className="pricing-offer-card-title">SPECIAL OFFER PACKAGE</h3>
                 <p className="pricing-offer-card-desc">Complete Business Website</p>
-                <div className="pricing-offer-card-price">₹ 4,999/-</div>
+                <div className="pricing-offer-price-row">
+                  <div className="pricing-offer-card-price">₹ 4,999/-</div>
+                  <div className="pricing-offer-cut-wrap">
+                    <del className="pricing-offer-cut-price">₹10,999</del>
+                    <span className="pricing-offer-discount-badge">55% OFF</span>
+                  </div>
+                </div>
                 <div className="pricing-offer-action">
                   <a
                     href="https://wa.me/918617201731?text=Hi%20RASA%20Tech,%20I%20want%20to%20get%20started%20with%20the%20Special%20Offer%20Package%20at%20%E2%82%B94,999/-"
