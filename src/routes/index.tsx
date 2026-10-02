@@ -975,14 +975,8 @@ function Index() {
                 <span>Special Offer For Limited Time Only</span>
               </div>
               <h2 className="hero-promo-title">
-                CREATE A WEBSITE FOR YOUR BUSINESS AT JUST <span className="hero-promo-price">₹4,999/-</span>
+                Build Your Website For Just <span className="hero-promo-price">₹4,999/-</span>
               </h2>
-              <p className="hero-promo-sub">
-                <span><CheckCircle2 size={14} /> Fully Customizable</span>
-                <span><CheckCircle2 size={14} /> Mobile Responsive</span>
-                <span><CheckCircle2 size={14} /> WhatsApp &amp; Call Integration</span>
-                <span><CheckCircle2 size={14} /> Fast &amp; Secure Setup</span>
-              </p>
               <div className="hero-promo-actions">
                 <a
                   href="#pricing-special-offer"
@@ -1166,159 +1160,45 @@ function Index() {
             </div>
           </div>
 
-          {/* FULL STRETCHED WHITE PROMOTIONAL SECTION (ALWAYS VISIBLE ABOVE THE 3 CARDS) */}
+          {/* SPECIAL OFFER PRICING CARD (WHITE BACKGROUND, ORANGE BORDER, ORANGE & BLACK TEXT) */}
           <div id="pricing-special-offer" className="pricing-white-offer-card">
-              <div className="offer-card-top-bar">
-                <div className="offer-brand-meta">
-                  <div className="offer-brand-row">
-                    <div className="offer-brand-name">
-                      RASA <span>tech</span>
-                    </div>
-                    <span className="offer-brand-tagline">WE BUILD BRANDS ONLINE</span>
-                  </div>
-                  <div className="offer-badge-pill">
-                    <Flame size={13} />
-                    <span>SPECIAL PROMOTIONAL LAUNCH OFFER • LIMITED TIME ONLY</span>
-                  </div>
+            <div className="pricing-offer-card-inner">
+              <div className="pricing-offer-col-main">
+                <div className="pricing-offer-top-badge">
+                  <span className="pricing-offer-dot" />
+                  <span>SPECIAL OFFER</span>
                 </div>
-
-                <div className="offer-price-highlight-box">
-                  <span className="offer-price-label">STARTUP &amp; SMALL BUSINESS OFFER</span>
-                  <div className="offer-price-val">₹4,999/-</div>
-                  <div className="offer-price-strikethrough">
-                    <del>₹14,999</del> <b>(SAVE 66%)</b>
-                  </div>
-                </div>
-              </div>
-
-              <div className="offer-headline-wrap">
-                <h3>
-                  CREATE A WEBSITE FOR <span>YOUR BUSINESS.</span>
-                </h3>
-                <p>
-                  Get your business online with a high-performance, modern digital experience designed to build trust, attract qualified customers, and convert traffic into leads.
-                </p>
-              </div>
-
-              <div className="offer-main-content-grid">
-                {/* 6 Features from image */}
-                <div className="offer-features-grid">
-                  <div className="offer-feature-item">
-                    <div className="offer-feature-icon-wrap">
-                      <PenTool size={20} />
-                    </div>
-                    <div className="offer-feature-text">
-                      <h4>Fully Customizable Website</h4>
-                      <p>Tailored layout, color theme &amp; structure built specifically around your brand identity.</p>
-                    </div>
-                  </div>
-
-                  <div className="offer-feature-item">
-                    <div className="offer-feature-icon-wrap">
-                      <Smartphone size={20} />
-                    </div>
-                    <div className="offer-feature-text">
-                      <h4>Mobile Responsive Design</h4>
-                      <p>Fluid, pixel-perfect user experience across all smartphone, tablet, and desktop screens.</p>
-                    </div>
-                  </div>
-
-                  <div className="offer-feature-item">
-                    <div className="offer-feature-icon-wrap">
-                      <Monitor size={20} />
-                    </div>
-                    <div className="offer-feature-text">
-                      <h4>Modern &amp; Professional Design</h4>
-                      <p>High-converting, sleek corporate UI aesthetics engineered to leave a strong impression.</p>
-                    </div>
-                  </div>
-
-                  <div className="offer-feature-item">
-                    <div className="offer-feature-icon-wrap">
-                      <PhoneCall size={20} />
-                    </div>
-                    <div className="offer-feature-text">
-                      <h4>WhatsApp &amp; Call Integration</h4>
-                      <p>Direct 1-tap customer connect with WhatsApp chat button and instant click-to-call links.</p>
-                    </div>
-                  </div>
-
-                  <div className="offer-feature-item">
-                    <div className="offer-feature-icon-wrap">
-                      <TrendingUp size={20} />
-                    </div>
-                    <div className="offer-feature-text">
-                      <h4>SEO-Friendly Structure</h4>
-                      <p>Clean HTML5 semantics, meta titles, description setup and indexing ready for Google search.</p>
-                    </div>
-                  </div>
-
-                  <div className="offer-feature-item">
-                    <div className="offer-feature-icon-wrap">
-                      <ShieldCheck size={20} />
-                    </div>
-                    <div className="offer-feature-text">
-                      <h4>Fast &amp; Secure Website Setup</h4>
-                      <p>Lightning-fast page loading speed, Free SSL certificate encryption &amp; hosting configuration.</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Right side: Visual poster card */}
-                <div className="offer-visual-card">
-                  <span className="offer-visual-floating-badge">
-                    ⚡ 3-5 DAYS DELIVERY
-                  </span>
-                  <img
-                    src="/offer-4999.jpg"
-                    alt="RASA Tech Website Special Offer at ₹4,999"
-                    className="offer-poster-img"
-                  />
-                  <div className="offer-visual-footer">
-                    <span>Domain &amp; SSL setup assistance</span>
-                    <b>Limited to First 10 Clients</b>
-                  </div>
+                <h3 className="pricing-offer-card-title">SPECIAL OFFER PACKAGE</h3>
+                <p className="pricing-offer-card-desc">Complete Business Website</p>
+                <div className="pricing-offer-card-price">₹ 4,999/-</div>
+                <div className="pricing-offer-action">
+                  <a
+                    href="https://wa.me/918617201731?text=Hi%20RASA%20Tech,%20I%20want%20to%20get%20started%20with%20the%20Special%20Offer%20Package%20at%20%E2%82%B94,999/-"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="pricing-offer-get-started-btn"
+                  >
+                    <span>GET STARTED</span>
+                    <ArrowUpRight size={16} />
+                  </a>
                 </div>
               </div>
 
-              {/* Bottom full stretched action bar */}
-              <div className="offer-bottom-action-bar">
-                <a href="tel:8617201731" className="offer-call-pill">
-                  <div className="offer-call-icon">
-                    <Phone size={17} />
-                  </div>
-                  <div className="offer-call-text">
-                    <span>CALL NOW</span>
-                    <strong>8617201731</strong>
-                  </div>
-                </a>
+              <div className="pricing-offer-divider" />
 
-                <a
-                  href="https://wa.me/918617201731?text=Hi%20RASA%20Tech,%20I%20want%20to%20claim%20the%20Special%20Website%20Offer%20at%20%E2%82%B94,999/-"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="offer-wap-main-btn"
-                >
-                  <MessageCircle size={19} />
-                  <span>CONNECT ON WHATSAPP (8617201731)</span>
-                  <ArrowUpRight size={18} />
-                </a>
-
-                <a
-                  href="https://www.rasatech.in"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="offer-web-link"
-                >
-                  <Globe2 size={16} />
-                  <span>www.rasatech.in</span>
-                </a>
-              </div>
-
-              <div className="offer-services-footer-line">
-                WEB DEVELOPMENT <span>|</span> DIGITAL MARKETING <span>|</span> SEO <span>|</span> BRANDING <span>|</span> APP DEVELOPMENT
+              <div className="pricing-offer-col-features">
+                <span className="pricing-offer-includes-label">INCLUDES</span>
+                <ul className="pricing-offer-feature-list">
+                  <li>Fully Customizable Website</li>
+                  <li>Mobile Responsive Design</li>
+                  <li>Modern &amp; Professional Design</li>
+                  <li>WhatsApp &amp; Call Integration</li>
+                  <li>SEO-Friendly Structure</li>
+                  <li>Fast &amp; Secure Website Setup</li>
+                </ul>
               </div>
             </div>
+          </div>
 
           <div className="pricing-grid">
             {pricingCategory === "social" ? (
