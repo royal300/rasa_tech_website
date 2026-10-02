@@ -5,22 +5,29 @@ import {
   ArrowUpRight,
   Bot,
   Check,
+  CheckCircle2,
   ChevronDown,
   Code2,
   Cpu,
   FileText,
+  Flame,
   Globe2,
   Menu,
   MessageCircle,
   MessageSquare,
+  Monitor,
+  PenTool,
+  Phone,
   PhoneCall,
   Search,
   Server,
   Settings,
   Share2,
+  ShieldCheck,
   Smartphone,
   Sparkles,
   Target,
+  TrendingUp,
   Users,
   X,
 } from "lucide-react";
@@ -881,6 +888,19 @@ function Index() {
   }, []);
 
   const closeMenu = () => setMenuOpen(false);
+
+  const handleGoToPricingOffer = (e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
+    setPricingCategory("web");
+    setTimeout(() => {
+      const target = document.getElementById("pricing-special-offer") || document.getElementById("pricing");
+      if (target) {
+        lenisRef.current?.scrollTo(target, { offset: -40, duration: 1.2 });
+      } else {
+        window.location.hash = "pricing-special-offer";
+      }
+    }, 60);
+  };
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -939,6 +959,48 @@ function Index() {
           <div className="hero-copy reveal"><p className="eyebrow"><span className="eyebrow-pulse" />RASA TECH <span>/</span> DIGITAL SYSTEMS</p><TypewriterHeading /><p className="hero-description">RASA Tech builds websites, digital experiences, marketing systems and technology that help ambitious businesses grow.</p><div className="hero-actions"><MagneticButton><Button asChild><Link to="/socialmedia" hash="projects">OUR PROJECTS <ArrowUpRight size={17} /></Link></Button></MagneticButton><MagneticButton><a className="outline-action" href="#services">EXPLORE SERVICES <ArrowDown size={16} /></a></MagneticButton></div></div>
           <div className="hero-visual reveal"><HeroSystem mouse={heroMouse} /></div>
           <div className="hero-scroll-line" aria-hidden="true" />
+        </section>
+
+        {/* FULL STRETCHED WHITE PROMOTIONAL STRIP AFTER HERO */}
+        <section className="hero-promo-strip reveal">
+          <div className="hero-promo-inner">
+            <div className="hero-promo-left">
+              <div className="hero-promo-badge">
+                <span className="hero-promo-pulse" />
+                <Flame size={13} />
+                <span>Special Offer For Limited Time Only</span>
+              </div>
+              <h2 className="hero-promo-title">
+                CREATE A WEBSITE FOR YOUR BUSINESS AT JUST <span className="hero-promo-price">₹4,999/-</span>
+              </h2>
+              <p className="hero-promo-sub">
+                <span><CheckCircle2 size={14} /> Fully Customizable</span>
+                <span><CheckCircle2 size={14} /> Mobile Responsive</span>
+                <span><CheckCircle2 size={14} /> WhatsApp &amp; Call Integration</span>
+                <span><CheckCircle2 size={14} /> Fast &amp; Secure Setup</span>
+              </p>
+            </div>
+
+            <div className="hero-promo-actions">
+              <button
+                type="button"
+                className="hero-promo-cta-btn"
+                onClick={handleGoToPricingOffer}
+              >
+                <span>VIEW OFFER DETAILS</span>
+                <ArrowDown size={16} />
+              </button>
+              <a
+                href="https://wa.me/918617201731?text=Hi%20RASA%20Tech,%20I%20want%20to%20claim%20the%20Special%20Website%20Offer%20at%20%E2%82%B94,999/-"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hero-promo-wap-btn"
+              >
+                <MessageCircle size={16} />
+                <span>CONNECT (8617201731)</span>
+              </a>
+            </div>
+          </div>
         </section>
 
         <div className="capability-strip"><div className="marquee-track" style={{ animationDuration: `${Math.max(8, 32 / scrollSpeed)}s` }}>{[...Array(2)].flatMap((_, group) => services.map((service) => <span key={`${group}-${service.name}`}>{service.name} <b>•</b></span>))}</div></div>
@@ -1095,10 +1157,180 @@ function Index() {
                 className={`pricing-toggle-btn ${pricingCategory === "web" ? "active" : ""}`}
                 onClick={() => setPricingCategory("web")}
               >
-                WEB DEVELOPMENT
+                WEB DEVELOPMENT <span className="pricing-offer-pill">🔥 ₹4,999 OFFER</span>
               </button>
             </div>
           </div>
+
+          {/* Switch Banner when viewing Social Media */}
+          {pricingCategory === "social" && (
+            <div className="pricing-switch-banner reveal">
+              <span>⚡ Looking for our limited-time <strong>Special Website Launch Offer at ₹4,999/-</strong>?</span>
+              <button
+                type="button"
+                className="pricing-switch-btn"
+                onClick={() => setPricingCategory("web")}
+              >
+                VIEW ₹4,999 WEBSITE OFFER <ArrowUpRight size={14} />
+              </button>
+            </div>
+          )}
+
+          {/* FULL STRETCHED WHITE PROMOTIONAL SECTION ABOVE THE 3 WEB CARDS */}
+          {pricingCategory === "web" && (
+            <div id="pricing-special-offer" className="pricing-white-offer-card reveal">
+              <div className="offer-card-top-bar">
+                <div className="offer-brand-meta">
+                  <div className="offer-brand-row">
+                    <div className="offer-brand-name">
+                      RASA <span>tech</span>
+                    </div>
+                    <span className="offer-brand-tagline">WE BUILD BRANDS ONLINE</span>
+                  </div>
+                  <div className="offer-badge-pill">
+                    <Flame size={13} />
+                    <span>SPECIAL PROMOTIONAL LAUNCH OFFER • LIMITED TIME ONLY</span>
+                  </div>
+                </div>
+
+                <div className="offer-price-highlight-box">
+                  <span className="offer-price-label">STARTUP &amp; SMALL BUSINESS OFFER</span>
+                  <div className="offer-price-val">₹4,999/-</div>
+                  <div className="offer-price-strikethrough">
+                    <del>₹14,999</del> <b>(SAVE 66%)</b>
+                  </div>
+                </div>
+              </div>
+
+              <div className="offer-headline-wrap">
+                <h3>
+                  CREATE A WEBSITE FOR <span>YOUR BUSINESS.</span>
+                </h3>
+                <p>
+                  Get your business online with a high-performance, modern digital experience designed to build trust, attract qualified customers, and convert traffic into leads.
+                </p>
+              </div>
+
+              <div className="offer-main-content-grid">
+                {/* 6 Features from image */}
+                <div className="offer-features-grid">
+                  <div className="offer-feature-item">
+                    <div className="offer-feature-icon-wrap">
+                      <PenTool size={20} />
+                    </div>
+                    <div className="offer-feature-text">
+                      <h4>Fully Customizable Website</h4>
+                      <p>Tailored layout, color theme &amp; structure built specifically around your brand identity.</p>
+                    </div>
+                  </div>
+
+                  <div className="offer-feature-item">
+                    <div className="offer-feature-icon-wrap">
+                      <Smartphone size={20} />
+                    </div>
+                    <div className="offer-feature-text">
+                      <h4>Mobile Responsive Design</h4>
+                      <p>Fluid, pixel-perfect user experience across all smartphone, tablet, and desktop screens.</p>
+                    </div>
+                  </div>
+
+                  <div className="offer-feature-item">
+                    <div className="offer-feature-icon-wrap">
+                      <Monitor size={20} />
+                    </div>
+                    <div className="offer-feature-text">
+                      <h4>Modern &amp; Professional Design</h4>
+                      <p>High-converting, sleek corporate UI aesthetics engineered to leave a strong impression.</p>
+                    </div>
+                  </div>
+
+                  <div className="offer-feature-item">
+                    <div className="offer-feature-icon-wrap">
+                      <PhoneCall size={20} />
+                    </div>
+                    <div className="offer-feature-text">
+                      <h4>WhatsApp &amp; Call Integration</h4>
+                      <p>Direct 1-tap customer connect with WhatsApp chat button and instant click-to-call links.</p>
+                    </div>
+                  </div>
+
+                  <div className="offer-feature-item">
+                    <div className="offer-feature-icon-wrap">
+                      <TrendingUp size={20} />
+                    </div>
+                    <div className="offer-feature-text">
+                      <h4>SEO-Friendly Structure</h4>
+                      <p>Clean HTML5 semantics, meta titles, description setup and indexing ready for Google search.</p>
+                    </div>
+                  </div>
+
+                  <div className="offer-feature-item">
+                    <div className="offer-feature-icon-wrap">
+                      <ShieldCheck size={20} />
+                    </div>
+                    <div className="offer-feature-text">
+                      <h4>Fast &amp; Secure Website Setup</h4>
+                      <p>Lightning-fast page loading speed, Free SSL certificate encryption &amp; hosting configuration.</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right side: Visual poster card */}
+                <div className="offer-visual-card">
+                  <span className="offer-visual-floating-badge">
+                    ⚡ 3-5 DAYS DELIVERY
+                  </span>
+                  <img
+                    src="/offer-4999.jpg"
+                    alt="RASA Tech Website Special Offer at ₹4,999"
+                    className="offer-poster-img"
+                  />
+                  <div className="offer-visual-footer">
+                    <span>Domain &amp; SSL setup assistance</span>
+                    <b>Limited to First 10 Clients</b>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom full stretched action bar */}
+              <div className="offer-bottom-action-bar">
+                <a href="tel:8617201731" className="offer-call-pill">
+                  <div className="offer-call-icon">
+                    <Phone size={17} />
+                  </div>
+                  <div className="offer-call-text">
+                    <span>CALL NOW</span>
+                    <strong>8617201731</strong>
+                  </div>
+                </a>
+
+                <a
+                  href="https://wa.me/918617201731?text=Hi%20RASA%20Tech,%20I%20want%20to%20claim%20the%20Special%20Website%20Offer%20at%20%E2%82%B94,999/-"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="offer-wap-main-btn"
+                >
+                  <MessageCircle size={19} />
+                  <span>CONNECT ON WHATSAPP (8617201731)</span>
+                  <ArrowUpRight size={18} />
+                </a>
+
+                <a
+                  href="https://www.rasatech.in"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="offer-web-link"
+                >
+                  <Globe2 size={16} />
+                  <span>www.rasatech.in</span>
+                </a>
+              </div>
+
+              <div className="offer-services-footer-line">
+                WEB DEVELOPMENT <span>|</span> DIGITAL MARKETING <span>|</span> SEO <span>|</span> BRANDING <span>|</span> APP DEVELOPMENT
+              </div>
+            </div>
+          )}
 
           <div className="pricing-grid">
             {pricingCategory === "social" ? (
