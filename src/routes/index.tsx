@@ -758,7 +758,7 @@ function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [pricingCategory, setPricingCategory] = useState<"social" | "web">("social");
+  const [pricingCategory, setPricingCategory] = useState<"social" | "web">("web");
   const [activeWhyIndex, setActiveWhyIndex] = useState<number>(0);
   const [heroMouse, setHeroMouse] = useState({ x: 0, y: 0 });
   const [processProgress, setProcessProgress] = useState(0);
@@ -890,16 +890,20 @@ function Index() {
   const closeMenu = () => setMenuOpen(false);
 
   const handleGoToPricingOffer = (e?: React.MouseEvent) => {
-    if (e) e.preventDefault();
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     setPricingCategory("web");
-    setTimeout(() => {
-      const target = document.getElementById("pricing-special-offer") || document.getElementById("pricing");
-      if (target) {
-        lenisRef.current?.scrollTo(target, { offset: -40, duration: 1.2 });
-      } else {
-        window.location.hash = "pricing-special-offer";
+    const target = document.getElementById("pricing-special-offer") || document.getElementById("pricing");
+    if (target) {
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(target, { offset: -30, duration: 1.1 });
       }
-    }, 60);
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      window.location.hash = "pricing-special-offer";
+    }
   };
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -962,7 +966,7 @@ function Index() {
         </section>
 
         {/* FULL STRETCHED WHITE PROMOTIONAL STRIP AFTER HERO */}
-        <section className="hero-promo-strip reveal">
+        <section className="hero-promo-strip">
           <div className="hero-promo-inner">
             <div className="hero-promo-left">
               <div className="hero-promo-badge">
@@ -979,26 +983,26 @@ function Index() {
                 <span><CheckCircle2 size={14} /> WhatsApp &amp; Call Integration</span>
                 <span><CheckCircle2 size={14} /> Fast &amp; Secure Setup</span>
               </p>
+              <div className="hero-promo-actions">
+                <a
+                  href="#pricing-special-offer"
+                  className="hero-promo-cta-btn"
+                  onClick={handleGoToPricingOffer}
+                >
+                  <span>VIEW OFFER DETAILS</span>
+                  <ArrowDown size={14} />
+                </a>
+              </div>
             </div>
 
-            <div className="hero-promo-actions">
-              <button
-                type="button"
-                className="hero-promo-cta-btn"
-                onClick={handleGoToPricingOffer}
-              >
-                <span>VIEW OFFER DETAILS</span>
-                <ArrowDown size={16} />
-              </button>
-              <a
-                href="https://wa.me/918617201731?text=Hi%20RASA%20Tech,%20I%20want%20to%20claim%20the%20Special%20Website%20Offer%20at%20%E2%82%B94,999/-"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hero-promo-wap-btn"
-              >
-                <MessageCircle size={16} />
-                <span>CONNECT (8617201731)</span>
-              </a>
+            <div className="hero-promo-media">
+              <div className="hero-promo-laptop-wrap">
+                <img
+                  src="/laptop.png"
+                  alt="RASA Tech Website Offer Preview"
+                  className="hero-promo-laptop-img"
+                />
+              </div>
             </div>
           </div>
         </section>
@@ -1162,23 +1166,8 @@ function Index() {
             </div>
           </div>
 
-          {/* Switch Banner when viewing Social Media */}
-          {pricingCategory === "social" && (
-            <div className="pricing-switch-banner reveal">
-              <span>⚡ Looking for our limited-time <strong>Special Website Launch Offer at ₹4,999/-</strong>?</span>
-              <button
-                type="button"
-                className="pricing-switch-btn"
-                onClick={() => setPricingCategory("web")}
-              >
-                VIEW ₹4,999 WEBSITE OFFER <ArrowUpRight size={14} />
-              </button>
-            </div>
-          )}
-
-          {/* FULL STRETCHED WHITE PROMOTIONAL SECTION ABOVE THE 3 WEB CARDS */}
-          {pricingCategory === "web" && (
-            <div id="pricing-special-offer" className="pricing-white-offer-card reveal">
+          {/* FULL STRETCHED WHITE PROMOTIONAL SECTION (ALWAYS VISIBLE ABOVE THE 3 CARDS) */}
+          <div id="pricing-special-offer" className="pricing-white-offer-card">
               <div className="offer-card-top-bar">
                 <div className="offer-brand-meta">
                   <div className="offer-brand-row">
@@ -1330,7 +1319,6 @@ function Index() {
                 WEB DEVELOPMENT <span>|</span> DIGITAL MARKETING <span>|</span> SEO <span>|</span> BRANDING <span>|</span> APP DEVELOPMENT
               </div>
             </div>
-          )}
 
           <div className="pricing-grid">
             {pricingCategory === "social" ? (

@@ -4199,18 +4199,49 @@ html.lenis body {
 .hero-promo-inner {
   width: min(100%, var(--container));
   margin: 0 auto;
-  padding: 24px 20px;
+  padding: 20px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  gap: 28px;
 }
 
 .hero-promo-left {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  max-width: 720px;
+  gap: 10px;
+  flex: 1;
+  max-width: 660px;
+}
+
+.hero-promo-media {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-promo-laptop-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-3.5deg);
+  transition: transform 0.35s ease;
+  padding: 6px;
+}
+
+.hero-promo-laptop-wrap:hover {
+  transform: rotate(-1.5deg) scale(1.02);
+}
+
+.hero-promo-laptop-img {
+  max-height: 180px;
+  max-width: 320px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.22));
 }
 
 .hero-promo-badge {
@@ -4242,15 +4273,15 @@ html.lenis body {
   margin: 0;
   color: #000000;
   font-family: var(--font-display);
-  font-size: clamp(20px, 3vw, 32px);
-  font-weight: 800;
+  font-size: clamp(20px, 2.8vw, 32px);
+  font-weight: 900;
   line-height: 1.2;
   letter-spacing: -0.02em;
 }
 
 .hero-promo-price {
   color: #ff7a00;
-  font-weight: 900;
+  font-weight: 950;
   text-shadow: 0 0 20px rgba(255, 122, 0, 0.35);
 }
 
@@ -4281,71 +4312,51 @@ html.lenis body {
   display: flex;
   align-items: center;
   gap: 14px;
-  flex-shrink: 0;
+  margin-top: 4px;
 }
 
 .hero-promo-cta-btn {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   background: #ff7a00;
   color: #000000;
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 0.08em;
-  padding: 14px 26px;
-  border-radius: 8px;
+  padding: 12px 24px;
+  border-radius: 999px;
   border: 2px solid #ff7a00;
   cursor: pointer;
   text-decoration: none;
-  box-shadow: 0 0 20px rgba(255, 122, 0, 0.4);
-  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 122, 0, 0.45);
+  transition: all 0.25s ease;
 }
 
 .hero-promo-cta-btn:hover {
   background: #000000;
   color: #ff7a00;
   border-color: #ff7a00;
-  box-shadow: 0 0 30px rgba(255, 122, 0, 0.7);
+  box-shadow: 0 0 25px rgba(255, 122, 0, 0.7);
   transform: translateY(-2px);
 }
 
-.hero-promo-wap-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: #000000;
-  color: #ffffff;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  padding: 14px 22px;
-  border-radius: 8px;
-  border: 2px solid #000000;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.hero-promo-wap-btn:hover {
-  border-color: #ff7a00;
-  color: #ff7a00;
-  transform: translateY(-2px);
-  box-shadow: 0 0 15px rgba(255, 122, 0, 0.3);
-}
-
-/* 2. PRICING WHITE SECTION (ABOVE 3 CARDS) */
+/* 2. PRICING WHITE SECTION (ALWAYS VISIBLE ABOVE 3 CARDS) */
 .pricing-white-offer-card {
   width: 100%;
-  background: #ffffff;
-  border: 2px solid #ff7a00;
-  border-radius: 16px;
-  box-shadow: 0 0 35px rgba(255, 122, 0, 0.4), 0 12px 40px rgba(0, 0, 0, 0.15);
-  padding: 40px 36px;
-  margin: 35px 0;
-  color: #000000;
-  position: relative;
-  overflow: hidden;
+  background: #ffffff !important;
+  border: 2px solid #ff7a00 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 0 35px rgba(255, 122, 0, 0.4), 0 12px 40px rgba(0, 0, 0, 0.15) !important;
+  padding: 40px 36px !important;
+  margin: 35px 0 !important;
+  color: #000000 !important;
+  position: relative !important;
+  overflow: hidden !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  transform: none !important;
 }
 
 .pricing-offer-pill {
@@ -4783,17 +4794,23 @@ html.lenis body {
 @media (max-width: 992px) {
   .hero-promo-inner {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
+    gap: 22px;
+  }
+  .hero-promo-left {
+    align-items: center;
+    max-width: 100%;
+  }
+  .hero-promo-badge {
+    margin: 0 auto;
+  }
+  .hero-promo-sub {
+    justify-content: center;
   }
   .hero-promo-actions {
-    width: 100%;
-    flex-wrap: wrap;
-  }
-  .hero-promo-cta-btn,
-  .hero-promo-wap-btn {
-    flex: 1;
-    min-width: 200px;
     justify-content: center;
+    width: 100%;
   }
   .offer-main-content-grid {
     grid-template-columns: 1fr;
@@ -4804,32 +4821,120 @@ html.lenis body {
   }
 }
 
-@media (max-width: 680px) {
-  .pricing-white-offer-card {
-    padding: 24px 18px;
+@media (max-width: 768px) {
+  .hero-promo-inner {
+    padding: 22px 16px;
+    gap: 16px;
   }
+
+  /* Increase font size of create website at 4999 on mobile as requested */
+  .hero-promo-title {
+    font-size: clamp(23px, 6.8vw, 32px) !important;
+    font-weight: 950 !important;
+    line-height: 1.18 !important;
+    letter-spacing: -0.02em !important;
+    text-align: center;
+  }
+
+  .hero-promo-price {
+    display: inline-block !important;
+    font-size: 1.16em !important;
+    font-weight: 950 !important;
+    color: #ff7a00 !important;
+    text-shadow: 0 0 15px rgba(255, 122, 0, 0.4) !important;
+  }
+
+  .hero-promo-sub {
+    font-size: 11.5px !important;
+    gap: 8px 12px !important;
+    justify-content: center;
+  }
+
+  /* Make button smaller, compact, and professional on mobile as requested */
+  .hero-promo-cta-btn {
+    padding: 9px 20px !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.08em !important;
+    border-radius: 999px !important;
+    box-shadow: 0 3px 12px rgba(255, 122, 0, 0.4) !important;
+  }
+
+  .hero-promo-media {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 4px;
+  }
+
+  .hero-promo-laptop-wrap {
+    transform: rotate(-3deg) !important;
+    max-height: 145px;
+    padding: 0;
+  }
+
+  .hero-promo-laptop-img {
+    max-height: 140px !important;
+    max-width: 250px !important;
+    margin: 0 auto;
+  }
+
+  .pricing-white-offer-card {
+    padding: 24px 16px !important;
+    margin: 25px 0 !important;
+    border-radius: 14px !important;
+  }
+
   .offer-card-top-bar {
     flex-direction: column;
     align-items: stretch;
+    gap: 16px;
+    padding-bottom: 18px;
+    margin-bottom: 20px;
   }
+
+  .offer-brand-name {
+    font-size: 20px !important;
+  }
+
   .offer-price-highlight-box {
     text-align: center;
+    padding: 12px 16px;
   }
+
+  .offer-price-val {
+    font-size: 34px !important;
+  }
+
+  .offer-headline-wrap h3 {
+    font-size: 22px !important;
+  }
+
   .offer-features-grid {
     grid-template-columns: 1fr;
+    gap: 12px;
   }
+
+  .offer-feature-item {
+    padding: 12px 14px;
+  }
+
   .offer-bottom-action-bar {
     flex-direction: column;
     align-items: stretch;
-    gap: 14px;
-    padding: 16px;
+    gap: 12px;
+    padding: 16px 14px;
   }
+
   .offer-call-pill,
   .offer-wap-main-btn {
     width: 100%;
     justify-content: center;
     text-align: center;
+    font-size: 13px !important;
+    padding: 12px 20px !important;
   }
+
   .offer-web-link {
     justify-content: center;
   }
