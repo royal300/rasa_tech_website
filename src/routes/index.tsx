@@ -975,9 +975,9 @@ function Index() {
                 <span>Special Offer For Limited Time Only</span>
               </div>
               <h2 className="hero-promo-title">
-                Build Your Website
+                Build&nbsp; Your&nbsp; Website
                 <br className="hero-promo-desktop-br" />
-                For Just{" "}
+                For&nbsp; Just&nbsp;{" "}
                 <span className="hero-promo-price">₹4,999/-</span>
               </h2>
               <div className="hero-promo-actions">

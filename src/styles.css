@@ -4209,9 +4209,9 @@ html.lenis body {
 .hero-promo-left {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   flex: 1;
-  max-width: 660px;
+  max-width: 780px;
 }
 
 .hero-promo-media {
@@ -4296,10 +4296,11 @@ html.lenis body {
   margin: 0;
   color: #000000;
   font-family: var(--font-display);
-  font-size: clamp(26px, 3.4vw, 42px);
+  font-size: clamp(30px, 4vw, 50px);
   font-weight: 950;
-  line-height: 1.15;
-  letter-spacing: -0.03em;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  word-spacing: 0.16em;
 }
 
 .hero-promo-desktop-br {
@@ -4309,7 +4310,8 @@ html.lenis body {
 .hero-promo-price {
   color: #ff7a00;
   font-weight: 950;
-  text-shadow: 0 0 24px rgba(255, 122, 0, 0.4);
+  font-size: 1.05em;
+  text-shadow: 0 0 25px rgba(255, 122, 0, 0.45);
 }
 
 .hero-promo-actions {
