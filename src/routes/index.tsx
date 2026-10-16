@@ -1168,19 +1168,11 @@ function Index() {
             {pricingCategory === "social" ? (
               <div className="pricing-offer-card-inner">
                 <div className="pricing-offer-col-main">
-                  <div className="pricing-offer-top-badge">
-                    <span className="pricing-offer-dot" />
-                    <span>SPECIAL OFFER</span>
-                  </div>
                   <h3 className="pricing-offer-card-title">Starter Package</h3>
                   <p className="pricing-offer-card-desc">For Local Business</p>
                   <div className="pricing-offer-price-row">
                     <div className="pricing-offer-card-price">
                       ₹ 7,999 <span className="pricing-offer-card-period">/ Month</span>
-                    </div>
-                    <div className="pricing-offer-cut-wrap">
-                      <del className="pricing-offer-cut-price">₹14,499</del>
-                      <span className="pricing-offer-discount-badge">45% OFF</span>
                     </div>
                   </div>
                   <div className="pricing-offer-action">
@@ -1202,7 +1194,7 @@ function Index() {
                   <span className="pricing-offer-includes-label">INCLUDES</span>
                   <ul className="pricing-offer-feature-list">
                     <li>Facebook &amp; Instagram Management</li>
-                    <li>3 Creative / Week</li>
+                    <li>3 Creatives / Week</li>
                     <li>3 Short Video (Reels) / Week</li>
                     <li>Ad Campaign Setup &amp; Monitoring</li>
                     <li>Content Idea Strategy</li>
@@ -1267,7 +1259,7 @@ function Index() {
                   description="Essential Social Media Management"
                 >
                   <li>Facebook & Instagram Management</li>
-                  <li>4-5 Creative / Week</li>
+                  <li>4-5 Creatives / Week</li>
                   <li>3-4 Short Video (Reels) / Week</li>
                   <li>2 Long Video / Month</li>
                   <li>Free Graphics Design and Video Editing</li>
@@ -1286,7 +1278,7 @@ function Index() {
                   description="Advanced Growth & Content Strategy"
                 >
                   <li>Facebook, Instagram & YouTube Management</li>
-                  <li>5-6 Creative / Week</li>
+                  <li>5-6 Creatives / Week</li>
                   <li>4-5 Short Video (Reels) / Week</li>
                   <li>3 Long Video / Month</li>
                   <li>Free Graphics Design and Video Editing</li>
@@ -1304,7 +1296,7 @@ function Index() {
                   description="Complete Digital Brand Dominance"
                 >
                   <li>Full Multi-Channel Management</li>
-                  <li>Daily Creative / Week</li>
+                  <li>Daily Creatives / Week</li>
                   <li>Daily Short Video (Reels) / Week</li>
                   <li>4 Long Format Videos / Month</li>
                   <li>Free Graphics Design and Video Editing</li>
