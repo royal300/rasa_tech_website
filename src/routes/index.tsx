@@ -1171,11 +1171,13 @@ function Index() {
                   <h3 className="pricing-offer-card-title">Starter Package</h3>
                   <p className="pricing-offer-card-desc">For Local Business</p>
                   <div className="pricing-offer-price-row">
-                    <div className="pricing-offer-card-price">₹ 7,999/-</div>
+                    <div className="pricing-offer-card-price">
+                      ₹ 7,499 <span className="pricing-offer-card-period">/ Month</span>
+                    </div>
                   </div>
                   <div className="pricing-offer-action">
                     <a
-                      href="https://wa.me/918617201731?text=Hi%20RASA%20Tech,%20I%20want%20to%20get%20started%20with%20the%20Starter%20Package%20at%20%E2%82%B97,999/-"
+                      href="https://wa.me/918617201731?text=Hi%20RASA%20Tech,%20I%20want%20to%20get%20started%20with%20the%20Starter%20Package%20at%20%E2%82%B97,499%20/%20Month"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="pricing-offer-get-started-btn"
@@ -1191,11 +1193,11 @@ function Index() {
                 <div className="pricing-offer-col-features">
                   <span className="pricing-offer-includes-label">INCLUDES</span>
                   <ul className="pricing-offer-feature-list">
-                    <li>Facebook &amp; Insta Manage</li>
-                    <li>Weekly 3 Reels</li>
-                    <li>4 Creatives</li>
+                    <li>Facebook &amp; Instagram Management</li>
+                    <li>3 Post / Week</li>
+                    <li>3 Short Video / Week</li>
+                    <li>Ad Campaign Setup &amp; Monitoring</li>
                     <li>Content Idea Strategy</li>
-                    <li>Ad Setup &amp; Management</li>
                   </ul>
                 </div>
               </div>
