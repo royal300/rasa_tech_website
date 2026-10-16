@@ -1163,50 +1163,86 @@ function Index() {
             </div>
           </div>
 
-          {/* SPECIAL OFFER PRICING CARD (WHITE BACKGROUND, ORANGE BORDER, ORANGE & BLACK TEXT) */}
+          {/* SPECIAL / STARTER OFFER CARD (TOGGLE-AWARE) */}
           <div id="pricing-special-offer" className="pricing-white-offer-card">
-            <div className="pricing-offer-card-inner">
-              <div className="pricing-offer-col-main">
-                <div className="pricing-offer-top-badge">
-                  <span className="pricing-offer-dot" />
-                  <span>SPECIAL OFFER</span>
-                </div>
-                <h3 className="pricing-offer-card-title">SPECIAL OFFER PACKAGE</h3>
-                <p className="pricing-offer-card-desc">Complete Business Website</p>
-                <div className="pricing-offer-price-row">
-                  <div className="pricing-offer-card-price">₹ 4,999/-</div>
-                  <div className="pricing-offer-cut-wrap">
-                    <del className="pricing-offer-cut-price">₹10,999</del>
-                    <span className="pricing-offer-discount-badge">55% OFF</span>
+            {pricingCategory === "social" ? (
+              <div className="pricing-offer-card-inner">
+                <div className="pricing-offer-col-main">
+                  <h3 className="pricing-offer-card-title">Starter Package</h3>
+                  <p className="pricing-offer-card-desc">For Local Business</p>
+                  <div className="pricing-offer-price-row">
+                    <div className="pricing-offer-card-price">₹ 7,999/-</div>
+                  </div>
+                  <div className="pricing-offer-action">
+                    <a
+                      href="https://wa.me/918617201731?text=Hi%20RASA%20Tech,%20I%20want%20to%20get%20started%20with%20the%20Starter%20Package%20at%20%E2%82%B97,999/-"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="pricing-offer-get-started-btn"
+                    >
+                      <span>GET STARTED</span>
+                      <ArrowUpRight size={16} />
+                    </a>
                   </div>
                 </div>
-                <div className="pricing-offer-action">
-                  <a
-                    href="https://wa.me/918617201731?text=Hi%20RASA%20Tech,%20I%20want%20to%20get%20started%20with%20the%20Special%20Offer%20Package%20at%20%E2%82%B94,999/-"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="pricing-offer-get-started-btn"
-                  >
-                    <span>GET STARTED</span>
-                    <ArrowUpRight size={16} />
-                  </a>
+
+                <div className="pricing-offer-divider" />
+
+                <div className="pricing-offer-col-features">
+                  <span className="pricing-offer-includes-label">INCLUDES</span>
+                  <ul className="pricing-offer-feature-list">
+                    <li>Facebook &amp; Insta Manage</li>
+                    <li>Weekly 3 Reels</li>
+                    <li>4 Creatives</li>
+                    <li>Content Idea Strategy</li>
+                    <li>Ad Setup &amp; Management</li>
+                  </ul>
                 </div>
               </div>
+            ) : (
+              <div className="pricing-offer-card-inner">
+                <div className="pricing-offer-col-main">
+                  <div className="pricing-offer-top-badge">
+                    <span className="pricing-offer-dot" />
+                    <span>SPECIAL OFFER</span>
+                  </div>
+                  <h3 className="pricing-offer-card-title">SPECIAL OFFER PACKAGE</h3>
+                  <p className="pricing-offer-card-desc">Complete Business Website</p>
+                  <div className="pricing-offer-price-row">
+                    <div className="pricing-offer-card-price">₹ 4,999/-</div>
+                    <div className="pricing-offer-cut-wrap">
+                      <del className="pricing-offer-cut-price">₹10,999</del>
+                      <span className="pricing-offer-discount-badge">55% OFF</span>
+                    </div>
+                  </div>
+                  <div className="pricing-offer-action">
+                    <a
+                      href="https://wa.me/918617201731?text=Hi%20RASA%20Tech,%20I%20want%20to%20get%20started%20with%20the%20Special%20Offer%20Package%20at%20%E2%82%B94,999/-"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="pricing-offer-get-started-btn"
+                    >
+                      <span>GET STARTED</span>
+                      <ArrowUpRight size={16} />
+                    </a>
+                  </div>
+                </div>
 
-              <div className="pricing-offer-divider" />
+                <div className="pricing-offer-divider" />
 
-              <div className="pricing-offer-col-features">
-                <span className="pricing-offer-includes-label">INCLUDES</span>
-                <ul className="pricing-offer-feature-list">
-                  <li>Fully Customizable Website</li>
-                  <li>Mobile Responsive Design</li>
-                  <li>Modern &amp; Professional Design</li>
-                  <li>WhatsApp &amp; Call Integration</li>
-                  <li>SEO-Friendly Structure</li>
-                  <li>Fast &amp; Secure Website Setup</li>
-                </ul>
+                <div className="pricing-offer-col-features">
+                  <span className="pricing-offer-includes-label">INCLUDES</span>
+                  <ul className="pricing-offer-feature-list">
+                    <li>Fully Customizable Website</li>
+                    <li>Mobile Responsive Design</li>
+                    <li>Modern &amp; Professional Design</li>
+                    <li>WhatsApp &amp; Call Integration</li>
+                    <li>SEO-Friendly Structure</li>
+                    <li>Fast &amp; Secure Website Setup</li>
+                  </ul>
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           <div className="pricing-grid">
@@ -1214,15 +1250,20 @@ function Index() {
               <>
                 <PricingPlan
                   number="01"
-                  name="Starter Package"
-                  price="₹ 7,999 / Month"
-                  description="For Local Business"
+                  name="BASIC"
+                  price="₹ 14,499 / Month"
+                  description="Essential Social Media Management"
                 >
-                  <li>Facebook & Insta Manage</li>
-                  <li>Weekly 3 Reels</li>
-                  <li>4 Creatives</li>
-                  <li>Content Idea Strategy</li>
-                  <li>Ad Setup & Management</li>
+                  <li>Facebook & Instagram Management</li>
+                  <li>4-5 Post / Week</li>
+                  <li>3-4 Short Video / Week</li>
+                  <li>2 Long Video / Month</li>
+                  <li>Social Media Engagement</li>
+                  <li>Content Creation & Strategy</li>
+                  <li>Page SEO Optimization</li>
+                  <li>Ad Campaign Setup & Monitoring</li>
+                  <li>Ad Spent Budget Up to ₹10,000</li>
+                  <li>Monthly Reporting</li>
                 </PricingPlan>
                 <PricingPlan
                   number="02"
