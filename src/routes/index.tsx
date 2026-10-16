@@ -1168,16 +1168,24 @@ function Index() {
             {pricingCategory === "social" ? (
               <div className="pricing-offer-card-inner">
                 <div className="pricing-offer-col-main">
+                  <div className="pricing-offer-top-badge">
+                    <span className="pricing-offer-dot" />
+                    <span>SPECIAL OFFER</span>
+                  </div>
                   <h3 className="pricing-offer-card-title">Starter Package</h3>
                   <p className="pricing-offer-card-desc">For Local Business</p>
                   <div className="pricing-offer-price-row">
                     <div className="pricing-offer-card-price">
-                      ₹ 7,499 <span className="pricing-offer-card-period">/ Month</span>
+                      ₹ 7,999 <span className="pricing-offer-card-period">/ Month</span>
+                    </div>
+                    <div className="pricing-offer-cut-wrap">
+                      <del className="pricing-offer-cut-price">₹14,499</del>
+                      <span className="pricing-offer-discount-badge">45% OFF</span>
                     </div>
                   </div>
                   <div className="pricing-offer-action">
                     <a
-                      href="https://wa.me/918617201731?text=Hi%20RASA%20Tech,%20I%20want%20to%20get%20started%20with%20the%20Starter%20Package%20at%20%E2%82%B97,499%20/%20Month"
+                      href="https://wa.me/918617201731?text=Hi%20RASA%20Tech,%20I%20want%20to%20get%20started%20with%20the%20Starter%20Package%20at%20%E2%82%B97,999%20/%20Month"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="pricing-offer-get-started-btn"
@@ -1194,10 +1202,12 @@ function Index() {
                   <span className="pricing-offer-includes-label">INCLUDES</span>
                   <ul className="pricing-offer-feature-list">
                     <li>Facebook &amp; Instagram Management</li>
-                    <li>3 Post / Week</li>
-                    <li>3 Short Video / Week</li>
+                    <li>3 Creative / Week</li>
+                    <li>3 Short Video (Reels) / Week</li>
                     <li>Ad Campaign Setup &amp; Monitoring</li>
                     <li>Content Idea Strategy</li>
+                    <li>Free Graphics Design and Video Editing</li>
+                    <li>Monthly 1 Complementary Video Shoot</li>
                   </ul>
                 </div>
               </div>
@@ -1257,14 +1267,15 @@ function Index() {
                   description="Essential Social Media Management"
                 >
                   <li>Facebook & Instagram Management</li>
-                  <li>4-5 Post / Week</li>
-                  <li>3-4 Short Video / Week</li>
+                  <li>4-5 Creative / Week</li>
+                  <li>3-4 Short Video (Reels) / Week</li>
                   <li>2 Long Video / Month</li>
+                  <li>Free Graphics Design and Video Editing</li>
+                  <li>Monthly 2 Complementary Video Shoot</li>
                   <li>Social Media Engagement</li>
                   <li>Content Creation & Strategy</li>
                   <li>Page SEO Optimization</li>
                   <li>Ad Campaign Setup & Monitoring</li>
-                  <li>Ad Spent Budget Up to ₹10,000</li>
                   <li>Monthly Reporting</li>
                 </PricingPlan>
                 <PricingPlan
@@ -1275,14 +1286,15 @@ function Index() {
                   description="Advanced Growth & Content Strategy"
                 >
                   <li>Facebook, Instagram & YouTube Management</li>
-                  <li>5-6 Post / Week</li>
-                  <li>4-5 Short Video / Week</li>
+                  <li>5-6 Creative / Week</li>
+                  <li>4-5 Short Video (Reels) / Week</li>
                   <li>3 Long Video / Month</li>
+                  <li>Free Graphics Design and Video Editing</li>
+                  <li>Monthly 3-4 Complementary Video Shoot</li>
                   <li>Dedicated Account Manager</li>
                   <li>Brand Strategy & Growth</li>
                   <li>Influencer Collaboration Setup</li>
                   <li>Ad Campaign Optimization</li>
-                  <li>Ad Spent Budget Up to ₹25,000</li>
                   <li>Bi-Weekly Reporting & Analytics</li>
                 </PricingPlan>
                 <PricingPlan
@@ -1292,12 +1304,14 @@ function Index() {
                   description="Complete Digital Brand Dominance"
                 >
                   <li>Full Multi-Channel Management</li>
-                  <li>Daily Posts & Reels/Shorts</li>
+                  <li>Daily Creative / Week</li>
+                  <li>Daily Short Video (Reels) / Week</li>
                   <li>4 Long Format Videos / Month</li>
+                  <li>Free Graphics Design and Video Editing</li>
+                  <li>Monthly 4-6 Complementary Video Shoot</li>
                   <li>Complete Content Production</li>
                   <li>High-Converting Ad Campaigns</li>
                   <li>Advanced Lead Generation System</li>
-                  <li>Ad Spent Budget Up to ₹50,000</li>
                   <li>Weekly Performance & ROI Review</li>
                   <li>24/7 Dedicated Support</li>
                 </PricingPlan>
