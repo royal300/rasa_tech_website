@@ -1214,20 +1214,15 @@ function Index() {
               <>
                 <PricingPlan
                   number="01"
-                  name="BASIC"
-                  price="₹ 14,499 / Month"
-                  description="Essential Social Media Management"
+                  name="Starter Package"
+                  price="₹ 7,999 / Month"
+                  description="For Local Business"
                 >
-                  <li>Facebook & Instagram Management</li>
-                  <li>4-5 Post / Week</li>
-                  <li>3-4 Short Video / Week</li>
-                  <li>2 Long Video / Month</li>
-                  <li>Social Media Engagement</li>
-                  <li>Content Creation & Strategy</li>
-                  <li>Page SEO Optimization</li>
-                  <li>Ad Campaign Setup & Monitoring</li>
-                  <li>Ad Spent Budget Up to ₹10,000</li>
-                  <li>Monthly Reporting</li>
+                  <li>Facebook & Insta Manage</li>
+                  <li>Weekly 3 Reels</li>
+                  <li>4 Creatives</li>
+                  <li>Content Idea Strategy</li>
+                  <li>Ad Setup & Management</li>
                 </PricingPlan>
                 <PricingPlan
                   number="02"

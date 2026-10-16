@@ -1011,6 +1011,8 @@ html {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
+  padding-bottom: 0.18em;
+  line-height: 1.15;
 }
 
 .services-section .section-heading {
