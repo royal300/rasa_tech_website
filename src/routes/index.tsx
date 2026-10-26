@@ -758,7 +758,7 @@ function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [pricingCategory, setPricingCategory] = useState<"social" | "web">("web");
+  const [pricingCategory, setPricingCategory] = useState<"social" | "web">("social");
   const [activeWhyIndex, setActiveWhyIndex] = useState<number>(0);
   const [heroMouse, setHeroMouse] = useState({ x: 0, y: 0 });
   const [processProgress, setProcessProgress] = useState(0);
