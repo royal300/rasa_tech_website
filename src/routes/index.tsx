@@ -1263,7 +1263,8 @@ function Index() {
                   <li>3-4 Short Video (Reels) / Week</li>
                   <li>2 Long Video / Month</li>
                   <li>Free Graphics Design and Video Editing</li>
-                  <li>Monthly 2 Complementary Video Shoot</li>
+                  <li>Monthly 1 Micro Influencer Visit</li>
+                  <li>Monthly 1 Complementary Photoshoot</li>
                   <li>Social Media Engagement</li>
                   <li>Content Creation & Strategy</li>
                   <li>Page SEO Optimization</li>
@@ -1282,7 +1283,8 @@ function Index() {
                   <li>4-5 Short Video (Reels) / Week</li>
                   <li>3 Long Video / Month</li>
                   <li>Free Graphics Design and Video Editing</li>
-                  <li>Monthly 3-4 Complementary Video Shoot</li>
+                  <li>Monthly 2 Influencer Visits</li>
+                  <li>Monthly 2 Complementary Photoshoots</li>
                   <li>Dedicated Account Manager</li>
                   <li>Brand Strategy & Growth</li>
                   <li>Influencer Collaboration Setup</li>
@@ -1300,7 +1302,8 @@ function Index() {
                   <li>Daily Short Video (Reels) / Week</li>
                   <li>4 Long Format Videos / Month</li>
                   <li>Free Graphics Design and Video Editing</li>
-                  <li>Monthly 4-6 Complementary Video Shoot</li>
+                  <li>Monthly 4 Influencer Visits</li>
+                  <li>Monthly 4 Complementary Photoshoots</li>
                   <li>Complete Content Production</li>
                   <li>High-Converting Ad Campaigns</li>
                   <li>Advanced Lead Generation System</li>
