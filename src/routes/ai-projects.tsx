@@ -164,19 +164,16 @@ function VideoPlayerCard({
           <p className="ai-video-remarks-text text-muted">AI Video Production</p>
         )}
 
-        <div className="ai-video-footer">
-          <span className="ai-video-tag">
-            <Sparkles size={10} /> AI
-          </span>
+        <div className="ai-video-footer-centered">
           <a
             href={video.videoUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="ai-video-link-action"
+            className="ai-watch-label-btn"
             title="Open original video source"
           >
+            <Play size={11} />
             <span>WATCH</span>
-            <ArrowUpRight size={12} />
           </a>
         </div>
       </div>
@@ -419,9 +416,8 @@ function AiProjectsPage() {
         <section className="ai-minimal-hero">
           <div className="ai-minimal-hero-container">
             <div className="ai-minimal-title-row">
-              <div>
-                <span className="ai-eyebrow">RASA INNOVATION</span>
-                <h1 className="ai-minimal-title">AI PROJECTS</h1>
+              <div className="ai-hero-title-center">
+                <h1 className="ai-gradient-title">AI Videography Project</h1>
               </div>
 
               {/* Minimal Search Toggle Icon */}
@@ -581,14 +577,15 @@ function AiProjectsPage() {
         </section>
       </main>
 
-      {/* Footer */}
+      {/* Footer - consistent with home page */}
+      <div className="footer-separator-line" />
       <footer className="site-footer">
-        <div className="footer-grid">
+        <div className="footer-top">
           <div className="footer-brand-col">
-            <Link className="footer-brand" to="/">
+            <Link className="brand-mark" to="/">
               <img src={logoUrl} alt="RASA Tech" />
             </Link>
-            <p className="footer-tagline">Grow Your Business With Intelligent Systems</p>
+            <p className="footer-tagline">Grow Your Business</p>
           </div>
 
           <div className="footer-links-col">
@@ -597,9 +594,8 @@ function AiProjectsPage() {
               <Link to="/">Home</Link>
               <a href="/#about">About</a>
               <a href="/#services">Services</a>
-              <Link to="/socialmedia" hash="projects">Social Media Projects</Link>
-              <Link to="/webdev" hash="projects">Web Projects</Link>
-              <Link to="/ai-projects" className="text-orange font-medium">AI Projects</Link>
+              <Link to="/socialmedia" hash="projects">Projects</Link>
+              <Link to="/ai-projects" className="text-orange">AI Projects</Link>
               <a href="/#pricing">Pricing</a>
               <Link to="/team">Our Team</Link>
             </div>
@@ -629,7 +625,9 @@ function AiProjectsPage() {
               <a href="https://www.instagram.com/rasatech.in/" target="_blank" rel="noopener noreferrer">
                 INSTAGRAM <ArrowUpRight size={13} />
               </a>
-              <a href="/#contact">LINKEDIN <ArrowUpRight size={13} /></a>
+              <a href="/#contact">
+                LINKEDIN <ArrowUpRight size={13} />
+              </a>
             </div>
           </div>
         </div>

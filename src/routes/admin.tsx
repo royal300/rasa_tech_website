@@ -21,7 +21,7 @@ import {
   Video,
   X,
 } from "lucide-react";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { parseVideoUrl } from "@/lib/video-utils";
 
 const logoUrl = "/logo.png";
@@ -95,10 +95,25 @@ function AdminPage() {
   const [submitSuccess, setSubmitSuccess] = useState("");
   const [submitError, setSubmitError] = useState("");
 
+  // Close dropdown on outside click
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false);
+        setDropdownSearch("");
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   // Add client modal state
   const [showAddClientModal, setShowAddClientModal] = useState(false);
   const [newClientName, setNewClientName] = useState("");
   const [addClientLoading, setAddClientLoading] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownSearch, setDropdownSearch] = useState("");
   const [addClientError, setAddClientError] = useState("");
 
   // Manage videos search
@@ -538,23 +553,64 @@ function AdminPage() {
                   </button>
                 </div>
 
-                <div className="admin-custom-select-wrap">
-                  <select
-                    value={selectedClientId}
-                    onChange={(e) => setSelectedClientId(e.target.value)}
-                    required
-                    className="admin-custom-select"
+                <div className="admin-custom-dropdown-wrap" ref={dropdownRef}>
+                  <button
+                    type="button"
+                    className="admin-dropdown-trigger"
+                    onClick={() => setDropdownOpen(!dropdownOpen)}
                   >
-                    <option value="" disabled>
-                      {clients.length === 0 ? "No clients available" : "Select a client..."}
-                    </option>
-                    {clients.map((c) => (
-                      <option key={c.id} value={c.id}>
-                        {c.name}
-                      </option>
-                    ))}
-                  </select>
-                  <ChevronDown size={15} className="admin-select-chevron" />
+                    <span className={selectedClientId ? "admin-dd-selected" : "admin-dd-placeholder"}>
+                      {selectedClientId
+                        ? clients.find((c) => String(c.id) === String(selectedClientId))?.name || "Select client..."
+                        : clients.length === 0
+                        ? "No clients available"
+                        : "Select a client..."}
+                    </span>
+                    <ChevronDown size={15} className={`admin-dd-chevron ${dropdownOpen ? "rotated" : ""}`} />
+                  </button>
+
+                  {dropdownOpen && (
+                    <div className="admin-dropdown-list-down">
+                      <div className="admin-dd-search-box">
+                        <Search size={13} className="admin-dd-search-icon" />
+                        <input
+                          type="text"
+                          placeholder="Search clients..."
+                          value={dropdownSearch}
+                          onChange={(e) => setDropdownSearch(e.target.value)}
+                          className="admin-dd-search-input"
+                          autoFocus
+                          onClick={(e) => e.stopPropagation()}
+                        />
+                      </div>
+                      <div className="admin-dd-options">
+                        {clients
+                          .filter((c) =>
+                            c.name.toLowerCase().includes(dropdownSearch.toLowerCase())
+                          )
+                          .map((c) => (
+                            <button
+                              key={c.id}
+                              type="button"
+                              className={`admin-dd-option ${String(c.id) === String(selectedClientId) ? "selected" : ""}`}
+                              onClick={() => {
+                                setSelectedClientId(String(c.id));
+                                setDropdownOpen(false);
+                                setDropdownSearch("");
+                              }}
+                            >
+                              {c.name}
+                              {String(c.id) === String(selectedClientId) && <Check size={13} className="text-orange" />}
+                            </button>
+                          ))}
+                        {clients.filter((c) =>
+                          c.name.toLowerCase().includes(dropdownSearch.toLowerCase())
+                        ).length === 0 && (
+                          <div className="admin-dd-no-match">No matching clients</div>
+                        )}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
 
