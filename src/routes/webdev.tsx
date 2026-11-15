@@ -757,11 +757,13 @@ function WebDevPage() {
           <div className="footer-contact-col">
             <h4 className="footer-col-title">CONTACT</h4>
             <div className="footer-contact-vertical">
-              <a href="mailto:support@rasatech.in">
-                Email: support@rasatech.in <ArrowUpRight size={13} />
+              <a href="mailto:support@rasatech.in" className="footer-contact-item">
+                <span>Email: support@rasatech.in</span>
+                <ArrowUpRight size={13} className="footer-arrow-icon" />
               </a>
-              <a href="tel:8617201731">
-                Contact Us: 8617201731 / 9332312300 <ArrowUpRight size={13} />
+              <a href="tel:8617201731" className="footer-contact-item">
+                <span className="footer-phone-text">Contact Us: 8617201731 / 9332312300</span>
+                <ArrowUpRight size={13} className="footer-arrow-icon" />
               </a>
             </div>
           </div>

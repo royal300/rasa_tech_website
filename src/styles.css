@@ -1727,10 +1727,47 @@ a.text-link:hover svg,
 .footer-top {
   width: min(100%, var(--container));
   display: grid;
-  grid-template-columns: repeat(4, 1fr) !important;
+  grid-template-columns: 1fr 1fr 1.35fr 0.85fr !important;
   align-items: start;
   gap: clamp(20px, 3vw, 40px) !important;
   margin: 0 auto 50px !important;
+}
+
+.footer-contact-vertical {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+
+.footer-contact-item,
+.footer-contact-vertical a {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  color: #d1d1d1 !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  white-space: nowrap !important;
+  width: fit-content !important;
+  max-width: 100% !important;
+  transition: color .25s ease !important;
+}
+
+.footer-contact-item:hover,
+.footer-contact-vertical a:hover {
+  color: var(--orange) !important;
+}
+
+.footer-contact-item span,
+.footer-phone-text {
+  white-space: nowrap !important;
+}
+
+.footer-arrow-icon,
+.footer-contact-vertical a svg {
+  flex-shrink: 0 !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
 }
 
 @media (max-width: 900px) {
@@ -4712,6 +4749,7 @@ html.lenis body {
 .nav-dropdown-trigger:hover,
 .nav-dropdown-trigger.active {
   color: var(--orange);
+  background: transparent !important;
 }
 
 .dropdown-chevron {
@@ -4769,8 +4807,8 @@ html.lenis body {
 
 .nav-dropdown-link:hover,
 .nav-dropdown-link.active {
-  background: rgba(255, 122, 0, 0.12);
-  color: #fff !important;
+  background: transparent !important;
+  color: var(--orange) !important;
   border-left: 2px solid var(--orange);
 }
 
@@ -4843,7 +4881,6 @@ html.lenis body {
   position: relative;
   padding: 55px 24px 20px;
   background: linear-gradient(180deg, rgba(255, 122, 0, 0.04) 0%, transparent 100%), #000000;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .ai-minimal-hero-container {
@@ -4871,12 +4908,14 @@ html.lenis body {
   font-size: clamp(34px, 5vw, 60px);
   font-weight: 400;
   letter-spacing: -0.02em;
-  line-height: 1;
+  line-height: 1.25;
+  padding: 6px 0;
   margin: 0;
   background: linear-gradient(135deg, #ffffff 0%, #ff7a00 60%, #ff9a33 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  display: inline-block;
 }
 
 .ai-search-minimal-wrap {

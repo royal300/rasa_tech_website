@@ -188,13 +188,65 @@ function AiProjectsPage() {
   );
   const [searchQuery, setSearchQuery] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
-  const [selectedClientFilter, setSelectedClientFilter] = useState<string>("ALL");
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [projectsDropdownOpen, setProjectsDropdownOpen] = useState(false);
 
   const searchInputRef = useRef<HTMLInputElement>(null);
   const lenisRef = useRef<Lenis | null>(null);
+
+  // Smooth custom cursor tracking & hover states
+  useEffect(() => {
+    const cursor = document.querySelector<HTMLElement>(".custom-cursor");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let targetX = 0;
+    let targetY = 0;
+    let ringX = 0;
+    let ringY = 0;
+    let raf = 0;
+    let tracking = false;
+
+    const tick = () => {
+      ringX += (targetX - ringX) * 0.18;
+      ringY += (targetY - ringY) * 0.18;
+      if (cursor) cursor.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
+      raf = requestAnimationFrame(tick);
+    };
+
+    const moveCursor = (event: MouseEvent) => {
+      targetX = event.clientX;
+      targetY = event.clientY;
+      if (!tracking) {
+        tracking = true;
+        ringX = targetX;
+        ringY = targetY;
+        if (reduceMotion && cursor) cursor.style.transform = `translate3d(${targetX}px, ${targetY}px, 0)`;
+        else raf = requestAnimationFrame(tick);
+      } else if (reduceMotion && cursor) {
+        cursor.style.transform = `translate3d(${targetX}px, ${targetY}px, 0)`;
+      }
+    };
+
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement)?.closest(
+        "a, button, input, textarea, select, .ai-video-card, .ai-watch-label-btn, .ai-search-icon-btn, .nav-dropdown-trigger, .brand-mark"
+      );
+      if (target) {
+        cursor?.classList.add("cursor-hover");
+      } else {
+        cursor?.classList.remove("cursor-hover");
+      }
+    };
+
+    window.addEventListener("mousemove", moveCursor);
+    window.addEventListener("mouseover", handleMouseOver);
+
+    return () => {
+      window.removeEventListener("mousemove", moveCursor);
+      window.removeEventListener("mouseover", handleMouseOver);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -281,16 +333,12 @@ function AiProjectsPage() {
     setProjectsDropdownOpen(false);
   };
 
-  // Filter clients and videos
+  // Filter clients and videos by search query
   const filteredClients = useMemo(() => {
     const q = searchQuery.toLowerCase().trim();
 
     return clientsWithVideos
       .map((client) => {
-        if (selectedClientFilter !== "ALL" && client.clientName !== selectedClientFilter) {
-          return null;
-        }
-
         const matchingVideos = client.videos.filter((v) => {
           if (!q) return true;
           return (
@@ -308,19 +356,11 @@ function AiProjectsPage() {
         };
       })
       .filter(Boolean) as ClientWithVideos[];
-  }, [clientsWithVideos, searchQuery, selectedClientFilter]);
-
-  const totalVideosCount = useMemo(() => {
-    return clientsWithVideos.reduce((acc, c) => acc + (c.videos ? c.videos.length : 0), 0);
-  }, [clientsWithVideos]);
+  }, [clientsWithVideos, searchQuery]);
 
   const filteredVideosCount = useMemo(() => {
     return filteredClients.reduce((acc, c) => acc + (c.videos ? c.videos.length : 0), 0);
   }, [filteredClients]);
-
-  const clientPills = useMemo(() => {
-    return Array.from(new Set(clientsWithVideos.map((c) => c.clientName))).sort();
-  }, [clientsWithVideos]);
 
   return (
     <div className="rasa-site ai-projects-page-container">
@@ -459,29 +499,6 @@ function AiProjectsPage() {
               </div>
             </div>
 
-            {/* Subtle Client Filter Bar */}
-            {clientPills.length > 1 && (
-              <div className="ai-minimal-filters">
-                <button
-                  type="button"
-                  className={`ai-filter-chip ${selectedClientFilter === "ALL" ? "active" : ""}`}
-                  onClick={() => setSelectedClientFilter("ALL")}
-                >
-                  All ({totalVideosCount})
-                </button>
-                {clientPills.map((name) => (
-                  <button
-                    key={name}
-                    type="button"
-                    className={`ai-filter-chip ${selectedClientFilter === name ? "active" : ""}`}
-                    onClick={() => setSelectedClientFilter(name)}
-                  >
-                    {name}
-                  </button>
-                ))}
-              </div>
-            )}
-
             {/* Active search query feedback */}
             {searchQuery && (
               <div className="ai-search-active-pill">
@@ -534,16 +551,15 @@ function AiProjectsPage() {
                 <Film size={36} className="text-orange mb-3" />
                 <h3>No AI Projects Found</h3>
                 <p>
-                  {searchQuery || selectedClientFilter !== "ALL"
+                  {searchQuery
                     ? "No video projects matched your search criteria."
                     : "No AI video projects uploaded yet."}
                 </p>
-                {searchQuery || selectedClientFilter !== "ALL" ? (
+                {searchQuery ? (
                   <button
                     type="button"
                     onClick={() => {
                       setSearchQuery("");
-                      setSelectedClientFilter("ALL");
                       setSearchOpen(false);
                     }}
                     className="ai-cta-button"
@@ -604,11 +620,13 @@ function AiProjectsPage() {
           <div className="footer-contact-col">
             <h4 className="footer-col-title">CONTACT</h4>
             <div className="footer-contact-vertical">
-              <a href="mailto:support@rasatech.in">
-                Email: support@rasatech.in <ArrowUpRight size={13} />
+              <a href="mailto:support@rasatech.in" className="footer-contact-item">
+                <span>Email: support@rasatech.in</span>
+                <ArrowUpRight size={13} className="footer-arrow-icon" />
               </a>
-              <a href="tel:8617201731">
-                Contact Us: 8617201731 / 9332312300 <ArrowUpRight size={13} />
+              <a href="tel:8617201731" className="footer-contact-item">
+                <span className="footer-phone-text">Contact Us: 8617201731 / 9332312300</span>
+                <ArrowUpRight size={13} className="footer-arrow-icon" />
               </a>
             </div>
           </div>
