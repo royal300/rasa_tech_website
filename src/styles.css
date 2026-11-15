@@ -5190,9 +5190,10 @@ html.lenis body {
 .ai-video-media-wrap {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 9 / 16;
   background: #000;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .ai-video-iframe {
@@ -5277,12 +5278,150 @@ html.lenis body {
   border-radius: 20px;
   transition: all .25s ease;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .ai-watch-label-btn:hover {
   background: var(--orange);
   color: #000;
   border-color: var(--orange);
+}
+
+/* In-Page Video Modal Lightbox (9:16 Aspect Ratio) */
+.ai-video-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: aiModalFadeIn .2s ease;
+}
+
+@keyframes aiModalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.ai-video-modal-container {
+  width: 100%;
+  max-width: 440px;
+  max-height: 92vh;
+  background: #111111;
+  border: 1px solid rgba(255, 122, 0, 0.4);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.95), 0 0 35px rgba(255, 122, 0, 0.15);
+  animation: aiModalZoomIn .25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes aiModalZoomIn {
+  from { transform: scale(0.95) translateY(12px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.ai-video-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #161616;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  gap: 12px;
+}
+
+.ai-modal-header-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.ai-modal-client-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--orange);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 3px;
+}
+
+.ai-modal-remarks {
+  font-size: 12.5px;
+  color: #ddd;
+  margin: 0;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.ai-modal-close-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all .2s ease;
+  flex-shrink: 0;
+}
+
+.ai-modal-close-btn:hover {
+  background: var(--orange);
+  color: #000;
+  border-color: var(--orange);
+  transform: rotate(90deg);
+}
+
+.ai-video-modal-player-wrap {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  max-height: calc(92vh - 80px);
+  background: #000;
+  position: relative;
+}
+
+.ai-modal-iframe,
+.ai-modal-video {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+.ai-modal-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  color: #aaa;
+  gap: 14px;
+}
+
+@media (max-width: 550px) {
+  .ai-video-modal-backdrop {
+    padding: 8px;
+  }
+  .ai-video-modal-container {
+    max-width: 100%;
+    max-height: 96vh;
+    border-radius: 10px;
+  }
+  .ai-video-modal-player-wrap {
+    max-height: calc(96vh - 65px);
+  }
 }
 
 /* Minimal Bottom CTA */

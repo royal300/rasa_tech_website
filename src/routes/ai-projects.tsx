@@ -116,14 +116,22 @@ function MagneticButton({
 
 function VideoPlayerCard({
   video,
+  clientName,
+  onPlay,
 }: {
   video: { id: number; videoUrl: string; remarks: string; createdAt: string };
+  clientName: string;
+  onPlay: () => void;
 }) {
   const embedInfo = useMemo(() => parseVideoUrl(video.videoUrl), [video.videoUrl]);
 
   return (
     <div className="ai-video-card">
-      <div className="ai-video-media-wrap">
+      <div
+        className="ai-video-media-wrap"
+        onClick={onPlay}
+        title={`Click to watch ${clientName} video`}
+      >
         {embedInfo.type === "youtube" || embedInfo.type === "drive" || embedInfo.type === "vimeo" ? (
           <iframe
             src={embedInfo.embedUrl}
@@ -143,14 +151,16 @@ function VideoPlayerCard({
         ) : (
           <div className="ai-video-generic-preview">
             <Video size={28} className="text-orange mb-2" />
-            <a
-              href={embedInfo.originalUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              type="button"
               className="ai-video-open-btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                onPlay();
+              }}
             >
               <Play size={13} /> Watch
-            </a>
+            </button>
           </div>
         )}
       </div>
@@ -165,16 +175,15 @@ function VideoPlayerCard({
         )}
 
         <div className="ai-video-footer-centered">
-          <a
-            href={video.videoUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            type="button"
+            onClick={onPlay}
             className="ai-watch-label-btn"
-            title="Open original video source"
+            title={`Watch video for ${clientName}`}
           >
             <Play size={11} />
             <span>WATCH</span>
-          </a>
+          </button>
         </div>
       </div>
     </div>
@@ -191,9 +200,34 @@ function AiProjectsPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [projectsDropdownOpen, setProjectsDropdownOpen] = useState(false);
+  const [activeModalVideo, setActiveModalVideo] = useState<{
+    url: string;
+    remarks: string;
+    clientName: string;
+  } | null>(null);
 
   const searchInputRef = useRef<HTMLInputElement>(null);
   const lenisRef = useRef<Lenis | null>(null);
+
+  // Lock scroll and handle ESC key when modal is open
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setActiveModalVideo(null);
+      }
+    };
+    if (activeModalVideo) {
+      window.addEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "hidden";
+      lenisRef.current?.stop();
+    } else if (!menuOpen) {
+      document.body.style.overflow = "";
+      lenisRef.current?.start();
+    }
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [activeModalVideo, menuOpen]);
 
   // Smooth custom cursor tracking & hover states
   useEffect(() => {
@@ -541,7 +575,18 @@ function AiProjectsPage() {
                   {/* 4-col desktop, 2-col mobile Grid */}
                   <div className="ai-videos-grid">
                     {clientGroup.videos.map((vid) => (
-                      <VideoPlayerCard key={vid.id} video={vid} />
+                      <VideoPlayerCard
+                        key={vid.id}
+                        video={vid}
+                        clientName={clientGroup.clientName}
+                        onPlay={() =>
+                          setActiveModalVideo({
+                            url: vid.videoUrl,
+                            remarks: vid.remarks,
+                            clientName: clientGroup.clientName,
+                          })
+                        }
+                      />
                     ))}
                   </div>
                 </div>
@@ -654,6 +699,82 @@ function AiProjectsPage() {
           <span>© 2026 RASA TECH. ALL RIGHTS RESERVED.</span>
         </div>
       </footer>
+
+      {/* In-Page Video Modal Lightbox Player (9:16 Ratio - Bypasses Google Drive App on Mobile) */}
+      {activeModalVideo && (
+        <div
+          className="ai-video-modal-backdrop"
+          onClick={() => setActiveModalVideo(null)}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div
+            className="ai-video-modal-container"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="ai-video-modal-header">
+              <div className="ai-modal-header-info">
+                <span className="ai-modal-client-tag">{activeModalVideo.clientName}</span>
+                {activeModalVideo.remarks && (
+                  <p className="ai-modal-remarks">{activeModalVideo.remarks}</p>
+                )}
+              </div>
+              <button
+                type="button"
+                className="ai-modal-close-btn"
+                onClick={() => setActiveModalVideo(null)}
+                aria-label="Close video player"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="ai-video-modal-player-wrap">
+              {(() => {
+                const embedInfo = parseVideoUrl(activeModalVideo.url);
+                if (
+                  embedInfo.type === "youtube" ||
+                  embedInfo.type === "drive" ||
+                  embedInfo.type === "vimeo"
+                ) {
+                  return (
+                    <iframe
+                      src={embedInfo.embedUrl}
+                      title={activeModalVideo.remarks || "AI Video"}
+                      className="ai-modal-iframe"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    />
+                  );
+                } else if (embedInfo.type === "video") {
+                  return (
+                    <video
+                      src={embedInfo.embedUrl}
+                      controls
+                      autoPlay
+                      className="ai-modal-video"
+                    />
+                  );
+                } else {
+                  return (
+                    <div className="ai-modal-fallback">
+                      <p>Unable to preview this video directly.</p>
+                      <a
+                        href={activeModalVideo.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="ai-cta-button"
+                      >
+                        Open External Link
+                      </a>
+                    </div>
+                  );
+                }
+              })()}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Back to top button */}
       <button
