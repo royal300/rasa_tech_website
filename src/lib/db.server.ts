@@ -101,6 +101,34 @@ export async function initDbTables() {
     const defaultHash = crypto.createHash("sha256").update("admin123").digest("hex");
     await p.query("INSERT INTO admin_users (username, password_hash) VALUES ('admin', ?)", [defaultHash]);
   }
+
+  // Ensure default clients from project pages exist
+  const defaultClients = [
+    "A Banik Jewellers",
+    "Advocate Raju Kumar Sha",
+    "Ande Industries",
+    "Buco Elevators",
+    "Floriza Skin & Hair Clinic",
+    "Gouranga Bedding Store",
+    "Gupta Interior",
+    "Happy Valley Park",
+    "Jimmy’s Collection",
+    "Laxmipati Jewellers",
+    "Om’s Fashion Trends",
+    "Parama Jewellery Museum",
+    "Royal Enfield (TCM Barasat)",
+    "Saha Marble and Tiles",
+    "Spectrum Oltre Cafe",
+    "Swarup Jewellers",
+  ];
+
+  for (const clientName of defaultClients) {
+    try {
+      await p.query("INSERT IGNORE INTO clients (name) VALUES (?)", [clientName]);
+    } catch {
+      // ignore
+    }
+  }
 }
 
 // Client functions

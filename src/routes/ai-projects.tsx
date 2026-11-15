@@ -16,7 +16,7 @@ import {
 import { useEffect, useState, useRef, useMemo, type ReactNode } from "react";
 import Lenis from "lenis";
 import { Button } from "@/components/ui/button";
-import { parseVideoUrl, type VideoEmbedData } from "@/lib/video-utils";
+import { parseVideoUrl } from "@/lib/video-utils";
 import type { ClientWithVideos } from "@/lib/db.server";
 
 const logoUrl = "/logo.png";
@@ -35,17 +35,16 @@ export const Route = createFileRoute("/ai-projects")({
   component: AiProjectsPage,
   head: () => ({
     meta: [
-      { title: "AI Video Projects — RASA Tech | AI-Powered Video Productions" },
+      { title: "AI Projects — RASA Tech | AI Video Productions" },
       {
         name: "description",
         content:
-          "Browse client-wise AI video projects, cinematic commercials, and viral digital creatives crafted by RASA Tech.",
+          "Browse client-wise AI video projects, commercials, and digital creations crafted by RASA Tech.",
       },
-      { property: "og:title", content: "AI Video Projects — RASA Tech" },
+      { property: "og:title", content: "AI Projects — RASA Tech" },
       {
         property: "og:description",
-        content:
-          "High-impact AI video creations, cinematic advertising, and digital productions made for ambitious clients.",
+        content: "Client-wise AI video productions and creative showcases.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/ai-projects" },
@@ -68,7 +67,7 @@ function MouseSpotlight() {
     <div
       className="mouse-spotlight"
       style={{
-        background: `radial-gradient(600px circle at ${pos.x}px ${pos.y}px, rgba(255, 122, 0, 0.08), transparent 80%)`,
+        background: `radial-gradient(600px circle at ${pos.x}px ${pos.y}px, rgba(255, 122, 0, 0.06), transparent 80%)`,
       }}
     />
   );
@@ -121,7 +120,6 @@ function VideoPlayerCard({
   video: { id: number; videoUrl: string; remarks: string; createdAt: string };
 }) {
   const embedInfo = useMemo(() => parseVideoUrl(video.videoUrl), [video.videoUrl]);
-  const [playDirect, setPlayDirect] = useState(false);
 
   return (
     <div className="ai-video-card">
@@ -144,43 +142,41 @@ function VideoPlayerCard({
           />
         ) : (
           <div className="ai-video-generic-preview">
-            <Video size={44} className="text-orange mb-3" />
+            <Video size={28} className="text-orange mb-2" />
             <a
               href={embedInfo.originalUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="ai-video-open-btn"
             >
-              <Play size={16} /> Play External Video
+              <Play size={13} /> Watch
             </a>
           </div>
         )}
       </div>
 
       <div className="ai-video-info">
-        <div className="ai-video-remarks-box">
-          <div className="ai-video-remarks-header">
-            <MessageSquare size={13} className="text-orange" />
-            <span>REMARKS & CONCEPT</span>
-          </div>
-          <p className="ai-video-remarks-text">
-            {video.remarks && video.remarks.trim() ? video.remarks : "Custom AI Video Production & Creative Concept"}
+        {video.remarks && video.remarks.trim() ? (
+          <p className="ai-video-remarks-text" title={video.remarks}>
+            {video.remarks}
           </p>
-        </div>
+        ) : (
+          <p className="ai-video-remarks-text text-muted">AI Video Production</p>
+        )}
 
         <div className="ai-video-footer">
           <span className="ai-video-tag">
-            <Sparkles size={11} /> AI PRODUCTION
+            <Sparkles size={10} /> AI
           </span>
           <a
             href={video.videoUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="ai-video-link-action"
-            title="Open video in new tab"
+            title="Open original video source"
           >
-            <span>WATCH SOURCE</span>
-            <ArrowUpRight size={14} />
+            <span>WATCH</span>
+            <ArrowUpRight size={12} />
           </a>
         </div>
       </div>
@@ -194,17 +190,18 @@ function AiProjectsPage() {
     loaderData?.initialData || []
   );
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
   const [selectedClientFilter, setSelectedClientFilter] = useState<string>("ALL");
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [projectsDropdownOpen, setProjectsDropdownOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
 
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 40);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -222,7 +219,7 @@ function AiProjectsPage() {
 
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.25,
+      duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",
@@ -246,7 +243,6 @@ function AiProjectsPage() {
   // Fetch or refresh data from server
   const loadData = async (search?: string) => {
     try {
-      setLoading(true);
       const url = search ? `/api/ai-projects?search=${encodeURIComponent(search)}` : "/api/ai-projects";
       const res = await fetch(url);
       if (res.ok) {
@@ -257,19 +253,16 @@ function AiProjectsPage() {
       }
     } catch (e) {
       console.error("Failed to fetch ai projects:", e);
-    } finally {
-      setLoading(false);
     }
   };
 
-  // If initial loader data was empty, try fetching client-side on mount
   useEffect(() => {
     if (!loaderData?.initialData || loaderData.initialData.length === 0) {
       loadData();
     }
   }, []);
 
-  // Debounced real-time search
+  // Debounced search
   useEffect(() => {
     const timer = setTimeout(() => {
       loadData(searchQuery);
@@ -277,23 +270,30 @@ function AiProjectsPage() {
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
+  // Focus search input when toggled open
+  useEffect(() => {
+    if (searchOpen) {
+      setTimeout(() => {
+        searchInputRef.current?.focus();
+      }, 50);
+    }
+  }, [searchOpen]);
+
   const closeMenu = () => {
     setMenuOpen(false);
     setProjectsDropdownOpen(false);
   };
 
-  // Filter clients and videos based on search & client pill selection
+  // Filter clients and videos
   const filteredClients = useMemo(() => {
     const q = searchQuery.toLowerCase().trim();
 
     return clientsWithVideos
       .map((client) => {
-        // Filter by selected client pill
         if (selectedClientFilter !== "ALL" && client.clientName !== selectedClientFilter) {
           return null;
         }
 
-        // Filter videos inside client by search query
         const matchingVideos = client.videos.filter((v) => {
           if (!q) return true;
           return (
@@ -356,16 +356,15 @@ function AiProjectsPage() {
               Projects <ChevronDown size={14} className={`dropdown-chevron ${projectsDropdownOpen ? "open" : ""}`} />
             </button>
             <div className={`nav-dropdown-menu ${projectsDropdownOpen ? "show" : ""}`}>
-              <Link to="/ai-projects" onClick={closeMenu} className="nav-dropdown-link active">
-                <Sparkles size={14} className="text-orange" />
-                <span>AI Projects</span>
-                <span className="nav-badge-pill">ACTIVE</span>
-              </Link>
               <Link to="/socialmedia" hash="projects" onClick={closeMenu} className="nav-dropdown-link">
                 <span>Social Media Projects</span>
               </Link>
               <Link to="/webdev" hash="projects" onClick={closeMenu} className="nav-dropdown-link">
                 <span>Web Projects</span>
+              </Link>
+              <Link to="/ai-projects" onClick={closeMenu} className="nav-dropdown-link active">
+                <Sparkles size={14} className="text-orange" />
+                <span>AI Projects</span>
               </Link>
             </div>
           </div>
@@ -377,14 +376,14 @@ function AiProjectsPage() {
           {/* Mobile sublinks */}
           <div className="mobile-nav-sublinks">
             <span className="mobile-nav-heading">OUR PORTFOLIO</span>
-            <Link to="/ai-projects" onClick={closeMenu} className="mobile-sublink active text-orange">
-              ✨ AI Projects
-            </Link>
             <Link to="/socialmedia" hash="projects" onClick={closeMenu} className="mobile-sublink">
               Social Media Projects
             </Link>
             <Link to="/webdev" hash="projects" onClick={closeMenu} className="mobile-sublink">
               Web Development Projects
+            </Link>
+            <Link to="/ai-projects" onClick={closeMenu} className="mobile-sublink active text-orange">
+              AI Projects
             </Link>
           </div>
 
@@ -416,137 +415,117 @@ function AiProjectsPage() {
 
       {/* Main Content */}
       <main className="ai-projects-main">
-        {/* Hero Section */}
-        <section className="ai-hero-section">
-          <div className="ai-hero-grid" />
-          <div className="ai-hero-container">
-            <div className="ai-hero-badge">
-              <span className="ai-badge-pulse" />
-              <span>RASA INNOVATION / AI PROJECTS</span>
+        {/* Minimalist Hero Section */}
+        <section className="ai-minimal-hero">
+          <div className="ai-minimal-hero-container">
+            <div className="ai-minimal-title-row">
+              <div>
+                <span className="ai-eyebrow">RASA INNOVATION</span>
+                <h1 className="ai-minimal-title">AI PROJECTS</h1>
+              </div>
+
+              {/* Minimal Search Toggle Icon */}
+              <div className="ai-search-minimal-wrap">
+                {!searchOpen && !searchQuery ? (
+                  <button
+                    type="button"
+                    onClick={() => setSearchOpen(true)}
+                    className="ai-search-icon-btn"
+                    title="Search AI projects by remarks or client"
+                    aria-label="Open search"
+                  >
+                    <Search size={18} />
+                  </button>
+                ) : (
+                  <div className="ai-search-revealed-bar">
+                    <Search size={15} className="ai-search-inner-icon" />
+                    <input
+                      ref={searchInputRef}
+                      type="text"
+                      placeholder="Search remarks, notes, or client..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="ai-search-revealed-input"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSearchQuery("");
+                        setSearchOpen(false);
+                      }}
+                      className="ai-search-close-btn"
+                      title="Close search"
+                    >
+                      <X size={15} />
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
 
-            <h1 className="ai-hero-title">
-              CLIENT AI VIDEO <span>PORTFOLIO &amp; SHOWCASE.</span>
-            </h1>
-
-            <p className="ai-hero-description">
-              Explore hyper-realistic AI video commercials, social reels, viral concept videos, and visual storytelling
-              crafted client-wise for industry leaders.
-            </p>
-
-            {/* Quick Metrics */}
-            <div className="ai-metrics-row">
-              <div className="ai-metric-item">
-                <span className="ai-metric-num">{clientsWithVideos.length}</span>
-                <span className="ai-metric-label">CLIENT PARTNERS</span>
-              </div>
-              <div className="ai-metric-divider" />
-              <div className="ai-metric-item">
-                <span className="ai-metric-num">{totalVideosCount}</span>
-                <span className="ai-metric-label">AI VIDEO PRODUCTIONS</span>
-              </div>
-              <div className="ai-metric-divider" />
-              <div className="ai-metric-item">
-                <span className="ai-metric-num">100%</span>
-                <span className="ai-metric-label">NEXT-GEN AI GENERATED</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Search & Filter Toolbar */}
-        <section className="ai-toolbar-section">
-          <div className="ai-toolbar-container">
-            {/* Search Input Bar */}
-            <div className="ai-search-box-wrapper">
-              <Search size={18} className="ai-search-icon" />
-              <input
-                type="text"
-                placeholder="Search AI videos by remarks, concept notes, or client name..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="ai-search-input"
-              />
-              {searchQuery && (
+            {/* Subtle Client Filter Bar */}
+            {clientPills.length > 1 && (
+              <div className="ai-minimal-filters">
                 <button
                   type="button"
-                  onClick={() => setSearchQuery("")}
-                  className="ai-search-clear-btn"
-                  title="Clear search"
+                  className={`ai-filter-chip ${selectedClientFilter === "ALL" ? "active" : ""}`}
+                  onClick={() => setSelectedClientFilter("ALL")}
                 >
-                  <X size={16} />
+                  All ({totalVideosCount})
                 </button>
-              )}
-            </div>
-
-            {/* Client Filter Pills */}
-            <div className="ai-pills-row">
-              <button
-                type="button"
-                className={`ai-pill-btn ${selectedClientFilter === "ALL" ? "active" : ""}`}
-                onClick={() => setSelectedClientFilter("ALL")}
-              >
-                All Clients ({totalVideosCount})
-              </button>
-              {clientPills.map((name) => {
-                const count = clientsWithVideos.find((c) => c.clientName === name)?.videos.length || 0;
-                return (
+                {clientPills.map((name) => (
                   <button
                     key={name}
                     type="button"
-                    className={`ai-pill-btn ${selectedClientFilter === name ? "active" : ""}`}
+                    className={`ai-filter-chip ${selectedClientFilter === name ? "active" : ""}`}
                     onClick={() => setSelectedClientFilter(name)}
                   >
-                    {name} ({count})
+                    {name}
                   </button>
-                );
-              })}
-            </div>
+                ))}
+              </div>
+            )}
 
-            {/* Result Stats */}
-            <div className="ai-results-info">
-              <span>
-                Showing <strong>{filteredVideosCount}</strong> video{filteredVideosCount === 1 ? "" : "s"} across{" "}
-                <strong>{filteredClients.length}</strong> client{filteredClients.length === 1 ? "" : "s"}
-                {searchQuery ? ` matching "${searchQuery}"` : ""}
-              </span>
-              {(searchQuery || selectedClientFilter !== "ALL") && (
+            {/* Active search query feedback */}
+            {searchQuery && (
+              <div className="ai-search-active-pill">
+                <span>
+                  Filtering by: <strong>"{searchQuery}"</strong> ({filteredVideosCount} results)
+                </span>
                 <button
                   type="button"
                   onClick={() => {
                     setSearchQuery("");
-                    setSelectedClientFilter("ALL");
+                    setSearchOpen(false);
                   }}
-                  className="ai-reset-filters-btn"
+                  className="ai-clear-filter-btn"
                 >
-                  Reset Filters
+                  Clear
                 </button>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </section>
 
-        {/* Client-wise Video Listings */}
+        {/* Client-wise Video Listings (4-col Desktop / 2-col Mobile) */}
         <section className="ai-listings-section">
           <div className="ai-listings-container">
             {filteredClients.length > 0 ? (
               filteredClients.map((clientGroup, idx) => (
                 <div key={clientGroup.clientId} className="ai-client-block">
-                  {/* Client Header */}
+                  {/* Clean, Prominent Client Header */}
                   <div className="ai-client-header">
-                    <div className="ai-client-number">
-                      {String(idx + 1).padStart(2, "0")} / CLIENT
-                    </div>
                     <div className="ai-client-title-row">
+                      <span className="ai-client-prefix">{String(idx + 1).padStart(2, "0")}</span>
                       <h2 className="ai-client-name-title">{clientGroup.clientName}</h2>
-                      <span className="ai-client-badge">
-                        {clientGroup.videos.length} {clientGroup.videos.length === 1 ? "Video" : "Videos"}
+                      <span className="ai-client-count-pill">
+                        {clientGroup.videos.length} {clientGroup.videos.length === 1 ? "video" : "videos"}
                       </span>
                     </div>
                     <div className="ai-client-line" />
                   </div>
 
-                  {/* Video Grid */}
+                  {/* 4-col desktop, 2-col mobile Grid */}
                   <div className="ai-videos-grid">
                     {clientGroup.videos.map((vid) => (
                       <VideoPlayerCard key={vid.id} video={vid} />
@@ -556,27 +535,28 @@ function AiProjectsPage() {
               ))
             ) : (
               <div className="ai-empty-state">
-                <Film size={54} className="text-orange mb-3" />
-                <h3>No AI Videos Found</h3>
+                <Film size={36} className="text-orange mb-3" />
+                <h3>No AI Projects Found</h3>
                 <p>
                   {searchQuery || selectedClientFilter !== "ALL"
-                    ? "No video projects match your search keywords. Try adjusting your search query or reset the filters."
-                    : "No AI video projects have been uploaded yet."}
+                    ? "No video projects matched your search criteria."
+                    : "No AI video projects uploaded yet."}
                 </p>
-                {(searchQuery || selectedClientFilter !== "ALL") ? (
+                {searchQuery || selectedClientFilter !== "ALL" ? (
                   <button
                     type="button"
                     onClick={() => {
                       setSearchQuery("");
                       setSelectedClientFilter("ALL");
+                      setSearchOpen(false);
                     }}
                     className="ai-cta-button"
                   >
-                    Clear Search Filters
+                    Reset Filters
                   </button>
                 ) : (
                   <Link to="/admin" className="ai-cta-button">
-                    Go to Admin Panel to Add Videos
+                    Upload from Admin
                   </Link>
                 )}
               </div>
@@ -584,30 +564,19 @@ function AiProjectsPage() {
           </div>
         </section>
 
-        {/* Project Call to Action Banner */}
-        <section className="ai-cta-banner-section">
-          <div className="ai-cta-banner-card">
-            <div className="ai-cta-content">
-              <span className="ai-cta-badge">EXPERIENCE THE FUTURE</span>
-              <h2>Ready to Elevate Your Brand With AI Video Production?</h2>
-              <p>
-                From cinematic concept commercials to viral social media reels, we engineer AI visuals that dominate
-                feeds and convert audiences.
-              </p>
-              <div className="ai-cta-actions">
-                <a
-                  href="https://wa.me/918617201731?text=Hi%20RASA%20Tech,%20I%20am%20interested%20in%20custom%20AI%20video%20production%20for%20my%20business."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="ai-cta-primary-btn"
-                >
-                  START AI VIDEO PROJECT <ArrowUpRight size={16} />
-                </a>
-                <Link to="/admin" className="ai-cta-secondary-btn">
-                  ADMIN PORTAL <ExternalLink size={14} />
-                </Link>
-              </div>
-            </div>
+        {/* Minimalist Bottom CTA */}
+        <section className="ai-minimal-cta-wrap">
+          <div className="ai-minimal-cta">
+            <h3>Custom AI Video Production For Your Brand</h3>
+            <p>From social reels to cinematic commercials engineered for engagement.</p>
+            <a
+              href="https://wa.me/918617201731?text=Hi%20RASA%20Tech,%20I%20am%20interested%20in%20custom%20AI%20video%20production%20for%20my%20business."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ai-cta-btn"
+            >
+              START PROJECT <ArrowUpRight size={14} />
+            </a>
           </div>
         </section>
       </main>
@@ -628,9 +597,9 @@ function AiProjectsPage() {
               <Link to="/">Home</Link>
               <a href="/#about">About</a>
               <a href="/#services">Services</a>
-              <Link to="/ai-projects" className="text-orange font-medium">AI Projects</Link>
               <Link to="/socialmedia" hash="projects">Social Media Projects</Link>
               <Link to="/webdev" hash="projects">Web Projects</Link>
+              <Link to="/ai-projects" className="text-orange font-medium">AI Projects</Link>
               <a href="/#pricing">Pricing</a>
               <Link to="/team">Our Team</Link>
             </div>

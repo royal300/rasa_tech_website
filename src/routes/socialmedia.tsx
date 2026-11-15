@@ -492,16 +492,15 @@ function SocialMediaPage() {
               Projects <ChevronDown size={14} className={`dropdown-chevron ${projectsDropdownOpen ? "open" : ""}`} />
             </button>
             <div className={`nav-dropdown-menu ${projectsDropdownOpen ? "show" : ""}`}>
-              <Link to="/ai-projects" onClick={closeMenu} className="nav-dropdown-link">
-                <Sparkles size={14} className="text-orange" />
-                <span>AI Projects</span>
-                <span className="nav-badge-pill">NEW</span>
-              </Link>
               <a href="#projects" onClick={closeMenu} className="nav-dropdown-link active">
                 <span>Social Media Projects</span>
               </a>
               <Link to="/webdev" hash="projects" onClick={closeMenu} className="nav-dropdown-link">
                 <span>Web Projects</span>
+              </Link>
+              <Link to="/ai-projects" onClick={closeMenu} className="nav-dropdown-link">
+                <Sparkles size={14} className="text-orange" />
+                <span>AI Projects</span>
               </Link>
             </div>
           </div>
@@ -513,14 +512,14 @@ function SocialMediaPage() {
           {/* Mobile sublinks */}
           <div className="mobile-nav-sublinks">
             <span className="mobile-nav-heading">OUR PORTFOLIO</span>
-            <Link to="/ai-projects" onClick={closeMenu} className="mobile-sublink text-orange">
-              ✨ AI Projects <span className="nav-badge-pill">NEW</span>
-            </Link>
             <a href="#projects" onClick={closeMenu} className="mobile-sublink active">
               Social Media Projects
             </a>
             <Link to="/webdev" hash="projects" onClick={closeMenu} className="mobile-sublink">
               Web Development Projects
+            </Link>
+            <Link to="/ai-projects" onClick={closeMenu} className="mobile-sublink text-orange">
+              AI Projects
             </Link>
           </div>
 

@@ -3,6 +3,7 @@ import {
   ArrowLeft,
   ArrowUpRight,
   Check,
+  ChevronDown,
   ExternalLink,
   Film,
   KeyRound,
@@ -15,6 +16,7 @@ import {
   Search,
   Sparkles,
   Trash2,
+  Upload,
   User,
   Video,
   X,
@@ -23,6 +25,26 @@ import { useEffect, useState, useMemo } from "react";
 import { parseVideoUrl } from "@/lib/video-utils";
 
 const logoUrl = "/logo.png";
+
+// Default client names from the website's project pages
+const DEFAULT_PROJECT_CLIENTS = [
+  "A Banik Jewellers",
+  "Advocate Raju Kumar Sha",
+  "Ande Industries",
+  "Buco Elevators",
+  "Floriza Skin & Hair Clinic",
+  "Gouranga Bedding Store",
+  "Gupta Interior",
+  "Happy Valley Park",
+  "Jimmy’s Collection",
+  "Laxmipati Jewellers",
+  "Om’s Fashion Trends",
+  "Parama Jewellery Museum",
+  "Royal Enfield (TCM Barasat)",
+  "Saha Marble and Tiles",
+  "Spectrum Oltre Cafe",
+  "Swarup Jewellers",
+];
 
 export const Route = createFileRoute("/admin")({
   component: AdminPage,
@@ -37,7 +59,7 @@ export const Route = createFileRoute("/admin")({
 interface ClientItem {
   id: number;
   name: string;
-  created_at: string;
+  created_at?: string;
   video_count?: number;
 }
 
@@ -73,7 +95,7 @@ function AdminPage() {
   const [submitSuccess, setSubmitSuccess] = useState("");
   const [submitError, setSubmitError] = useState("");
 
-  // Add client modal / inline state
+  // Add client modal state
   const [showAddClientModal, setShowAddClientModal] = useState(false);
   const [newClientName, setNewClientName] = useState("");
   const [addClientLoading, setAddClientLoading] = useState(false);
@@ -164,7 +186,7 @@ function AdminPage() {
     if (!tok) return;
     try {
       setDataLoading(true);
-      // Fetch clients
+      // Fetch clients from API
       const clientsRes = await fetch("/api/clients");
       if (clientsRes.ok) {
         const cData = await clientsRes.json();
@@ -285,13 +307,13 @@ function AdminPage() {
 
       const data = await res.json();
       if (res.ok && data.success) {
-        setSubmitSuccess("AI Video added successfully!");
+        setSubmitSuccess("AI Video uploaded successfully!");
         setVideoUrlInput("");
         setRemarksInput("");
         loadDashboardData(token || "");
-        setTimeout(() => setSubmitSuccess(""), 5000);
+        setTimeout(() => setSubmitSuccess(""), 4000);
       } else {
-        setSubmitError(data.error || "Failed to add AI video");
+        setSubmitError(data.error || "Failed to upload video");
       }
     } catch (err: any) {
       setSubmitError(err.message || "Failed to add video");
@@ -342,7 +364,7 @@ function AdminPage() {
   if (authChecking) {
     return (
       <div className="admin-loading-screen">
-        <Loader2 size={36} className="text-orange animate-spin mb-4" />
+        <Loader2 size={32} className="text-orange animate-spin mb-3" />
         <p>Connecting to RASA Tech Admin...</p>
       </div>
     );
@@ -358,23 +380,23 @@ function AdminPage() {
               <img src={logoUrl} alt="RASA Tech" />
             </Link>
             <div className="admin-auth-badge">
-              <Lock size={12} className="text-orange" />
-              <span>ADMIN PORTAL</span>
+              <Lock size={11} className="text-orange" />
+              <span>ADMIN ACCESS</span>
             </div>
-            <h1>Secure Sign In</h1>
-            <p>Sign in to manage AI video projects and client portfolios.</p>
+            <h1>Sign In</h1>
+            <p>RASA Tech AI Video Management Portal</p>
           </div>
 
           {loginError && <div className="admin-alert-error">{loginError}</div>}
 
           <form onSubmit={handleLogin} className="admin-auth-form">
             <div className="admin-input-group">
-              <label>Admin Username</label>
+              <label>Username</label>
               <div className="admin-input-wrapper">
-                <User size={16} className="admin-field-icon" />
+                <User size={15} className="admin-field-icon" />
                 <input
                   type="text"
-                  placeholder="Enter username"
+                  placeholder="admin"
                   value={usernameInput}
                   onChange={(e) => setUsernameInput(e.target.value)}
                   required
@@ -385,10 +407,10 @@ function AdminPage() {
             <div className="admin-input-group">
               <label>Password</label>
               <div className="admin-input-wrapper">
-                <KeyRound size={16} className="admin-field-icon" />
+                <KeyRound size={15} className="admin-field-icon" />
                 <input
                   type="password"
-                  placeholder="Enter password"
+                  placeholder="••••••••"
                   value={passwordInput}
                   onChange={(e) => setPasswordInput(e.target.value)}
                   required
@@ -399,11 +421,11 @@ function AdminPage() {
             <button type="submit" disabled={loginLoading} className="admin-submit-btn">
               {loginLoading ? (
                 <>
-                  <Loader2 size={16} className="animate-spin mr-2" /> Authenticating...
+                  <Loader2 size={15} className="animate-spin mr-2" /> Signing in...
                 </>
               ) : (
                 <>
-                  SIGN IN TO ADMIN <ArrowUpRight size={16} />
+                  SIGN IN <ArrowUpRight size={15} />
                 </>
               )}
             </button>
@@ -411,7 +433,7 @@ function AdminPage() {
 
           <div className="admin-auth-footer">
             <Link to="/" className="admin-back-link">
-              <ArrowLeft size={14} /> Back to RASA Tech Website
+              <ArrowLeft size={13} /> Back to RASA Tech
             </Link>
           </div>
         </div>
@@ -428,17 +450,16 @@ function AdminPage() {
           <Link to="/" className="admin-topbar-brand">
             <img src={logoUrl} alt="RASA Tech" />
           </Link>
-          <span className="admin-badge-portal">AI ADMIN DASHBOARD</span>
-          <span className="admin-badge-db">● DB: rasatech</span>
+          <span className="admin-badge-portal">AI PORTAL</span>
         </div>
 
         <div className="admin-topbar-right">
           <Link to="/ai-projects" target="_blank" className="admin-view-site-btn">
-            <span>View Live AI Projects</span>
-            <ExternalLink size={14} />
+            <span>View AI Projects</span>
+            <ExternalLink size={13} />
           </Link>
           <button type="button" onClick={handleLogout} className="admin-logout-btn" title="Sign out">
-            <LogOut size={15} />
+            <LogOut size={14} />
             <span>Logout</span>
           </button>
         </div>
@@ -453,8 +474,8 @@ function AdminPage() {
             className={`admin-tab-btn ${activeTab === "upload" ? "active" : ""}`}
             onClick={() => setActiveTab("upload")}
           >
-            <Video size={16} />
-            <span>Upload AI Video</span>
+            <Upload size={14} />
+            <span>Upload Video</span>
           </button>
 
           <button
@@ -462,8 +483,8 @@ function AdminPage() {
             className={`admin-tab-btn ${activeTab === "videos" ? "active" : ""}`}
             onClick={() => setActiveTab("videos")}
           >
-            <Film size={16} />
-            <span>Manage Videos ({videos.length})</span>
+            <Film size={14} />
+            <span>Videos ({videos.length})</span>
           </button>
 
           <button
@@ -471,8 +492,8 @@ function AdminPage() {
             className={`admin-tab-btn ${activeTab === "clients" ? "active" : ""}`}
             onClick={() => setActiveTab("clients")}
           >
-            <Layers size={16} />
-            <span>Manage Clients ({clients.length})</span>
+            <Layers size={14} />
+            <span>Clients ({clients.length})</span>
           </button>
 
           <button
@@ -481,51 +502,51 @@ function AdminPage() {
             className="admin-refresh-btn"
             title="Refresh database records"
           >
-            <RefreshCw size={14} className={dataLoading ? "animate-spin" : ""} />
-            <span>Refresh</span>
+            <RefreshCw size={13} className={dataLoading ? "animate-spin" : ""} />
+            <span>Sync</span>
           </button>
         </div>
 
-        {/* TAB 1: UPLOAD AI VIDEO (CLIENT WISE) */}
+        {/* TAB 1: MINIMALIST UPLOAD AI VIDEO (CLIENT WISE) */}
         {activeTab === "upload" && (
-          <div className="admin-card-section">
-            <div className="admin-section-header">
-              <h2>Upload Client AI Video</h2>
-              <p>Select a client, enter the video link (YouTube, Drive, Vimeo, MP4), and add concept remarks.</p>
+          <div className="admin-minimal-card">
+            <div className="admin-minimal-header">
+              <h2>Upload AI Video</h2>
+              <p>Add video links and concept remarks client-wise.</p>
             </div>
 
             {submitSuccess && (
               <div className="admin-alert-success">
-                <Check size={16} />
+                <Check size={15} />
                 <span>{submitSuccess}</span>
               </div>
             )}
 
             {submitError && <div className="admin-alert-error">{submitError}</div>}
 
-            <form onSubmit={handleAddVideo} className="admin-form-grid">
-              {/* Client Selection Row */}
-              <div className="admin-form-field">
-                <div className="admin-field-label-row">
-                  <label>Client Name</label>
+            <form onSubmit={handleAddVideo} className="admin-minimal-form">
+              {/* Client Selection Row with Custom UI/UX Dropdown */}
+              <div className="admin-field-block">
+                <div className="admin-field-header">
+                  <label>Client</label>
                   <button
                     type="button"
                     onClick={() => setShowAddClientModal(true)}
-                    className="admin-add-client-trigger"
+                    className="admin-new-client-pill"
                   >
-                    <Plus size={14} /> Add New Client
+                    <Plus size={12} /> Add Client
                   </button>
                 </div>
 
-                <div className="admin-select-row">
+                <div className="admin-custom-select-wrap">
                   <select
                     value={selectedClientId}
                     onChange={(e) => setSelectedClientId(e.target.value)}
                     required
-                    className="admin-select"
+                    className="admin-custom-select"
                   >
                     <option value="" disabled>
-                      {clients.length === 0 ? "No clients found — click '+ Add New Client'" : "— Select Client —"}
+                      {clients.length === 0 ? "No clients available" : "Select a client..."}
                     </option>
                     {clients.map((c) => (
                       <option key={c.id} value={c.id}>
@@ -533,34 +554,32 @@ function AdminPage() {
                       </option>
                     ))}
                   </select>
+                  <ChevronDown size={15} className="admin-select-chevron" />
                 </div>
               </div>
 
-              {/* Video URL Text Area */}
-              <div className="admin-form-field">
-                <label>Video Link (URL)</label>
+              {/* Video Link */}
+              <div className="admin-field-block">
+                <label>Video Link</label>
                 <textarea
                   rows={2}
-                  placeholder="Paste YouTube, Vimeo, Google Drive, or direct MP4 video link here..."
+                  placeholder="Paste YouTube, Vimeo, Google Drive, or .mp4 link..."
                   value={videoUrlInput}
                   onChange={(e) => setVideoUrlInput(e.target.value)}
                   required
-                  className="admin-textarea"
+                  className="admin-minimal-textarea"
                 />
-                <span className="admin-help-text">
-                  Supports YouTube standard/shorts, Google Drive preview links, Vimeo, and direct .mp4/.webm videos.
-                </span>
               </div>
 
               {/* Video Preview Box (if URL entered) */}
               {videoPreview && (
-                <div className="admin-preview-container">
-                  <div className="admin-preview-label">
-                    <Sparkles size={13} className="text-orange" />
-                    <span>Live Video Link Preview ({videoPreview.type.toUpperCase()})</span>
+                <div className="admin-compact-preview">
+                  <div className="admin-compact-preview-header">
+                    <Sparkles size={12} className="text-orange" />
+                    <span>Live Preview ({videoPreview.type.toUpperCase()})</span>
                   </div>
 
-                  <div className="admin-preview-player-wrap">
+                  <div className="admin-compact-player">
                     {videoPreview.type === "youtube" || videoPreview.type === "drive" || videoPreview.type === "vimeo" ? (
                       <iframe
                         src={videoPreview.embedUrl}
@@ -572,9 +591,9 @@ function AdminPage() {
                       <video src={videoPreview.embedUrl} controls className="admin-preview-video" />
                     ) : (
                       <div className="admin-preview-fallback">
-                        <Video size={36} className="text-orange mb-2" />
+                        <Video size={28} className="text-orange mb-1" />
                         <a href={videoPreview.originalUrl} target="_blank" rel="noopener noreferrer">
-                          Test External Link <ArrowUpRight size={14} />
+                          Test Link <ArrowUpRight size={13} />
                         </a>
                       </div>
                     )}
@@ -583,51 +602,46 @@ function AdminPage() {
               )}
 
               {/* Remarks Section */}
-              <div className="admin-form-field">
-                <label>Remarks &amp; Concept Description</label>
+              <div className="admin-field-block">
+                <label>Remarks &amp; Concept</label>
                 <textarea
-                  rows={4}
-                  placeholder="Enter remarks, campaign strategy, AI visual style, tools used (Runway, Midjourney, Kling, Sora), client requirements, etc."
+                  rows={3}
+                  placeholder="Campaign remarks, concept notes, tools, or style..."
                   value={remarksInput}
                   onChange={(e) => setRemarksInput(e.target.value)}
-                  className="admin-textarea"
+                  className="admin-minimal-textarea"
                 />
-                <span className="admin-help-text">
-                  This text will be prominently displayed with the video on the client showcase page and is searchable.
-                </span>
               </div>
 
               {/* Submit Button */}
-              <div className="admin-form-actions">
-                <button type="submit" disabled={submitLoading} className="admin-primary-btn">
-                  {submitLoading ? (
-                    <>
-                      <Loader2 size={16} className="animate-spin mr-2" /> Saving Video to Database...
-                    </>
-                  ) : (
-                    <>
-                      <Plus size={16} /> ADD AI VIDEO
-                    </>
-                  )}
-                </button>
-              </div>
+              <button type="submit" disabled={submitLoading} className="admin-submit-action-btn">
+                {submitLoading ? (
+                  <>
+                    <Loader2 size={15} className="animate-spin mr-2" /> Uploading...
+                  </>
+                ) : (
+                  <>
+                    UPLOAD VIDEO <ArrowUpRight size={15} />
+                  </>
+                )}
+              </button>
             </form>
           </div>
         )}
 
         {/* TAB 2: MANAGE VIDEOS */}
         {activeTab === "videos" && (
-          <div className="admin-card-section">
+          <div className="admin-minimal-card">
             <div className="admin-section-header-row">
               <div>
-                <h2>Manage Uploaded AI Videos</h2>
-                <p>View, search, and manage all videos uploaded across clients.</p>
+                <h2>Uploaded AI Videos</h2>
+                <p>Manage and delete uploaded videos client-wise.</p>
               </div>
               <div className="admin-table-search">
-                <Search size={15} />
+                <Search size={14} />
                 <input
                   type="text"
-                  placeholder="Search by client or remark..."
+                  placeholder="Filter by client or remark..."
                   value={videoSearchTerm}
                   onChange={(e) => setVideoSearchTerm(e.target.value)}
                 />
@@ -641,15 +655,15 @@ function AdminPage() {
                     <tr>
                       <th>ID</th>
                       <th>Client</th>
-                      <th>Preview / Link</th>
+                      <th>Link</th>
                       <th>Remarks</th>
-                      <th>Actions</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
                     {filteredVideos.map((v) => (
                       <tr key={v.id}>
-                        <td>#{v.id}</td>
+                        <td className="text-muted">#{v.id}</td>
                         <td>
                           <span className="admin-table-client-badge">{v.client_name || `Client #${v.client_id}`}</span>
                         </td>
@@ -661,22 +675,21 @@ function AdminPage() {
                             className="admin-table-video-link"
                             title={v.video_url}
                           >
-                            <span>Open Video</span>
-                            <ArrowUpRight size={13} />
+                            <span>Watch</span>
+                            <ArrowUpRight size={12} />
                           </a>
                         </td>
                         <td className="admin-table-remarks-cell">
                           <p>{v.remarks || "—"}</p>
                         </td>
-                        <td>
+                        <td className="text-right">
                           <button
                             type="button"
                             onClick={() => handleDeleteVideo(v.id)}
                             className="admin-btn-delete"
-                            title="Delete Video"
+                            title="Delete"
                           >
-                            <Trash2 size={14} />
-                            <span>Delete</span>
+                            <Trash2 size={13} />
                           </button>
                         </td>
                       </tr>
@@ -686,8 +699,8 @@ function AdminPage() {
               </div>
             ) : (
               <div className="admin-empty-table">
-                <Film size={40} className="text-orange mb-2" />
-                <p>No videos found matching your filter.</p>
+                <Film size={32} className="text-orange mb-2" />
+                <p>No videos found.</p>
               </div>
             )}
           </div>
@@ -695,29 +708,28 @@ function AdminPage() {
 
         {/* TAB 3: MANAGE CLIENTS */}
         {activeTab === "clients" && (
-          <div className="admin-card-section">
-            <div className="admin-section-header">
-              <h2>Manage Client Portfolio</h2>
-              <p>Add new clients or delete existing ones. Clients appear in the video upload dropdown.</p>
+          <div className="admin-minimal-card">
+            <div className="admin-minimal-header">
+              <h2>Clients Portfolio</h2>
+              <p>Clients shown in the video upload dropdown.</p>
             </div>
 
             <div className="admin-add-client-inline-card">
-              <h3>Add New Client</h3>
               <form onSubmit={handleAddClient} className="admin-inline-form">
                 <input
                   type="text"
-                  placeholder="Enter client or brand name (e.g., Royal 300, A Banik Jewellers)"
+                  placeholder="Enter client or brand name..."
                   value={newClientName}
                   onChange={(e) => setNewClientName(e.target.value)}
                   className="admin-input-text"
                   required
                 />
                 <button type="submit" disabled={addClientLoading} className="admin-primary-btn">
-                  {addClientLoading ? <Loader2 size={15} className="animate-spin" /> : <Plus size={15} />}
-                  <span>Save Client</span>
+                  {addClientLoading ? <Loader2 size={14} className="animate-spin" /> : <Plus size={14} />}
+                  <span>Save</span>
                 </button>
               </form>
-              {addClientError && <div className="admin-alert-error mt-3">{addClientError}</div>}
+              {addClientError && <div className="admin-alert-error mt-2">{addClientError}</div>}
             </div>
 
             <div className="admin-clients-grid">
@@ -726,10 +738,9 @@ function AdminPage() {
                 return (
                   <div key={c.id} className="admin-client-card">
                     <div className="admin-client-card-info">
-                      <span className="admin-client-id">#{c.id}</span>
                       <h4>{c.name}</h4>
                       <span className="admin-client-count">
-                        {count} {count === 1 ? "video" : "videos"} uploaded
+                        {count} {count === 1 ? "video" : "videos"}
                       </span>
                     </div>
                     <button
@@ -738,7 +749,7 @@ function AdminPage() {
                       className="admin-client-delete-btn"
                       title="Delete Client"
                     >
-                      <Trash2 size={14} />
+                      <Trash2 size={13} />
                     </button>
                   </div>
                 );
@@ -759,15 +770,15 @@ function AdminPage() {
                 onClick={() => setShowAddClientModal(false)}
                 className="admin-modal-close"
               >
-                <X size={18} />
+                <X size={16} />
               </button>
             </div>
 
             <form onSubmit={handleAddClient} className="admin-modal-body">
-              <label>Client / Brand Name</label>
+              <label>Client Name</label>
               <input
                 type="text"
-                placeholder="e.g. A Banik Jewellers, Saha Traders, Royal 300"
+                placeholder="e.g. Parama Jewellery, Gupta Interior..."
                 value={newClientName}
                 onChange={(e) => setNewClientName(e.target.value)}
                 autoFocus
