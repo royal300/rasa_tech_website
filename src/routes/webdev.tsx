@@ -3,6 +3,7 @@ import {
   ArrowUp,
   ArrowUpRight,
   Check,
+  ChevronDown,
   Code2,
   Cpu,
   ExternalLink,
@@ -342,6 +343,7 @@ const clientProjects: ProjectCardData[] = [
 function WebDevPage() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [projectsDropdownOpen, setProjectsDropdownOpen] = useState(false);
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
@@ -392,7 +394,10 @@ function WebDevPage() {
     };
   }, []);
 
-  const closeMenu = () => setMenuOpen(false);
+  const closeMenu = () => {
+    setMenuOpen(false);
+    setProjectsDropdownOpen(false);
+  };
 
   return (
     <div className="rasa-site webdev-page-container">
@@ -409,10 +414,53 @@ function WebDevPage() {
           <Link to="/" onClick={closeMenu}>Home</Link>
           <a href="/#about" onClick={closeMenu}>About</a>
           <a href="/#services" onClick={closeMenu}>Services</a>
-          <Link to="/socialmedia" hash="projects" onClick={closeMenu}>Projects</Link>
+
+          {/* Projects Dropdown Menu */}
+          <div
+            className="nav-dropdown-item"
+            onMouseEnter={() => setProjectsDropdownOpen(true)}
+            onMouseLeave={() => setProjectsDropdownOpen(false)}
+          >
+            <button
+              type="button"
+              className="nav-dropdown-trigger text-orange"
+              onClick={() => setProjectsDropdownOpen((prev) => !prev)}
+            >
+              Projects <ChevronDown size={14} className={`dropdown-chevron ${projectsDropdownOpen ? "open" : ""}`} />
+            </button>
+            <div className={`nav-dropdown-menu ${projectsDropdownOpen ? "show" : ""}`}>
+              <Link to="/ai-projects" onClick={closeMenu} className="nav-dropdown-link">
+                <Sparkles size={14} className="text-orange" />
+                <span>AI Projects</span>
+                <span className="nav-badge-pill">NEW</span>
+              </Link>
+              <Link to="/socialmedia" hash="projects" onClick={closeMenu} className="nav-dropdown-link">
+                <span>Social Media Projects</span>
+              </Link>
+              <a href="#projects" onClick={closeMenu} className="nav-dropdown-link active">
+                <span>Web Projects</span>
+              </a>
+            </div>
+          </div>
+
           <a href="/#pricing" onClick={closeMenu}>Pricing</a>
           <Link to="/team" onClick={closeMenu}>Our Team</Link>
           <a href="/#contact" onClick={closeMenu}>Contact</a>
+
+          {/* Mobile sublinks */}
+          <div className="mobile-nav-sublinks">
+            <span className="mobile-nav-heading">OUR PORTFOLIO</span>
+            <Link to="/ai-projects" onClick={closeMenu} className="mobile-sublink text-orange">
+              ✨ AI Projects <span className="nav-badge-pill">NEW</span>
+            </Link>
+            <Link to="/socialmedia" hash="projects" onClick={closeMenu} className="mobile-sublink">
+              Social Media Projects
+            </Link>
+            <a href="#projects" onClick={closeMenu} className="mobile-sublink active">
+              Web Development Projects
+            </a>
+          </div>
+
           <div className="mobile-only-cta">
             <MagneticButton className="w-full">
               <Button asChild className="w-full h-12 text-sm font-bold border-none bg-orange text-white hover:bg-orange-hot shadow-lg">
@@ -699,7 +747,8 @@ function WebDevPage() {
               <Link to="/">Home</Link>
               <a href="/#about">About</a>
               <a href="/#services">Services</a>
-              <Link to="/socialmedia" hash="projects">Projects</Link>
+              <Link to="/ai-projects" className="text-orange">AI Projects</Link>
+              <Link to="/socialmedia" hash="projects">Social Media Projects</Link>
               <Link to="/webdev">Web Development</Link>
               <a href="/#pricing">Pricing</a>
               <Link to="/team">Our Team</Link>

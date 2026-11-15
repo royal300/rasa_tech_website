@@ -10,6 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AiProjectsRouteImport } from './routes/ai-projects'
 import { Route as SocialmediaRouteImport } from './routes/socialmedia'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as WebdevRouteImport } from './routes/webdev'
@@ -17,6 +19,16 @@ import { Route as WebdevRouteImport } from './routes/webdev'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AiProjectsRoute = AiProjectsRouteImport.update({
+  id: '/ai-projects',
+  path: '/ai-projects',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SocialmediaRoute = SocialmediaRouteImport.update({
@@ -37,12 +49,16 @@ const WebdevRoute = WebdevRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/ai-projects': typeof AiProjectsRoute
   '/socialmedia': typeof SocialmediaRoute
   '/team': typeof TeamRoute
   '/webdev': typeof WebdevRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/ai-projects': typeof AiProjectsRoute
   '/socialmedia': typeof SocialmediaRoute
   '/team': typeof TeamRoute
   '/webdev': typeof WebdevRoute
@@ -50,20 +66,32 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
+  '/ai-projects': typeof AiProjectsRoute
   '/socialmedia': typeof SocialmediaRoute
   '/team': typeof TeamRoute
   '/webdev': typeof WebdevRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/socialmedia' | '/team' | '/webdev'
+  fullPaths:
+    '/' | '/admin' | '/ai-projects' | '/socialmedia' | '/team' | '/webdev'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/socialmedia' | '/team' | '/webdev'
-  id: '__root__' | '/' | '/socialmedia' | '/team' | '/webdev'
+  to: '/' | '/admin' | '/ai-projects' | '/socialmedia' | '/team' | '/webdev'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin'
+    | '/ai-projects'
+    | '/socialmedia'
+    | '/team'
+    | '/webdev'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
+  AiProjectsRoute: typeof AiProjectsRoute
   SocialmediaRoute: typeof SocialmediaRoute
   TeamRoute: typeof TeamRoute
   WebdevRoute: typeof WebdevRoute
@@ -76,6 +104,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ai-projects': {
+      id: '/ai-projects'
+      path: '/ai-projects'
+      fullPath: '/ai-projects'
+      preLoaderRoute: typeof AiProjectsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/socialmedia': {
@@ -104,6 +146,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
+  AiProjectsRoute: AiProjectsRoute,
   SocialmediaRoute: SocialmediaRoute,
   TeamRoute: TeamRoute,
   WebdevRoute: WebdevRoute,

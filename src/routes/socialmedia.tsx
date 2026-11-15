@@ -4,6 +4,7 @@ import {
   ArrowUpRight,
   Camera,
   Check,
+  ChevronDown,
   ExternalLink,
   Facebook,
   Film,
@@ -387,6 +388,7 @@ function SocialServiceFlipCard({ service }: { service: SocialService }) {
 function SocialMediaPage() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [projectsDropdownOpen, setProjectsDropdownOpen] = useState(false);
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
@@ -455,7 +457,10 @@ function SocialMediaPage() {
     };
   }, []);
 
-  const closeMenu = () => setMenuOpen(false);
+  const closeMenu = () => {
+    setMenuOpen(false);
+    setProjectsDropdownOpen(false);
+  };
 
   return (
     <div className="rasa-site socialmedia-page-container">
@@ -472,10 +477,53 @@ function SocialMediaPage() {
           <Link to="/" onClick={closeMenu}>Home</Link>
           <a href="/#about" onClick={closeMenu}>About</a>
           <a href="/#services" onClick={closeMenu}>Services</a>
-          <a href="#projects" onClick={closeMenu}>Projects</a>
+
+          {/* Projects Dropdown Menu */}
+          <div
+            className="nav-dropdown-item"
+            onMouseEnter={() => setProjectsDropdownOpen(true)}
+            onMouseLeave={() => setProjectsDropdownOpen(false)}
+          >
+            <button
+              type="button"
+              className="nav-dropdown-trigger text-orange"
+              onClick={() => setProjectsDropdownOpen((prev) => !prev)}
+            >
+              Projects <ChevronDown size={14} className={`dropdown-chevron ${projectsDropdownOpen ? "open" : ""}`} />
+            </button>
+            <div className={`nav-dropdown-menu ${projectsDropdownOpen ? "show" : ""}`}>
+              <Link to="/ai-projects" onClick={closeMenu} className="nav-dropdown-link">
+                <Sparkles size={14} className="text-orange" />
+                <span>AI Projects</span>
+                <span className="nav-badge-pill">NEW</span>
+              </Link>
+              <a href="#projects" onClick={closeMenu} className="nav-dropdown-link active">
+                <span>Social Media Projects</span>
+              </a>
+              <Link to="/webdev" hash="projects" onClick={closeMenu} className="nav-dropdown-link">
+                <span>Web Projects</span>
+              </Link>
+            </div>
+          </div>
+
           <a href="/#pricing" onClick={closeMenu}>Pricing</a>
           <Link to="/team" onClick={closeMenu}>Our Team</Link>
           <a href="/#contact" onClick={closeMenu}>Contact</a>
+
+          {/* Mobile sublinks */}
+          <div className="mobile-nav-sublinks">
+            <span className="mobile-nav-heading">OUR PORTFOLIO</span>
+            <Link to="/ai-projects" onClick={closeMenu} className="mobile-sublink text-orange">
+              ✨ AI Projects <span className="nav-badge-pill">NEW</span>
+            </Link>
+            <a href="#projects" onClick={closeMenu} className="mobile-sublink active">
+              Social Media Projects
+            </a>
+            <Link to="/webdev" hash="projects" onClick={closeMenu} className="mobile-sublink">
+              Web Development Projects
+            </Link>
+          </div>
+
           <div className="mobile-only-cta">
             <MagneticButton className="w-full">
               <Button asChild className="w-full h-12 text-sm font-bold border-none bg-orange text-white hover:bg-orange-hot shadow-lg">
@@ -670,7 +718,8 @@ function SocialMediaPage() {
               <Link to="/">Home</Link>
               <a href="/#about">About</a>
               <a href="/#services">Services</a>
-              <a href="#projects">Projects</a>
+              <Link to="/ai-projects" className="text-orange">AI Projects</Link>
+              <a href="#projects">Social Media Projects</a>
               <Link to="/webdev">Web Development</Link>
               <Link to="/socialmedia">Social Media</Link>
               <a href="/#pricing">Pricing</a>

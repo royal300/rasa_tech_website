@@ -756,6 +756,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [projectsDropdownOpen, setProjectsDropdownOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [pricingCategory, setPricingCategory] = useState<"social" | "web">("social");
@@ -887,7 +888,10 @@ function Index() {
     return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("mousemove", moveCursor); cancelAnimationFrame(raf); revealObserver.disconnect(); };
   }, []);
 
-  const closeMenu = () => setMenuOpen(false);
+  const closeMenu = () => {
+    setMenuOpen(false);
+    setProjectsDropdownOpen(false);
+  };
 
   const handleGoToPricingOffer = (e?: React.MouseEvent) => {
     if (e) {
@@ -939,10 +943,53 @@ function Index() {
           <a href="#home" onClick={closeMenu}>Home</a>
           <a href="#about" onClick={closeMenu}>About</a>
           <a href="#services" onClick={closeMenu}>Services</a>
-          <Link to="/socialmedia" hash="projects" onClick={closeMenu}>Projects</Link>
+
+          {/* Projects Dropdown Menu */}
+          <div
+            className="nav-dropdown-item"
+            onMouseEnter={() => setProjectsDropdownOpen(true)}
+            onMouseLeave={() => setProjectsDropdownOpen(false)}
+          >
+            <button
+              type="button"
+              className="nav-dropdown-trigger"
+              onClick={() => setProjectsDropdownOpen((prev) => !prev)}
+            >
+              Projects <ChevronDown size={14} className={`dropdown-chevron ${projectsDropdownOpen ? "open" : ""}`} />
+            </button>
+            <div className={`nav-dropdown-menu ${projectsDropdownOpen ? "show" : ""}`}>
+              <Link to="/ai-projects" onClick={closeMenu} className="nav-dropdown-link">
+                <Sparkles size={14} className="text-orange" />
+                <span>AI Projects</span>
+                <span className="nav-badge-pill">NEW</span>
+              </Link>
+              <Link to="/socialmedia" hash="projects" onClick={closeMenu} className="nav-dropdown-link">
+                <span>Social Media Projects</span>
+              </Link>
+              <Link to="/webdev" hash="projects" onClick={closeMenu} className="nav-dropdown-link">
+                <span>Web Projects</span>
+              </Link>
+            </div>
+          </div>
+
           <a href="#pricing" onClick={closeMenu}>Pricing</a>
           <Link to="/team" onClick={closeMenu}>Our Team</Link>
           <a href="#contact" onClick={closeMenu}>Contact</a>
+
+          {/* Mobile sublinks */}
+          <div className="mobile-nav-sublinks">
+            <span className="mobile-nav-heading">OUR PORTFOLIO</span>
+            <Link to="/ai-projects" onClick={closeMenu} className="mobile-sublink text-orange">
+              ✨ AI Projects <span className="nav-badge-pill">NEW</span>
+            </Link>
+            <Link to="/socialmedia" hash="projects" onClick={closeMenu} className="mobile-sublink">
+              Social Media Projects
+            </Link>
+            <Link to="/webdev" hash="projects" onClick={closeMenu} className="mobile-sublink">
+              Web Development Projects
+            </Link>
+          </div>
+
           <div className="mobile-only-cta">
             <MagneticButton className="w-full">
               <Button asChild className="w-full h-12 text-sm font-bold border-none bg-orange text-white hover:bg-orange-hot shadow-lg">
@@ -1398,6 +1445,7 @@ function Index() {
                 <a href="#home">Home</a>
                 <a href="#about">About</a>
                 <a href="#services">Services</a>
+                <Link to="/ai-projects" className="text-orange">AI Projects</Link>
                 <Link to="/socialmedia" hash="projects">Projects</Link>
                 <a href="#pricing">Pricing</a>
                 <Link to="/team">Our Team</Link>
